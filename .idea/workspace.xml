@@ -13,7 +13,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6d810763-aeb2-46e8-a7c0-a79d571ea9c5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,7 +85,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="MPI" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="MPI" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -135,12 +144,12 @@
       <workItem from="1556099404116" duration="136000" />
       <workItem from="1556101149295" duration="183000" />
       <workItem from="1556101413243" duration="269000" />
-      <workItem from="1556102053891" duration="25000" />
+      <workItem from="1556102053891" duration="186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="617000" />
+    <option name="totallyTimeSpent" value="778000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1177" extended-state="6" />
