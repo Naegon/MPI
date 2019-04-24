@@ -1,0 +1,15 @@
+2       // Nombre de symbole dans l'alphabet
+5       // Nombre d'etats
+2 0 4   // Nb etats initiaux + leur numero
+2 0 3   // Idem terminaux
+10      // Nb transitions
+0a1     // <état de départ> <symbole> <état d’arrivée>
+0a2
+0b1
+0b2
+1a2
+2*1
+3a1
+3b2
+4b3
+4a4
