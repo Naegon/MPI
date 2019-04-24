@@ -1,4 +1,4 @@
-# Install script for directory: D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/MPI
+# Install script for directory: D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/MPI/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
