@@ -4,6 +4,7 @@
 
 #include "Automate.h"
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -39,5 +40,23 @@ void Automate::print() const {
     for (int i = 0; i<transitions.size(); i++) {
         cout << "||------ ";
         transitions[i].print();
+    }
+    cout << endl;
+}
+
+Automate::Automate(string path) {
+    ifstream fichier(path);
+    if (fichier) {
+        string temp;
+
+        getline(fichier, temp);
+        nb_symb = stoi(temp);
+        cout << nb_symb << endl;
+
+        fichier.close();
+    }
+    else {
+        cout << "Impossible d'ouvrir le fichier" << endl;
+        cerr << "ERROR" << strerror(errno);
     }
 }

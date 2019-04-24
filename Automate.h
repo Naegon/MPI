@@ -2,8 +2,10 @@
 // Created by Vincent on 24/04/2019.
 //
 
-#import <vector>
-#import "Transition.h"
+#include <vector>
+#include <string>
+#include "Transition.h"
+#include <fstream>
 
 #ifndef TESTY_AUTOMATE_H
 #define TESTY_AUTOMATE_H
@@ -20,9 +22,9 @@ class Automate {
         int nb_trans;
         std::vector<Transition> transitions;
     public :
+        Automate(std::string path);
         Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>);
         void print() const;
 };
-
 
 #endif //TESTY_AUTOMATE_H
