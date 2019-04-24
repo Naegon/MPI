@@ -12,14 +12,14 @@ Automate::Automate(int _nb_symb, int _nb_etats,
         int _nb_init, std::vector<int> _init,
         int _nb_term, std::vector<int> _term,
         int _nb_trans, std::vector<Transition> _transitions){
-    nb_symb = _nb_symb;
-    nb_etats = _nb_etats;
-    nb_init = _nb_init;
-    init = _init;
-    nb_term = _nb_term;
-    term = _term;
-    nb_trans = _nb_trans;
-    transitions = _transitions;
+        nb_symb = _nb_symb;
+        nb_etats = _nb_etats;
+        nb_init = _nb_init;
+        init = _init;
+        nb_term = _nb_term;
+        term = _term;
+        nb_trans = _nb_trans;
+        transitions = _transitions;
 }
 
 void Automate::print() const {
@@ -40,6 +40,7 @@ void Automate::print() const {
     for (int i = 0; i<transitions.size(); i++) {
         cout << "||------ ";
         transitions[i].print();
+        cout << endl;
     }
     cout << endl;
 }
@@ -60,3 +61,53 @@ Automate::Automate(string path) {
         cerr << "ERROR" << strerror(errno);
     }
 }
+
+const vector<Transition> &Automate::getTransitions() const {
+    return transitions;
+}
+
+bool Automate::est_automate_asynchrone() {
+    bool ok = true;
+    cout << "Automate asynchrone ? " << endl;
+    for(int i = 0 ; i < transitions.size() ; i++){
+        if (transitions[i].getSymb() == '*'){
+            ok = false;
+            cout << "||--- La transition ";
+            transitions[i].print();
+            cout << " contient une transition epsilon" << endl;
+        }
+    }
+    if (ok){
+        cout << "||--- L'automate est asynchrone" << endl;
+    }
+    else{
+        cout << "||--- L'automate n'est pas asynchrone" << endl;
+    }
+    return ok;
+}
+
+bool Automate::est_automate_standart() {
+    bool ok = true;
+    cout << "Automate standart ? " << endl;
+    if (nb_init > 1){
+        cout << "||--- L'automate n'est pas standart car plusieurs etats initiaux" << endl;
+        return false;
+    }
+
+    for(int i = 0 ; i < transitions.size() ; i++){
+        if (transitions[i].getQ() == init[0]){
+            ok = false;
+            cout << "||--- La transition ";
+            transitions[i].print();
+            cout << " entre sur l'etat initial" << endl;
+        }
+    }
+    if (ok){
+        cout << "||--- L'automate est standart" << endl;
+    }
+    else{
+        cout << "||--- L'automate n'est pas standart" << endl;
+    }
+    return ok;
+}
+

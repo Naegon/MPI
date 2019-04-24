@@ -38,5 +38,5 @@ void Transition::setQ(int _q) {
 }
 
 void Transition::print() const {
-    cout << p << " " << symb << " " << q << endl;
+    cout << p << " " << symb << " " << q;
 }

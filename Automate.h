@@ -21,9 +21,14 @@ class Automate {
         std::vector<int> term;
         int nb_trans;
         std::vector<Transition> transitions;
-    public :
+public:
+    const std::vector<Transition> &getTransitions() const;
+
+public :
         Automate(std::string path);
         Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>);
+        bool est_automate_asynchrone();
+        bool est_automate_standart();
         void print() const;
 };
 
