@@ -3,6 +3,6 @@
 int main() {
     std::cout << "Hello, ";
     std::cout << "Swap-Team!" << std::endl;
-    int a;
+    int a = 0;
     return 0;
 }
