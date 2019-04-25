@@ -5,6 +5,7 @@
 #include "Automate.h"
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 
 using namespace std;
 
@@ -56,9 +57,6 @@ void Automate::print() const {
     cout << endl;
 }
 
-const vector<Transition> &Automate::getTransitions() const {
-    return transitions;
-}
 
 bool Automate::est_automate_asynchrone() {
     bool ok = true;
@@ -200,14 +198,9 @@ bool Automate::est_automate_complet() {
     return ok;
 }
 
+
+
 void Automate::completion() {
-    Automate complet(*this); //création de l'automate qui sera renvoyé
-
-    complet.setNbEtats(complet.nb_etats+1);
-
-    for (int i = 0 ; i < nb_etats ; i++){ // pour chaque état de l'autpomate initial
-
-    }
 
 }
 
@@ -215,4 +208,53 @@ void Automate::setNbEtats(int nbEtats) {
     nb_etats = nbEtats;
 }
 
+void Automate::determinisation() {
+    vector <int> etat_temp;
+    for (int i = 0 ; i < init.size() ; i++){
+
+    }
+}
+
+vector<char> Automate::get_alpha() const {
+    vector<char> alphabet;
+
+    for(int unsigned i = 0; i < nb_trans; i++){
+        char key = transitions[i].getSymb();
+
+        if (find(alphabet.begin(), alphabet.end(), key) == alphabet.end()) {
+            alphabet.push_back(key);
+
+        }
+    }
+    return alphabet;
+}
+
+
+const vector<Transition> &Automate::getTransitions() const {
+    return transitions;
+}
+
+/*
+void Automate::langage_complementaire() {
+    Automate complementaire(*this);
+    complementaire.term.clear();
+
+    vector <int> temp_etat_terminaux;
+    for (int i = 0 ; i < init.size() ; i ++ ){
+        temp_etat_terminaux.push_back(init[i]);
+    }
+    //Pour chaque état du nouvel automate (de 1 à n)
+    //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
+    //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
+    for (int i = 0 ; i < nb_etats ; i++){
+        for (int j = 0 ; i < term.size() ; j ++){
+            if (i != term[j]){
+                complementaire.term.push_back(i);
+            }
+        }
+    }
+    this->print();
+    complementaire.print();
+    //return complementaire;
+}*/
 

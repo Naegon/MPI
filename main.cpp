@@ -58,9 +58,9 @@ void loop() {
     }
 }
 
-
 int main() {
-    /*vector<Transition> transitions;
+ /*
+    vector<Transition> transitions;
     transitions.emplace_back(Transition(2, 'a', 3));
     transitions.emplace_back(Transition(2, 'b', 0));
     transitions.emplace_back(Transition(3, 'a', 7));
@@ -79,7 +79,7 @@ int main() {
 
     test.completion();
     //Automate read("/Automates_test/L2-E4-1.txt");
-    */
+*/
 
     loop();
     return 0;

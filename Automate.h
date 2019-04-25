@@ -19,7 +19,7 @@ public:
     void setNbEtats(int nbEtats);
 
 private:
-    int nb_init;
+        int nb_init;
         std::vector<int> init;
         int nb_term;
         std::vector<int> term;
@@ -38,6 +38,9 @@ private:
         bool est_automate_deterministe();
         bool est_automate_complet();
         void completion();
+        void determinisation();
+        //void langage_complementaire();
+        std::vector<char> get_alpha() const;
         void print() const;
 
 };
