@@ -12,11 +12,6 @@
 
 
 class Automate {
-    private:
-        int nb_symb;
-        int nb_etats;
-public:
-    void setNbEtats(int nbEtats);
 
 private:
         int nb_init;
@@ -25,9 +20,10 @@ private:
         std::vector<int> term;
         int nb_trans;
         std::vector<Transition> transitions;
+        int nb_symb;
+        int nb_etats;
 
-    public:
-        const std::vector<Transition> &getTransitions() const;
+
 
     public :
         Automate(std::string path);
@@ -39,9 +35,12 @@ private:
         bool est_automate_complet();
         void completion();
         void determinisation();
-        //void langage_complementaire();
+        std::vector<int> langage_complementaire();
         std::vector<char> get_alpha() const;
         void print() const;
+        void setNbEtats(int nbEtats);
+        void setTerm(std::vector<int>);
+        const std::vector<Transition> &getTransitions() const;
 
 };
 

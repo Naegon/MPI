@@ -81,6 +81,12 @@ int main() {
     //Automate read("/Automates_test/L2-E4-1.txt");
 */
 
-    loop();
+    Automate det("Automates_test/L2-E4-2.txt");
+    Automate comple(det);
+    comple.print();
+    comple.setTerm(det.langage_complementaire());
+    comple.print();
+
+    //loop();
     return 0;
 }
