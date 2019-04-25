@@ -167,7 +167,18 @@ bool Automate::est_automate_complet() {
 }
 
 void Automate::completion() {
+    Automate complet(*this); //création de l'automate qui sera renvoyé
 
+    complet.setNbEtats(complet.nb_etats+1);
+
+    for (int i = 0 ; i < nb_etats ; i++){ // pour chaque état de l'autpomate initial
+
+    }
+
+}
+
+void Automate::setNbEtats(int nbEtats) {
+    nb_etats = nbEtats;
 }
 
 

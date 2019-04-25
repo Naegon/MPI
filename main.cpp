@@ -26,6 +26,8 @@ int main() {
     bool est_AF_async = test.est_automate_asynchrone();
     bool est_AF_standart = test.est_automate_standart();
     bool est_AF_deterministe = test.est_automate_deterministe();
+
+    test.completion();
     //Automate read("/Automates_test/L2-E4-1.txt");
     return 0;
 }
