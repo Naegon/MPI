@@ -47,30 +47,13 @@ void Automate::print() const {
     }
     cout << endl;
 
-    cout << "||--- Transitions : " << endl;
+    cout << "||--- " << nb_trans << " transitions : " << endl;
     for (int i = 0; i<transitions.size(); i++) {
         cout << "||------ ";
         transitions[i].print();
         cout << endl;
     }
     cout << endl;
-}
-
-Automate::Automate(string path) {
-    ifstream fichier(path);
-    if (fichier) {
-        string temp;
-
-        getline(fichier, temp);
-        nb_symb = stoi(temp);
-        cout << nb_symb << endl;
-
-        fichier.close();
-    }
-    else {
-        cout << "Impossible d'ouvrir le fichier" << endl;
-        cerr << "ERROR" << strerror(errno);
-    }
 }
 
 const vector<Transition> &Automate::getTransitions() const {
@@ -152,6 +135,57 @@ bool Automate::est_automate_deterministe() {
         cout << "||--- L'automate n'est pas deterministe" << endl;
     }
     return ok;
+}
+
+Automate::Automate(string path) {
+    ifstream fichier(path);
+    if (fichier) {
+
+        string temp;
+
+        getline(fichier, temp);
+        nb_symb = stoi(temp);
+
+        getline(fichier, temp);
+        nb_etats = stoi(temp);
+
+        fichier >> temp;
+        nb_init = stoi(temp);
+
+        for (int i = 0; i< nb_init; i++) {
+            fichier >> temp;
+            init.push_back(stoi(temp));
+        }
+
+        fichier >> temp;
+        nb_term = stoi(temp);
+
+        for (int i = 0; i < nb_term; i++) {
+            fichier >> temp;
+            term.push_back(stoi(temp));
+        }
+
+        fichier >> temp;
+        nb_trans = stoi(temp);
+
+        for (int i = 0; i < nb_trans; i++) {
+            string p, q;
+            char symb;
+
+            fichier >> p;
+            fichier >> symb;
+            fichier >> q;
+            Transition trans_temp(stoi(p), symb, stoi(q));
+
+            transitions.push_back(trans_temp);
+        }
+
+        fichier.close();
+    }
+    else {
+        cout << "Impossible d'ouvrir le fichier" << endl;
+        cerr << "ERROR" << strerror(errno);
+    }
 }
 
 bool Automate::est_automate_complet() {
