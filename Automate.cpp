@@ -111,3 +111,35 @@ bool Automate::est_automate_standart() {
     return ok;
 }
 
+bool Automate::est_automate_deterministe() {
+    bool ok = true;
+    cout << "Automate deterministe ? " << endl;
+    if (nb_init > 1){
+        cout << "||--- L'automate n'est pas deterministe car il a plusieurs d'un etats initiaux" << endl;
+        return false;
+    }
+
+    for (int i = 0 ; i < transitions.size() ; i++){
+        for (int j = (i+1) ; j < transitions.size() ; j++){
+            if(i != j){
+                if (((transitions[i].getP() == transitions[j].getP()) and (transitions[i].getQ() != transitions[j].getQ())) and (transitions[i].getSymb() == transitions[j].getSymb())){
+                    ok = false;
+                    cout << "||--- La transition ";
+                    transitions[i].print();
+                    cout << " et la transition ";
+                    transitions[j].print();
+                    cout << " ont le meme symbole et etat de depart mais un etat d'arrive different" << endl;
+                }
+            }
+        }
+    }
+
+    if (ok){
+        cout << "||--- L'automate est deterministe" << endl;
+    }
+    else{
+        cout << "||--- L'automate n'est pas deterministe" << endl;
+    }
+    return ok;
+}
+

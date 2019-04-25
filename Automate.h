@@ -29,6 +29,7 @@ public :
         Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>);
         bool est_automate_asynchrone();
         bool est_automate_standart();
+        bool est_automate_deterministe();
         void print() const;
 };
 
