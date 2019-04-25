@@ -143,3 +143,16 @@ bool Automate::est_automate_deterministe() {
     return ok;
 }
 
+bool Automate::est_automate_complet() {
+    bool ok;
+
+    // Le nombre de transitions est égal au produit du nombre de caractères de l'alphabet et du nombre d'états
+
+    if (nb_trans < (nb_symb*nb_etats)){
+        ok = false;
+    }
+
+    return ok;
+}
+
+
