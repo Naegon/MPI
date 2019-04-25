@@ -27,10 +27,12 @@ public:
 public :
         Automate(std::string path);
         Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>);
+        Automate(Automate&);
         bool est_automate_asynchrone();
         bool est_automate_standart();
         bool est_automate_deterministe();
         bool est_automate_complet();
+        void completion();
         void print() const;
 };
 

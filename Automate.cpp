@@ -22,6 +22,17 @@ Automate::Automate(int _nb_symb, int _nb_etats,
         transitions = _transitions;
 }
 
+Automate::Automate(Automate& A){
+    nb_symb = A.nb_symb;
+    nb_etats = A.nb_etats;
+    nb_init = A.nb_init;
+    init = A.init;
+    nb_term = A.nb_term;
+    term = A.term;
+    nb_trans = A.nb_trans;
+    transitions = A.transitions;
+}
+
 void Automate::print() const {
     cout << "Automate :" << endl;
     cout << "||--- Etats initiaux : ";
@@ -153,6 +164,10 @@ bool Automate::est_automate_complet() {
     }
 
     return ok;
+}
+
+void Automate::completion() {
+
 }
 
 
