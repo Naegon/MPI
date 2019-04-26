@@ -255,3 +255,15 @@ void Automate::setTerm(std::vector<int> _term) {
     term = _term;
 }
 
+Automate &Automate::operator=(const Automate & Af) {
+        nb_symb = Af.nb_symb;
+        nb_etats = Af.nb_etats;
+        nb_init = Af.nb_init;
+        init = Af.init;
+        nb_term = Af.nb_term;
+        term = Af.term;
+        nb_trans = Af.nb_trans;
+        transitions = Af.transitions;
+        return *this;
+}
+
