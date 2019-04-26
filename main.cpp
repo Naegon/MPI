@@ -82,11 +82,13 @@ int main() {
 */
 
 
-    Automate test("Automates_test/L2-E4-3.txt");
-    Automate t(test);
+    Automate base("Automates_test/L2-E4-2.txt");
+    Automate t(base);
 
-    test.print();
-    t = test.completion();
+    t.print();
+    t = base.langage_complementaire();
+    t.print();
+    t = t.standardisation();
     t.print();
     //loop();
     return 0;

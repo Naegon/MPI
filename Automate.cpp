@@ -227,6 +227,24 @@ Automate Automate::completion() {
     return temp;
 }
 
+Automate Automate::standardisation() {
+    Automate temp(*this);
+    temp.nb_etats++;
+
+    if(!temp.est_automate_standart()){
+        for (int i = 0 ; i < init.size() ; i++){
+            for (int j = 0 ; j < transitions.size() ; j++){
+                if (init[i] == transitions[j].getP()){
+                    temp.transitions.emplace_back(nb_etats, transitions[j].getSymb(), transitions[j].getQ());
+                }
+            }
+        }
+        temp.init.clear();
+        temp.init.emplace_back(nb_etats);
+    }
+    return temp;
+}
+
 void Automate::setNbEtats(int nbEtats) {
     nb_etats = nbEtats;
 }

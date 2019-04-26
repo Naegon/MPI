@@ -40,6 +40,7 @@ private:
 
         //Processus
         Automate completion();
+        Automate standardisation();
         void determinisation();
         //std::vector<int> langage_complementaire();
         Automate langage_complementaire();
