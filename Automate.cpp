@@ -209,21 +209,20 @@ Automate Automate::completion() {
 
     //ajout des transitions
     vector<char> alpha_temp;
-    for (int i = 0 ; i < temp.nb_etats ; i ++ ){
-        alpha_temp = get_alpha();
-        for (int j = 0 ; j < temp.nb_trans ; j++){
-            if(i == temp.transitions[j].getP()){
-                alpha_temp.erase(remove(alpha_temp.begin(), alpha_temp.end(), temp.transitions[j].getSymb()), alpha_temp.end());
+    for (int i = 0 ; i < temp.nb_etats ; i ++ ){ //pour chaque état de l'automate
+        alpha_temp = get_alpha(); // creation du tableau temporaire contenant les symboles de l'alphabet
+        for (int j = 0 ; j < temp.nb_trans ; j++){ // pour chaque transition existante
+            if(i == temp.transitions[j].getP()){ // si l'etat i à une transition sortante
+                alpha_temp.erase(remove(alpha_temp.begin(), alpha_temp.end(), temp.transitions[j].getSymb()), alpha_temp.end()); // le caractere est supprimé du tableau temporaire
             }
-            //ajouter nb_trans ++
         }
-        if (!alpha_temp.empty()){ //si chaque symbole par etat n'a pas de transition, on en créée une vers la poubelle
-            for (int j = 0 ; j < alpha_temp.size() ; j++){
+        if (!alpha_temp.empty()){ // si pour l'etat i, il existe des symboles sans transition (les symboles restants dans le tableau)
+            for (int j = 0 ; j < alpha_temp.size() ; j++){ //on ajoute une transition de i vers le dernier état = etat poubelle
                 temp.nb_trans ++;
                 temp.transitions.emplace_back(i, alpha_temp[j], nb_etats);
             }
         }
-        alpha_temp.clear();
+        alpha_temp.clear(); //le tableau est remis à vide pour le prochain état
     }
     return temp;
 }
