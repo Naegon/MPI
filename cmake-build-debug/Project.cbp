@@ -82,6 +82,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Automate.cpp">
+			<Option target="Project"/>
+		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Automate.h">
+			<Option target="Project"/>
+		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Transition.cpp">
+			<Option target="Project"/>
+		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Transition.h">
+			<Option target="Project"/>
+		</Unit>
 		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/main.cpp">
 			<Option target="Project"/>
 		</Unit>

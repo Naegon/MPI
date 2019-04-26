@@ -235,6 +235,8 @@ const vector<Transition> &Automate::getTransitions() const {
 }
 
 
+//Version où on renvoie le tableau d'etat terminaux
+/*
 vector<int> Automate::langage_complementaire() {
     //Pour chaque état du nouvel automate (de 1 à n)
     //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
@@ -248,7 +250,28 @@ vector<int> Automate::langage_complementaire() {
         }
     }
     return etat_term_complementaire;
+}*/
+
+//Version où on renvoie l'automate reconnaissant le langage complementaire
+Automate Automate::langage_complementaire() {
+    Automate comp(*this);
+    //Pour chaque état du nouvel automate (de 1 à n)
+    //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
+    //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
+    vector<int> etat_term_complementaire;
+    for (int i = 0 ; i < nb_etats ; i++){
+        for (int j = 0 ; j < nb_term ; j ++){
+            if (i != term[j]){
+                etat_term_complementaire.push_back(i);
+            }
+        }
+    }
+    comp.term.clear();
+    comp.setTerm(etat_term_complementaire);
+    return comp;
 }
+
+
 
 void Automate::setTerm(std::vector<int> _term) {
     term.clear();

@@ -122,6 +122,60 @@ Project/fast:
 	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/build
 .PHONY : Project/fast
 
+Automate.obj: Automate.cpp.obj
+
+.PHONY : Automate.obj
+
+# target to build an object file
+Automate.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Automate.cpp.obj
+.PHONY : Automate.cpp.obj
+
+Automate.i: Automate.cpp.i
+
+.PHONY : Automate.i
+
+# target to preprocess a source file
+Automate.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Automate.cpp.i
+.PHONY : Automate.cpp.i
+
+Automate.s: Automate.cpp.s
+
+.PHONY : Automate.s
+
+# target to generate assembly for a file
+Automate.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Automate.cpp.s
+.PHONY : Automate.cpp.s
+
+Transition.obj: Transition.cpp.obj
+
+.PHONY : Transition.obj
+
+# target to build an object file
+Transition.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.obj
+.PHONY : Transition.cpp.obj
+
+Transition.i: Transition.cpp.i
+
+.PHONY : Transition.i
+
+# target to preprocess a source file
+Transition.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.i
+.PHONY : Transition.cpp.i
+
+Transition.s: Transition.cpp.s
+
+.PHONY : Transition.s
+
+# target to generate assembly for a file
+Transition.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.s
+.PHONY : Transition.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -158,6 +212,12 @@ help:
 	@echo ... Project
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... Automate.obj
+	@echo ... Automate.i
+	@echo ... Automate.s
+	@echo ... Transition.obj
+	@echo ... Transition.i
+	@echo ... Transition.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

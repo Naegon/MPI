@@ -40,7 +40,8 @@ private:
         //Processus
         void completion();
         void determinisation();
-        std::vector<int> langage_complementaire();
+        //std::vector<int> langage_complementaire();
+        Automate langage_complementaire();
 
         //Get et set
         std::vector<char> get_alpha() const;
