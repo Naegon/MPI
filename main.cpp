@@ -82,12 +82,12 @@ int main() {
 */
 
 
-    Automate det("Automates_test/L2-E4-2.txt");
-    Automate co(det);
-    co.print();
-    co = det.langage_complementaire();
-    co.print();
+    Automate test("Automates_test/L2-E4-3.txt");
+    Automate t(test);
 
+    test.print();
+    t = test.completion();
+    t.print();
     //loop();
     return 0;
 }

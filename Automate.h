@@ -14,6 +14,7 @@
 class Automate {
 
 private:
+        std::vector<char> alphabet;
         int nb_init;
         std::vector<int> init;
         int nb_term;
@@ -38,10 +39,11 @@ private:
         bool est_automate_complet();
 
         //Processus
-        void completion();
+        Automate completion();
         void determinisation();
         //std::vector<int> langage_complementaire();
         Automate langage_complementaire();
+
 
         //Get et set
         std::vector<char> get_alpha() const;

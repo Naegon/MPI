@@ -13,6 +13,7 @@ Automate::Automate(int _nb_symb, int _nb_etats,
         int _nb_init, std::vector<int> _init,
         int _nb_term, std::vector<int> _term,
         int _nb_trans, std::vector<Transition> _transitions){
+        alphabet = get_alpha();
         nb_symb = _nb_symb;
         nb_etats = _nb_etats;
         nb_init = _nb_init;
@@ -200,8 +201,31 @@ bool Automate::est_automate_complet() {
 
 
 
-void Automate::completion() {
+Automate Automate::completion() {
+    Automate temp(*this);
 
+    //ajout de l'etat poubelle
+    temp.nb_etats ++;
+
+    //ajout des transitions
+    vector<char> alpha_temp;
+    for (int i = 0 ; i < temp.nb_etats ; i ++ ){
+        alpha_temp = get_alpha();
+        for (int j = 0 ; j < temp.nb_trans ; j++){
+            if(i == temp.transitions[j].getP()){
+                alpha_temp.erase(remove(alpha_temp.begin(), alpha_temp.end(), temp.transitions[j].getSymb()), alpha_temp.end());
+            }
+            //ajouter nb_trans ++
+        }
+        if (!alpha_temp.empty()){ //si chaque symbole par etat n'a pas de transition, on en créée une vers la poubelle
+            for (int j = 0 ; j < alpha_temp.size() ; j++){
+                temp.nb_trans ++;
+                temp.transitions.emplace_back(i, alpha_temp[j], nb_etats);
+            }
+        }
+        alpha_temp.clear();
+    }
+    return temp;
 }
 
 void Automate::setNbEtats(int nbEtats) {
@@ -254,7 +278,7 @@ vector<int> Automate::langage_complementaire() {
 
 //Version où on renvoie l'automate reconnaissant le langage complementaire
 Automate Automate::langage_complementaire() {
-    Automate comp(*this);
+    Automate temp(*this);
     //Pour chaque état du nouvel automate (de 1 à n)
     //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
     //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
@@ -266,9 +290,9 @@ Automate Automate::langage_complementaire() {
             }
         }
     }
-    comp.term.clear();
-    comp.setTerm(etat_term_complementaire);
-    return comp;
+    temp.term.clear();
+    temp.setTerm(etat_term_complementaire);
+    return temp;
 }
 
 
