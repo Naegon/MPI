@@ -245,15 +245,16 @@ Automate Automate::standardisation() {
     return temp;
 }
 
-void Automate::setNbEtats(int nbEtats) {
-    nb_etats = nbEtats;
-}
 
 void Automate::determinisation() {
     vector <int> etat_temp;
     for (int i = 0 ; i < init.size() ; i++){
 
     }
+}
+
+void Automate::setNbEtats(int nbEtats) {
+    nb_etats = nbEtats;
 }
 
 vector<char> Automate::get_alpha() const {
@@ -314,6 +315,7 @@ Automate Automate::langage_complementaire() {
 
 
 
+
 void Automate::setTerm(std::vector<int> _term) {
     term.clear();
     term = _term;
@@ -329,5 +331,25 @@ Automate &Automate::operator=(const Automate & Af) {
         nb_trans = Af.nb_trans;
         transitions = Af.transitions;
         return *this;
+}
+
+int Automate::getNb_init() const {
+    return nb_init;
+}
+
+int Automate::getNb_term() const {
+    return nb_term;
+}
+
+vector<int> Automate::getInit() const {
+    return init;
+}
+
+vector<int> Automate::getTerm() const {
+    return term;
+}
+
+int Automate::getNb_trans() const {
+    return nb_trans;
 }
 

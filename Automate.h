@@ -42,6 +42,7 @@ private:
         Automate completion();
         Automate standardisation();
         void determinisation();
+        Automate minimisation();
         //std::vector<int> langage_complementaire();
         Automate langage_complementaire();
 
@@ -51,7 +52,11 @@ private:
         void setNbEtats(int nbEtats);
         void setTerm(std::vector<int>);
         const std::vector<Transition> &getTransitions() const;
-
+        int getNb_init() const;
+        int getNb_term() const;
+        std::vector<int> getInit() const;
+        std::vector<int> getTerm() const;
+        int getNb_trans() const;
         //Autre
         void print() const;
         Automate& operator=(const Automate&);
