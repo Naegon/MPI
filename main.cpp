@@ -184,7 +184,6 @@ int main() {
    Automate a(test);
    a = test.determinisation();
 
-
    //test.print();
 
     return 0;

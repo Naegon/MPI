@@ -272,7 +272,6 @@ Automate Automate::determinisation() {
     for (int i = 0 ; i < init.size() ; i++){
         initiaux += to_string(init[i]);
     }
-    cout << initiaux;
     etat_a_traiter.push_back(initiaux);
 
     //Fusion des etats initiaux
@@ -286,24 +285,48 @@ Automate Automate::determinisation() {
                 }
             }
         }
+        ordonner_string(tempo);
+        supprimer_doublon_string(tempo);
         if (!tempo.empty()){
-            ///todo pb avec string in vector
-            if (!string_in_vector(tempo, transition)){
-                ordonner_string(tempo);
-                supprimer_doublon_string(tempo);
-                transition.push_back(tempo);
-                etat_a_traiter.push_back(tempo);
-                //af_deter.nb_trans ++;
-            }
+           if (!string_in_vector(tempo, etat_traite)){
+               etat_a_traiter.push_back(tempo);
+           }
         }
+        transition.push_back(tempo);
         tempo.clear();
     }
     etat_traite.push_back(initiaux);
     etat_a_traiter.erase(etat_a_traiter.begin());
 
+    cout << endl;
     do{
+        for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
+            for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){ //pour chaque etat initiaux
+                for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
+                    int ic = (int) etat_a_traiter[0][i]; //pour la comparaison du caractere avec l'entier designant l'etat p de la transition
+                    if (transitions[k].getP() == (ic-48)){ //-48 car le cast donne la table ascii
+                        if(transitions[k].getSymb() == alphabet[j]){
+                            tempo += to_string(transitions[k].getQ());
+                        }
+                    }
+                }
+            }
+            ordonner_string(tempo);
+            supprimer_doublon_string(tempo);
+            if (!tempo.empty()){
+                if ((!string_in_vector(tempo, etat_traite)) and (!string_in_vector(tempo, etat_a_traiter))){
+                    etat_a_traiter.push_back(tempo);
+                }
+            }
+            transition.push_back(tempo);
+            tempo.clear();
+        }
+
+        etat_traite.push_back(etat_a_traiter[0]);
+        etat_a_traiter.erase(etat_a_traiter.begin());
 
     }while (!etat_a_traiter.empty());
+
 
 
     for (int i = 0 ; i < transition.size() ; i++){
