@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cstring>
 #include <algorithm>
+#include "fonction.h"
 
 using namespace std;
 
@@ -250,33 +251,32 @@ Automate Automate::standardisation() {
 
 
 Automate Automate::determinisation() {
-    //pour classer une string
-//    std::string sortedWord = word;
-//    std::sort(sortedWord.begin(), sortedWord.end());
-
-
-
     //automate renvoyé
-    Automate temp(*this);
-    temp.nb_etats = 0;
-    temp.nb_init = 0;
-    temp.init.clear();
-    temp.nb_term = 0;
-    temp.term.clear();
-    temp.nb_trans = 0;
-    temp.transitions.clear();
+    Automate af_deter(*this);
+    af_deter.nb_etats = 0;
+    af_deter.nb_init = 0;
+    af_deter.init.clear();
+    af_deter.nb_term = 0;
+    af_deter.term.clear();
+    af_deter.nb_trans = 0;
+    af_deter.transitions.clear();
 
-    vector<int> etat_a_traiter;
-    vector<string> etat_composer;
+    vector<string> etat_a_traiter;
+    vector<string> etat_traite;
+    vector<string> transition;
     string tempo;
+    string initiaux;
 
     //etat initial
-    temp.nb_init++;
-    temp.init.push_back(0);
-    etat_a_traiter.push_back(0);
+    af_deter.nb_init++;
+    for (int i = 0 ; i < init.size() ; i++){
+        initiaux += to_string(init[i]);
+    }
+    cout << initiaux;
+    etat_a_traiter.push_back(initiaux);
 
+    //Fusion des etats initiaux
     for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
-        tempo = "";
         for(int i = 0 ; i < init.size() ; i++){ //pour chaque etat initiaux
             for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
                 if ((transitions[k].getP() == init[i]) and (transitions[k].getSymb() == alphabet[j])){
@@ -287,13 +287,31 @@ Automate Automate::determinisation() {
             }
         }
         if (!tempo.empty()){
-            etat_composer.push_back(tempo);
+            ///todo pb avec string in vector
+            if (!string_in_vector(tempo, transition)){
+                ordonner_string(tempo);
+                supprimer_doublon_string(tempo);
+                transition.push_back(tempo);
+                etat_a_traiter.push_back(tempo);
+                //af_deter.nb_trans ++;
+            }
         }
+        tempo.clear();
+    }
+    etat_traite.push_back(initiaux);
+    etat_a_traiter.erase(etat_a_traiter.begin());
+
+    do{
+
+    }while (!etat_a_traiter.empty());
+
+
+    for (int i = 0 ; i < transition.size() ; i++){
+        cout << transition[i] << " ";
     }
 
 
-
-    return temp;
+    return af_deter;
 }
 
 void Automate::setNbEtats(int nbEtats) {

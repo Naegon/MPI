@@ -3,7 +3,7 @@
 #include "Transition.h"
 #include "Automate.h"
 #include <vector>
-
+#include "fonction.h"
 using namespace std;
 void loop();
 bool continuer();
@@ -183,7 +183,9 @@ int main() {
    test.print();
    Automate a(test);
    a = test.determinisation();
-    //test.print();
+
+
+   //test.print();
 
     return 0;
 }
