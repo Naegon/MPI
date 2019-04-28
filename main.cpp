@@ -10,7 +10,7 @@ bool continuer();
 
 string menu() {
     string choix;
-    const int nb_files = 3;
+    const int nb_files = 12;
 
     cout << endl;
     cout << "||---- Choix de l'automate" << endl;
@@ -99,21 +99,21 @@ bool reconnaitre_mot(string mot, Automate af){
                 //si il existe une transition donc le p est l'etat courant et le symbole est le symbole courant
                 if ((etat_courant == trans[compteur_transition].getP()) and (symbole_courant == trans[compteur_transition].getSymb())) {
                     compteur_symbole++;
-                    sortie++; //structure de control
+                    sortie++; //structure de controle
                     etat_courant = trans[compteur_transition].getQ(); //on passe à l'etat suivant (cad le q de la transition)
                     symbole_courant = mot[compteur_symbole]; //on passe au symbole suivant
                     suivant = true; //sortie de boucle
                 }
                 else{
                     compteur_transition++; //on test la transition suivante
-                    if (compteur_transition == af.getNb_trans()){ //si il n'y a plus de transition
+                    if (compteur_transition == af.getNb_trans()){ //si il n'y a plus de transition à tester
                         suivant = true; //sortie de boucle
                         sortie++;
                     }
                 }
             }while (!suivant);
         }while(sortie != mot.size()); //sortie si sortie = taille du mot
-        //le mot est reconnu si l'etat courant est un un terminal et si on est passé sur tout les symboles
+        //le mot est reconnu si l'etat courant est un etat terminal et si on est passé sur tout les symboles
         for (int i = 0 ; i < term.size() ; i++){
             if ((etat_courant == term[i]) and (mot.size() == compteur_symbole)){
                 return true;
@@ -179,7 +179,11 @@ int main() {
 */
 
 
-    reconnaissance_de_mot();
+   Automate test("Automates_test/L2-E4-6.txt");
+   test.print();
+   Automate a(test);
+   a = test.determinisation();
+    //test.print();
 
     return 0;
 }

@@ -33,6 +33,59 @@ Automate::Automate(Automate& A){
     term = A.term;
     nb_trans = A.nb_trans;
     transitions = A.transitions;
+    alphabet = get_alpha();
+}
+
+
+Automate::Automate(string path) {
+    ifstream fichier(path);
+    if (fichier) {
+
+        string temp;
+
+        getline(fichier, temp);
+        nb_symb = stoi(temp);
+
+        getline(fichier, temp);
+        nb_etats = stoi(temp);
+
+        fichier >> temp;
+        nb_init = stoi(temp);
+
+        for (int i = 0; i< nb_init; i++) {
+            fichier >> temp;
+            init.push_back(stoi(temp));
+        }
+
+        fichier >> temp;
+        nb_term = stoi(temp);
+
+        for (int i = 0; i < nb_term; i++) {
+            fichier >> temp;
+            term.push_back(stoi(temp));
+        }
+
+        fichier >> temp;
+        nb_trans = stoi(temp);
+
+        for (int i = 0; i < nb_trans; i++) {
+            string p, q;
+            char symb;
+
+            fichier >> p;
+            fichier >> symb;
+            fichier >> q;
+            Transition trans_temp(stoi(p), symb, stoi(q));
+
+            transitions.push_back(trans_temp);
+        }
+        alphabet = get_alpha();
+        fichier.close();
+    }
+    else {
+        cout << "Impossible d'ouvrir le fichier" << endl;
+        cerr << "ERROR" << strerror(errno);
+    }
 }
 
 void Automate::print() const {
@@ -136,56 +189,6 @@ bool Automate::est_automate_deterministe() {
     return ok;
 }
 
-Automate::Automate(string path) {
-    ifstream fichier(path);
-    if (fichier) {
-
-        string temp;
-
-        getline(fichier, temp);
-        nb_symb = stoi(temp);
-
-        getline(fichier, temp);
-        nb_etats = stoi(temp);
-
-        fichier >> temp;
-        nb_init = stoi(temp);
-
-        for (int i = 0; i< nb_init; i++) {
-            fichier >> temp;
-            init.push_back(stoi(temp));
-        }
-
-        fichier >> temp;
-        nb_term = stoi(temp);
-
-        for (int i = 0; i < nb_term; i++) {
-            fichier >> temp;
-            term.push_back(stoi(temp));
-        }
-
-        fichier >> temp;
-        nb_trans = stoi(temp);
-
-        for (int i = 0; i < nb_trans; i++) {
-            string p, q;
-            char symb;
-
-            fichier >> p;
-            fichier >> symb;
-            fichier >> q;
-            Transition trans_temp(stoi(p), symb, stoi(q));
-
-            transitions.push_back(trans_temp);
-        }
-
-        fichier.close();
-    }
-    else {
-        cout << "Impossible d'ouvrir le fichier" << endl;
-        cerr << "ERROR" << strerror(errno);
-    }
-}
 
 bool Automate::est_automate_complet() {
     bool ok;
@@ -246,11 +249,51 @@ Automate Automate::standardisation() {
 }
 
 
-void Automate::determinisation() {
-    vector <int> etat_temp;
-    for (int i = 0 ; i < init.size() ; i++){
+Automate Automate::determinisation() {
+    //pour classer une string
+//    std::string sortedWord = word;
+//    std::sort(sortedWord.begin(), sortedWord.end());
 
+
+
+    //automate renvoyé
+    Automate temp(*this);
+    temp.nb_etats = 0;
+    temp.nb_init = 0;
+    temp.init.clear();
+    temp.nb_term = 0;
+    temp.term.clear();
+    temp.nb_trans = 0;
+    temp.transitions.clear();
+
+    vector<int> etat_a_traiter;
+    vector<string> etat_composer;
+    string tempo;
+
+    //etat initial
+    temp.nb_init++;
+    temp.init.push_back(0);
+    etat_a_traiter.push_back(0);
+
+    for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
+        tempo = "";
+        for(int i = 0 ; i < init.size() ; i++){ //pour chaque etat initiaux
+            for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
+                if ((transitions[k].getP() == init[i]) and (transitions[k].getSymb() == alphabet[j])){
+                    //si le p de la transition est egal à l'etat initial et le symbole de la T egale au symbole de l'alphabet traités
+                    //cout << transitions[k].getP() << transitions[k].getSymb() << transitions[k].getQ() << " " << j << i << k <<  endl;
+                    tempo += to_string(transitions[k].getQ());
+                }
+            }
+        }
+        if (!tempo.empty()){
+            etat_composer.push_back(tempo);
+        }
     }
+
+
+
+    return temp;
 }
 
 void Automate::setNbEtats(int nbEtats) {

@@ -3,13 +3,13 @@
 2 0 4   // Nb etats initiaux + leur numero
 2 0 3   // Idem terminaux
 10      // Nb transitions
-0a1     // <état de départ> <symbole> <état d’arrivée>
-0a2
-0b1
-0b2
-1a2
-2*1
-3a1
-3b2
-4b3
-4a4
+0 a 1     // <état de départ> <symbole> <état d’arrivée>
+0 a 2      // mettre un espace entre les p symb q
+0 b 1
+0 b 2
+1 a 2
+2 * 1
+3 a 1
+3 b 2
+4 b 3
+4 a 4
