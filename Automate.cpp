@@ -112,6 +112,36 @@ void Automate::print() const {
     cout << endl;
 }
 
+void Automate::print_table_transition() {
+    cout << "*****************************************************" << endl;
+    cout << "*****     Table de transitions de l'automate    *****" << endl;
+    cout << "*****************************************************" << endl;
+    cout << "   |";
+    for (int i = 0 ; i < alphabet.size() ; i++){
+        cout << "  " << alphabet[i];
+    }
+    cout << endl;
+    for (int i = 0 ; i < nb_etats ; i++){
+        //affichage des etats
+        if (i >= 10){
+            cout << " " << i << "|";
+        }
+        else{
+            cout << "  " << i << "|";
+        }
+
+        //affichage des transitions
+        for (int j = 0 ; j < alphabet.size() ; j++){
+            for (int k = 0 ; k < nb_trans ; k++){
+                if ((transitions[k].getP() == i) and (transitions[k].getSymb() == alphabet[j])){
+                    cout << "  " << transitions[k].getQ();
+                }
+            }
+        }
+        cout << endl;
+    }
+}
+
 
 bool Automate::est_automate_asynchrone() {
     bool ok = true;
@@ -380,6 +410,8 @@ Automate Automate::determinisation() {
     }
     return af_deter;
 }
+
+
 
 void Automate::setNbEtats(int nbEtats) {
     nb_etats = nbEtats;

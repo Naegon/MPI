@@ -59,6 +59,7 @@ private:
         int getNb_trans() const;
         //Autre
         void print() const;
+        void print_table_transition();
         Automate& operator=(const Automate&);
 
 
