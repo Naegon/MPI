@@ -43,6 +43,7 @@ private:
         Automate standardisation();
         Automate determinisation();
         Automate determinisation_et_completion();
+        Automate determinisation_et_completion_asynchrone();
         Automate minimisation();
         //std::vector<int> langage_complementaire();
         Automate langage_complementaire();
@@ -58,10 +59,12 @@ private:
         std::vector<int> getInit() const;
         std::vector<int> getTerm() const;
         int getNb_trans() const;
+
         //Autre
         void print() const;
         void print_table_transition();
         Automate& operator=(const Automate&);
+        void determiner_transition_epsilon();
 
 
 };

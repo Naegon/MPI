@@ -12,6 +12,24 @@ void ordonner_string(string& str) {
     sort(str.begin(), str.end());
 }
 
+void ordonner_string_tri_a_bulle(string & str) {
+    bool tab_en_ordre = false;
+    int taille = str.size();
+    while(!tab_en_ordre)
+    {
+        tab_en_ordre = true;
+        for(int i=0 ; i < (taille-1) ; i++)
+        {
+            if(str[i] > str[i+1])
+            {
+                swap(str[i],str[i+1]);
+                tab_en_ordre = false;
+            }
+        }
+        taille--;
+    }
+}
+
 void supprimer_doublon_string(std::string & s) {
 
     for (int i = 0 ; i < s.size(); i++ )
@@ -82,5 +100,40 @@ void ordonner_vector_string(vector<string>& vector) {
 void supprimer_doublon_vector_string(std::vector<std::string>& vector) {
     vector.erase( unique( vector.begin(), vector.end() ), vector.end() );
 }
+
+string get_transition_epsilon(int etat, const Automate& automate) {
+    string fermeture;
+    vector<string> etat_a_traiter;
+    vector<string> etat_traite;
+    vector<Transition> transition;
+
+    transition = automate.getTransitions();
+    etat_a_traiter.push_back(to_string(etat));
+    do{
+        for(int i = 0 ; i < automate.getNb_trans() ; i++){
+            if ((transition[i].getP() == etat) and (transition[i].getSymb() == '*')){
+                string str = to_string(transition[i].getQ());
+                if (!(string_in_vector(str, etat_a_traiter)) and (!string_in_vector(str, etat_traite))){
+                    etat_a_traiter.push_back(str);
+                }
+            }
+        }
+        etat_traite.push_back(to_string(etat));
+        etat_a_traiter.erase(etat_a_traiter.begin());
+        etat = stoi(etat_a_traiter[0]);
+    }while(!etat_a_traiter.empty());
+
+    ordonner_vector_string(etat_traite);
+    for (int i = 0 ; i < etat_traite.size() ; i++){
+        fermeture += etat_traite[i];
+        if ((i+1) != etat_traite.size()){
+            fermeture += ".";
+        }
+    }
+
+    return  fermeture;
+}
+
+
 
 

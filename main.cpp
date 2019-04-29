@@ -182,10 +182,11 @@ int main() {
     int i = stoi(h[0]);
     cout << i ;
 
-   Automate test("Automates_test/L2-E4-13.txt");
+   Automate test("Automates_test/L2-E4-14.txt");
    test.print();
-   Automate a(test);
-   a = test.determinisation();
+   test.determiner_transition_epsilon();
+   test.print();
+
 
    //test.print();
 

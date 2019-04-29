@@ -89,60 +89,6 @@ Automate::Automate(string path) {
     }
 }
 
-void Automate::print() const {
-    cout << "Automate :" << endl;
-    cout << "||--- Etats initiaux : ";
-    for (int i = 0; i<init.size(); i++) {
-        cout << init[i] << " ";
-    }
-    cout << endl;
-
-    cout << "||--- Etats terminaux : ";
-    for (int i = 0; i<term.size(); i++) {
-        cout << term[i] << " ";
-    }
-    cout << endl;
-
-    cout << "||--- " << nb_trans << " transitions : " << endl;
-    for (int i = 0; i<transitions.size(); i++) {
-        cout << "||------ ";
-        transitions[i].print();
-        cout << endl;
-    }
-    cout << endl;
-}
-
-void Automate::print_table_transition() {
-    cout << "*****************************************************" << endl;
-    cout << "*****     Table de transitions de l'automate    *****" << endl;
-    cout << "*****************************************************" << endl;
-    cout << "   |";
-    for (int i = 0 ; i < alphabet.size() ; i++){
-        cout << "  " << alphabet[i];
-    }
-    cout << endl;
-    for (int i = 0 ; i < nb_etats ; i++){
-        //affichage des etats
-        if (i >= 10){
-            cout << " " << i << "|";
-        }
-        else{
-            cout << "  " << i << "|";
-        }
-
-        //affichage des transitions
-        for (int j = 0 ; j < alphabet.size() ; j++){
-            for (int k = 0 ; k < nb_trans ; k++){
-                if ((transitions[k].getP() == i) and (transitions[k].getSymb() == alphabet[j])){
-                    cout << "  " << transitions[k].getQ();
-                }
-            }
-        }
-        cout << endl;
-    }
-}
-
-
 bool Automate::est_automate_asynchrone() {
     bool ok = true;
     cout << "Automate asynchrone ? " << endl;
@@ -564,6 +510,12 @@ Automate Automate::determinisation() {
     return af_deter;
 }
 
+Automate Automate::determinisation_et_completion_asynchrone() {
+    Automate af_deter(*this);
+
+    return af_deter;
+}
+
 Automate Automate::determinisation_et_completion() {
     Automate afdc(*this);
     afdc = afdc.determinisation();
@@ -641,18 +593,6 @@ void Automate::setTerm(std::vector<int> _term) {
     term = _term;
 }
 
-Automate &Automate::operator=(const Automate & Af) {
-        nb_symb = Af.nb_symb;
-        nb_etats = Af.nb_etats;
-        nb_init = Af.nb_init;
-        init = Af.init;
-        nb_term = Af.nb_term;
-        term = Af.term;
-        nb_trans = Af.nb_trans;
-        transitions = Af.transitions;
-        return *this;
-}
-
 int Automate::getNb_init() const {
     return nb_init;
 }
@@ -673,3 +613,75 @@ int Automate::getNb_trans() const {
     return nb_trans;
 }
 
+void Automate::print() const {
+    cout << "Automate :" << endl;
+    cout << "||--- Etats initiaux : ";
+    for (int i = 0; i<init.size(); i++) {
+        cout << init[i] << " ";
+    }
+    cout << endl;
+
+    cout << "||--- Etats terminaux : ";
+    for (int i = 0; i<term.size(); i++) {
+        cout << term[i] << " ";
+    }
+    cout << endl;
+
+    cout << "||--- " << nb_trans << " transitions : " << endl;
+    for (int i = 0; i<transitions.size(); i++) {
+        cout << "||------ ";
+        transitions[i].print();
+        cout << endl;
+    }
+    cout << endl;
+}
+
+void Automate::print_table_transition() {
+    cout << "*****************************************************" << endl;
+    cout << "*****     Table de transitions de l'automate    *****" << endl;
+    cout << "*****************************************************" << endl;
+    cout << "   |";
+    for (int i = 0 ; i < alphabet.size() ; i++){
+        cout << "  " << alphabet[i];
+    }
+    cout << endl;
+    for (int i = 0 ; i < nb_etats ; i++){
+        //affichage des etats
+        if (i >= 10){
+            cout << " " << i << "|";
+        }
+        else{
+            cout << "  " << i << "|";
+        }
+
+        //affichage des transitions
+        for (int j = 0 ; j < alphabet.size() ; j++){
+            for (int k = 0 ; k < nb_trans ; k++){
+                if ((transitions[k].getP() == i) and (transitions[k].getSymb() == alphabet[j])){
+                    cout << "  " << transitions[k].getQ();
+                }
+            }
+        }
+        cout << endl;
+    }
+}
+
+Automate &Automate::operator=(const Automate & Af) {
+    nb_symb = Af.nb_symb;
+    nb_etats = Af.nb_etats;
+    nb_init = Af.nb_init;
+    init = Af.init;
+    nb_term = Af.nb_term;
+    term = Af.term;
+    nb_trans = Af.nb_trans;
+    transitions = Af.transitions;
+    return *this;
+}
+
+void Automate::determiner_transition_epsilon() {
+    vector<string> transition_epsilon;
+    for (int i = 0 ; i < nb_etats ; i++){
+        transition_epsilon.push_back(get_transition_epsilon(i, *this));
+    }
+    //cout << "...";
+}
