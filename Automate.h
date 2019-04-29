@@ -42,6 +42,7 @@ private:
         Automate completion();
         Automate standardisation();
         Automate determinisation();
+        Automate determinisation_asynchrone();
         Automate determinisation_et_completion();
         Automate determinisation_et_completion_asynchrone();
         Automate minimisation();
@@ -64,7 +65,8 @@ private:
         void print() const;
         void print_table_transition();
         Automate& operator=(const Automate&);
-        void determiner_transition_epsilon();
+        std::vector<std::string> determiner_transition_epsilon();
+        std::vector<std::string> determiner_transition_epsilon(std::vector<std::string>);
 
 
 };

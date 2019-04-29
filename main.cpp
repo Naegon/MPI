@@ -184,7 +184,7 @@ int main() {
 
    Automate test("Automates_test/L2-E4-14.txt");
    test.print();
-   test.determiner_transition_epsilon();
+   test.determinisation_asynchrone();
    test.print();
 
 

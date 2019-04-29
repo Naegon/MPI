@@ -22,4 +22,5 @@ bool int_in__element_of_vector(int, std::vector<std::string>);
 //Automate
 void changement_numero_etat(std::vector<std::string>, std::vector<std::string>&);
 std::string get_transition_epsilon(int, const Automate&);
+std::string get_transition_epsilon(std::string, const Automate& );
 #endif //TESTY_FONCTION_H

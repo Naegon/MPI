@@ -134,6 +134,44 @@ string get_transition_epsilon(int etat, const Automate& automate) {
     return  fermeture;
 }
 
+string get_transition_epsilon(string etat, const Automate& automate){
+    string fermeture;
+    vector<string> etat_a_traiter;
+    vector<string> etat_traite;
+    vector<Transition> transition;
+
+    transition = automate.getTransitions();
+    supprimer_doublon_string(etat);
+
+    for (int i = 0 ; i < etat.size() ; i++){
+        etat_a_traiter.push_back(to_string(etat[i]));
+    }
+
+    do{
+        etat = etat_a_traiter[0];
+        for(int i = 0 ; i < automate.getNb_trans() ; i++){
+            if ((transition[i].getP() == etat[0]) and (transition[i].getSymb() == '*')){
+                string str = to_string(transition[i].getQ());
+                if (!(string_in_vector(str, etat_a_traiter)) and (!string_in_vector(str, etat_traite))){
+                    etat_a_traiter.push_back(str);
+                }
+            }
+        }
+        etat_traite.push_back(etat);
+        etat_a_traiter.erase(etat_a_traiter.begin());
+    }while(!etat_a_traiter.empty());
+
+    ordonner_vector_string(etat_traite);
+    for (int i = 0 ; i < etat_traite.size() ; i++){
+        fermeture += etat_traite[i];
+        if ((i+1) != etat_traite.size()){
+            fermeture += ".";
+        }
+    }
+
+
+    return fermeture;
+}
 
 
 
