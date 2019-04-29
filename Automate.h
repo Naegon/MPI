@@ -42,6 +42,7 @@ private:
         Automate completion();
         Automate standardisation();
         Automate determinisation();
+        Automate determinisation_et_completion();
         Automate minimisation();
         //std::vector<int> langage_complementaire();
         Automate langage_complementaire();

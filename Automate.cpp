@@ -564,6 +564,13 @@ Automate Automate::determinisation() {
     return af_deter;
 }
 
+Automate Automate::determinisation_et_completion() {
+    Automate afdc(*this);
+    afdc = afdc.determinisation();
+    afdc = afdc.completion();
+    return afdc;
+}
+
 
 
 void Automate::setNbEtats(int nbEtats) {
