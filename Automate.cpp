@@ -264,11 +264,11 @@ Automate Automate::determinisation() {
     vector<string> etat_a_traiter;
     vector<string> etat_traite;
     vector<string> transition;
-    string tempo;
     string initiaux;
+    vector<string> terminaux;
+    string tempo;
 
-    //etat initial
-    af_deter.nb_init++;
+    //Determination des etats initiaux
     for (int i = 0 ; i < init.size() ; i++){
         initiaux += to_string(init[i]);
     }
@@ -298,7 +298,7 @@ Automate Automate::determinisation() {
     etat_traite.push_back(initiaux);
     etat_a_traiter.erase(etat_a_traiter.begin());
 
-    cout << endl;
+    //Boucle de determinisation
     do{
         for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
             for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){ //pour chaque etat initiaux
@@ -324,16 +324,60 @@ Automate Automate::determinisation() {
 
         etat_traite.push_back(etat_a_traiter[0]);
         etat_a_traiter.erase(etat_a_traiter.begin());
-
     }while (!etat_a_traiter.empty());
 
-
-
-    for (int i = 0 ; i < transition.size() ; i++){
-        cout << transition[i] << " ";
+    //Determination des etats terminaux
+    for (int i = 0 ; i < etat_traite.size() ; i++){
+        bool in = false;
+        int taille_etat_terminal = etat_traite[i].size();
+        for (int j = 0 ; j < taille_etat_terminal ; j++){
+            for (int k = 0 ; k < term.size() ; k++){
+                int ic = (int) etat_traite[i][j];
+                if (term[k] == (ic-48)){
+                    in = true;
+                }
+            }
+        }
+        if (in){
+            terminaux.push_back(etat_traite[i]);
+        }
     }
 
 
+
+    //Reecriture des etats par des numeros entiers de 0 à n
+    changement_numero_etat(etat_traite, transition);
+    changement_numero_etat(etat_traite, terminaux);
+
+    //Creation de l'automate deterministe
+        //nb_etat = nb_etat traite
+    af_deter.nb_etats = etat_traite.size();
+        //un seul etat initial
+    af_deter.nb_init = 1;
+        //nb_term = taille du vector d'etat terminal
+    af_deter.nb_term = terminaux.size();
+        //Calcul du nombre de transition et creation des transitions
+    int count = -1;
+    for (int i = 0 ; i < transition.size() ; i++){
+        if (i%nb_symb == 0){
+            count++;
+        }
+        if (!transition[i].empty()){
+            nb_trans++;
+            char symb = alphabet[i%nb_symb];
+            int p = count;
+            int q = ((int) transition[i][0])-48;
+            Transition transi(p, symb, q);
+            af_deter.transitions.push_back(transi);
+        }
+    }
+        //ajout de l'etat initial
+    af_deter.init.push_back(0);
+        //ajout des etats terminaux
+    for (int i = 0 ; i < terminaux.size() ; i++){
+        int a = (int) terminaux[i][0];
+        af_deter.term.push_back(a-48);
+    }
     return af_deter;
 }
 

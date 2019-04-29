@@ -40,3 +40,23 @@ bool string_in_vector(string str, vector<string> vector) {
     }
     return ok;
 }
+
+bool int_in__element_of_vector(int entier, std::vector<std::string> vector) {
+
+    return false;
+}
+
+void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<std::string>& vector) {
+    //pour chaque etat créé, si on le trouve dans vector, on change la valeur par son indice
+    for (int i = 0 ; i < vector.size() ; i++){
+        bool changed = false;
+        for (int j = 0 ; j < etat_traite.size() ; j++){
+            if ((etat_traite[j] == vector[i]) and (!changed)){ //(!changed) car il ne faut pas que la valeur soit modifiée 2 fois
+                vector[i] = to_string(j);
+                changed = true;
+            }
+        }
+    }
+}
+
+
