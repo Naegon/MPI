@@ -59,4 +59,28 @@ void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<st
     }
 }
 
+void ordonner_vector_string(vector<string>& vector) {
+    bool tab_en_ordre = false;
+    int taille = vector.size();
+    while(!tab_en_ordre)
+    {
+        tab_en_ordre = true;
+        for(int i=0 ; i < (taille-1) ; i++)
+        {
+            int a = stoi(vector[i]);
+            int b = stoi(vector[i+1]);
+            if(a>b)
+            {
+                swap(vector[i],vector[i+1]);
+                tab_en_ordre = false;
+            }
+        }
+        taille--;
+    }
+}
+
+void supprimer_doublon_vector_string(std::vector<std::string>& vector) {
+    vector.erase( unique( vector.begin(), vector.end() ), vector.end() );
+}
+
 

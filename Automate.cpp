@@ -279,7 +279,7 @@ Automate Automate::standardisation() {
     return temp;
 }
 
-
+/*
 Automate Automate::determinisation() {
     //automate renvoyé
     Automate af_deter(*this);
@@ -405,8 +405,161 @@ Automate Automate::determinisation() {
     af_deter.init.push_back(0);
         //ajout des etats terminaux
     for (int i = 0 ; i < terminaux.size() ; i++){
-        int a = (int) terminaux[i][0];
+        int a = stoi(terminaux[i][0]);
         af_deter.term.push_back(a-48);
+    }
+    return af_deter;
+}
+*/
+Automate Automate::determinisation() {
+    //automate renvoyé
+    Automate af_deter(*this);
+    af_deter.nb_etats = 0;
+    af_deter.nb_init = 0;
+    af_deter.init.clear();
+    af_deter.nb_term = 0;
+    af_deter.term.clear();
+    af_deter.nb_trans = 0;
+    af_deter.transitions.clear();
+
+    vector<string> etat_a_traiter;
+    vector<string> etat_traite;
+    vector<string> transition;
+    string initiaux;
+    vector<string> terminaux;
+    vector<string> tempo;
+    string compose;
+
+    //Determination des etats initiaux
+    for (int i = 0 ; i < init.size() ; i++){
+        if (initiaux.empty()){
+            initiaux += to_string(init[i]);
+        }
+        else{
+            initiaux += ".";
+            initiaux += to_string(init[i]);
+        }
+    }
+    etat_a_traiter.push_back(initiaux);
+
+    //Fusion des etats initiaux
+    tempo.clear();
+    for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
+        for(int i = 0 ; i < init.size() ; i++){ //pour chaque etat initiaux
+            for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
+                if ((transitions[k].getP() == init[i]) and (transitions[k].getSymb() == alphabet[j])){
+                    //si le p de la transition est egal à l'etat initial et le symbole de la T egale au symbole de l'alphabet traités
+                    tempo.push_back(to_string(transitions[k].getQ()));
+                }
+            }
+        }
+        ordonner_vector_string(tempo);
+        supprimer_doublon_vector_string(tempo);
+        for (int m = 0; m < tempo.size() ; m++){
+            compose += tempo[m];
+            if ((m+1) != tempo.size()){
+                compose += ".";
+            }
+        }
+        if (!compose.empty()){
+            if (!string_in_vector(compose, etat_traite)){
+
+                etat_a_traiter.push_back(compose);
+            }
+        }
+        transition.push_back(compose);
+        tempo.clear();
+        compose.clear();
+    }
+    etat_traite.push_back(initiaux);
+    etat_a_traiter.erase(etat_a_traiter.begin());
+
+
+    //Boucle de determinisation
+    do{
+        for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
+            for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){ //pour chaque etat initiaux
+                for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
+                    int ic = (int) etat_a_traiter[0][i]; //pour la comparaison du caractere avec l'entier designant l'etat p de la transition
+                    if (transitions[k].getP() == (ic-48)){ //-48 car le cast donne la table ascii
+                        if(transitions[k].getSymb() == alphabet[j]){
+                            tempo.push_back(to_string(transitions[k].getQ()));
+                        }
+                    }
+                }
+            }
+            ordonner_vector_string(tempo);
+            supprimer_doublon_vector_string(tempo);
+            for (int m = 0; m < tempo.size() ; m++){
+                compose += tempo[m];
+                if ((m+1) != tempo.size()){
+                    compose += ".";
+                }
+            }
+            if (!compose.empty()){
+                if ((!string_in_vector(compose, etat_traite)) and (!string_in_vector(compose, etat_a_traiter))){
+                    etat_a_traiter.push_back(compose);
+                }
+            }
+            transition.push_back(compose);
+            tempo.clear();
+            compose.clear();
+        }
+        etat_traite.push_back(etat_a_traiter[0]);
+        etat_a_traiter.erase(etat_a_traiter.begin());
+    }while (!etat_a_traiter.empty());
+
+    //Determination des etats terminaux
+    for (int i = 0 ; i < etat_traite.size() ; i++){
+        bool in = false;
+        int taille_etat_terminal = etat_traite[i].size();
+        for (int j = 0 ; j < taille_etat_terminal ; j++){
+            for (int k = 0 ; k < term.size() ; k++){
+                int ic = (int) etat_traite[i][j];
+                if (term[k] == (ic-48)){
+                    in = true;
+                }
+            }
+        }
+        if (in){
+            terminaux.push_back(etat_traite[i]);
+        }
+    }
+    ordonner_vector_string(terminaux);
+
+
+
+    //Reecriture des etats par des numeros entiers de 0 à n
+    changement_numero_etat(etat_traite, transition);
+    changement_numero_etat(etat_traite, terminaux);
+
+    //Creation de l'automate deterministe
+    //nb_etat = nb_etat traite
+    af_deter.nb_etats = etat_traite.size();
+    //un seul etat initial
+    af_deter.nb_init = 1;
+    //nb_term = taille du vector d'etat terminal
+    af_deter.nb_term = terminaux.size();
+    //Calcul du nombre de transition et creation des transitions
+    int count = -1;
+    for (int i = 0 ; i < transition.size() ; i++){
+        if (i%nb_symb == 0){
+            count++;
+        }
+        if (!transition[i].empty()){
+            af_deter.nb_trans++;
+            char symb = alphabet[i%nb_symb];
+            int p = count;
+            int q = ((int) transition[i][0])-48;
+            Transition transi(p, symb, q);
+            af_deter.transitions.push_back(transi);
+        }
+    }
+    //ajout de l'etat initial
+    af_deter.init.push_back(0);
+    //ajout des etats terminaux
+    for (int i = 0 ; i < terminaux.size() ; i++){
+        af_deter.term.push_back(stoi(terminaux[i]));
     }
     return af_deter;
 }

@@ -10,7 +10,7 @@ bool continuer();
 
 string menu() {
     string choix;
-    const int nb_files = 12;
+    const int nb_files = 13;
 
     cout << endl;
     cout << "||---- Choix de l'automate" << endl;
@@ -177,9 +177,12 @@ int main() {
     test.completion();
     //Automate read("/Automates_test/L2-E4-1.txt");
 */
+    vector<string> h;
+    h.push_back(to_string(12));
+    int i = stoi(h[0]);
+    cout << i ;
 
-
-   Automate test("Automates_test/L2-E4-6.txt");
+   Automate test("Automates_test/L2-E4-13.txt");
    test.print();
    Automate a(test);
    a = test.determinisation();
