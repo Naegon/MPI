@@ -49,6 +49,14 @@ void supprimer_doublon_string(std::string & s) {
     }
 }
 
+void supprimer_doublon_vector_string(vector<string>& vector) {
+    vector.erase( unique( vector.begin(), vector.end() ), vector.end() );
+}
+
+void supprimer_doublon_vector_int(vector<int>& vector) {
+    vector.erase( unique( vector.begin(), vector.end() ), vector.end() );
+}
+
 bool string_in_vector(string str, vector<string> vector) {
     bool ok = false;
     for (int i = 0 ; i < vector.size() ; i++){
@@ -59,10 +67,16 @@ bool string_in_vector(string str, vector<string> vector) {
     return ok;
 }
 
-bool int_in__element_of_vector(int entier, std::vector<std::string> vector) {
-
+bool int_in__element_of_vector(int etat, vector<int> vector) {
+    for(int i = 0 ; i < vector.size() ; i++){
+        cout << endl;
+        if(etat == vector[i]){
+            return true;
+        }
+    }
     return false;
 }
+
 
 void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<std::string>& vector) {
     //pour chaque etat créé, si on le trouve dans vector, on change la valeur par son indice
@@ -97,9 +111,6 @@ void ordonner_vector_string(vector<string>& vector) {
     }
 }
 
-void supprimer_doublon_vector_string(std::vector<std::string>& vector) {
-    vector.erase( unique( vector.begin(), vector.end() ), vector.end() );
-}
 
 string get_transition_epsilon(int etat, const Automate& automate) {
     string fermeture;
@@ -175,24 +186,20 @@ string get_transition_epsilon(string etat, const Automate& automate){
     return fermeture;
 }
 
-bool transition_egale(Automate automate, vector<Transition> transition_0, vector<Transition> transition_1) {
+bool transition_egale(vector<Transition> transition_0, vector<Transition> transition_1) {
 
-    bool egale = true;
     for (int i = 0 ; i < transition_0.size() ; i++){
-//        int p0 = transition_0[i].getP();
         char s0 = transition_0[i].getSymb();
         int q0 = transition_0[i].getQ();
-//        int p1 = transition_1[i].getP();
         char s1 = transition_1[i].getSymb();
         int q1 = transition_1[i].getQ();
         if ((s0 != s1) or (q0 != q1)){
-//        if ((p0 != p1) or (s0 != s1) or (q0 != q1)){
-//        if (((transition_0[i].getP() != transition_1[i].getP()) or (transition_0[i].getQ() != transition_1[i].getQ())) and (transition_0[i].getSymb() != transition_1[i].getSymb())){
             return false;
         }
     }
     return true;
 }
+
 
 
 

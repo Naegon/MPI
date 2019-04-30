@@ -182,9 +182,9 @@ int main() {
 
 
      Automate test("Automates_test/L2-E4-16.txt");
-     test.print();
+
      test = test.minimisation();
-     test.print();
+
 
 
      //test.print();

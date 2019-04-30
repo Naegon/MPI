@@ -683,9 +683,21 @@ Automate Automate::determinisation_et_completion() {
 
 Automate Automate::minimisation() {
     Automate afdcm(*this);
+    afdcm.nb_etats = 0;
+    afdcm.nb_init = 0;
+    afdcm.init.clear();
+    afdcm.nb_term = 0;
+    afdcm.term.clear();
+    afdcm.nb_trans = 0;
+    afdcm.transitions.clear();
+
     vector<int> partition_0;
     vector<int> partition_1;
+    vector<Transition> transi_0;
+    vector<Transition> transi_1;
+    vector<Transition> table_transition;
     int nb_partie = 0;
+    bool fini;
 
     //Partition initial (separation terminaux et autres)
     for (int i = 0 ; i < nb_etats ; i++){
@@ -700,48 +712,86 @@ Automate Automate::minimisation() {
             partition_0.push_back(1);
         }
     }
-    nb_partie = 2;
 
-    //Nouvelle table de transition
-    vector<Transition> table_transition;
-    for (int i = 0 ; i < nb_trans ; i++){
-        int p = transitions[i].getP();
-        char symb = transitions[i].getSymb();
-        int q = partition_0[transitions[i].getQ()];
-        table_transition.emplace_back(p,symb,q);
-    }
+    //boucle de determinisation
+    do {
+        table_transition.clear();
+        //Nouvelle table de transition
+        for (int i = 0; i < nb_trans ; i++) {
+            int p = transitions[i].getP();
+            char symb = transitions[i].getSymb();
+            int q = partition_0[transitions[i].getQ()]; //q = la partition dans lequel se trouve l'etat d'arrivé
+            table_transition.emplace_back(p, symb, q);
+        }
 
-    //Determination de la nouvella partition
-    vector<Transition> transi_0;
-    vector<Transition> transi_1;
-    nb_partie = 0;
-    bool fait;
-    int taille_partition;
-    for (int i = 0 ; i < nb_etats ; i++){
-        fait = false;
-        taille_partition = partition_1.size();
-        for (int j = 0 ; j < taille_partition ; j++){
-            for (int k = 0 ; k < nb_symb ; k++){
-                transi_0.push_back(table_transition[nb_symb*i+k]);
-                transi_1.push_back(table_transition[nb_symb*j+k]);
+        //Determination de la nouvella partition
+        nb_partie = 0;
+        bool fait;
+        int taille_partition;
+        for (int i = 0; i < nb_etats; i++) {
+            fait = false;
+            taille_partition = partition_1.size();
+            for (int j = 0; j < taille_partition; j++) {
+                for (int k = 0; k < nb_symb; k++) {
+                    transi_0.push_back(table_transition[nb_symb * i + k]);
+                    transi_1.push_back(table_transition[nb_symb * j + k]);
+                }
+                cout << "";
+                if ((transition_egale(transi_0, transi_1)) and (partition_0[i] == partition_0[j])) { //les transitions doivent être identique et les etats dans la même partition
+                    partition_1.push_back(partition_1[j]);
+                    fait = true;
+                }
+                transi_0.clear();
+                transi_1.clear();
+            }
+            if (!fait) {
+                partition_1.push_back(nb_partie + 1);
+                nb_partie++;
             }
             cout << "";
-            if ((transition_egale(*this, transi_0, transi_1)) and (partition_0[i] == partition_0[j])){ //les transitions doivent être identique et les etats dans la même partition
-                partition_1.push_back(partition_1[j]);
-                fait = true;
-            }
             transi_0.clear();
             transi_1.clear();
         }
-        if (!fait){
-            partition_1.push_back(nb_partie+1);
-            nb_partie++;
+        if (partition_0 == partition_1) {
+            fini = true;
+        } else {
+            fini = false;
+            partition_0 = partition_1;
+            partition_1.clear();
         }
-        cout << "";
-        transi_0.clear();
-        transi_1.clear();
-    }
+    }while(!fini);
 
+    //Table de transition de l'afdcm
+    vector<int> etat_cree;
+    for (int i = 0 ; i < partition_0.size() ; i++){
+        if (!int_in__element_of_vector(partition_0[i]-1, etat_cree)){
+            for (int j = 0 ; j < nb_symb ; j++){
+                int p = partition_0[i]-1; //-1 car partition commence à 1 et etat n°1 = 0
+                int symb = table_transition[nb_symb * i + j].getSymb();
+                int q = table_transition[nb_symb * i + j].getQ()-1;
+                afdcm.transitions.emplace_back(p,symb,q);
+                afdcm.nb_trans++;
+            }
+            etat_cree.push_back(partition_0[i]-1);
+        }
+    }
+    //Nombre d'etat
+    afdcm.nb_etats = nb_partie;
+
+    //Determiner initiaux
+    afdcm.nb_init = 1; //car deterministe
+    afdcm.init.push_back(0);
+
+    //Determiner terminaux
+    supprimer_doublon_vector_int(partition_0);
+    for (int i = 0 ; i < partition_0.size() ; i++){
+        for (int j = 0 ; j < nb_term ; j++){
+            if (i == term[j]){
+                afdcm.term.push_back(partition_0[i]);
+                afdcm.nb_term++;
+            }
+        }
+    }
 
     return afdcm;
 }
