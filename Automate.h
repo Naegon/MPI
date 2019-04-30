@@ -67,6 +67,7 @@ private:
         Automate& operator=(const Automate&);
         std::vector<std::string> determiner_transition_epsilon();
         std::vector<std::string> determiner_transition_epsilon(std::vector<std::string>);
+        std::string determiner_transition_epsilon(std::string);
 
 
 };

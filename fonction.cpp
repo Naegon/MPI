@@ -144,13 +144,17 @@ string get_transition_epsilon(string etat, const Automate& automate){
     supprimer_doublon_string(etat);
 
     for (int i = 0 ; i < etat.size() ; i++){
-        etat_a_traiter.push_back(to_string(etat[i]));
+        int x = etat[i] - 48;
+        if (x >= 0){
+            etat_a_traiter.push_back(to_string(etat[i]-48));
+        }
     }
-
+    cout << endl;
     do{
         etat = etat_a_traiter[0];
+        int x = stoi(etat);
         for(int i = 0 ; i < automate.getNb_trans() ; i++){
-            if ((transition[i].getP() == etat[0]) and (transition[i].getSymb() == '*')){
+            if ((transition[i].getP() == x) and (transition[i].getSymb() == '*')){
                 string str = to_string(transition[i].getQ());
                 if (!(string_in_vector(str, etat_a_traiter)) and (!string_in_vector(str, etat_traite))){
                     etat_a_traiter.push_back(str);

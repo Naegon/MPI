@@ -408,8 +408,7 @@ Automate Automate::determinisation() {
             }
         }
         if (!compose.empty()){
-            if (!string_in_vector(compose, etat_traite)){
-
+            if ((!string_in_vector(compose, etat_traite)) and (!string_in_vector(compose, etat_a_traiter))){
                 etat_a_traiter.push_back(compose);
             }
         }
@@ -424,7 +423,7 @@ Automate Automate::determinisation() {
     //Boucle de determinisation
     do{
         for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
-            for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){ //pour chaque etat initiaux
+            for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){
                 for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
                     int ic = (int) etat_a_traiter[0][i]; //pour la comparaison du caractere avec l'entier designant l'etat p de la transition
                     if (transitions[k].getP() == (ic-48)){ //-48 car le cast donne la table ascii
@@ -540,17 +539,19 @@ Automate Automate::determinisation_asynchrone(){
             initiaux += to_string(init[i]);
         }
     }
-    ///Arret debug ici
+    initiaux = determiner_transition_epsilon(initiaux);
     etat_a_traiter.push_back(initiaux);
 
     //Fusion des etats initiaux
     tempo.clear();
     for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
-        for(int i = 0 ; i < init.size() ; i++){ //pour chaque etat initiaux
+        for(int i = 0 ; i < initiaux.size() ; i++){ //pour chaque etat initiaux
             for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
-                if ((transitions[k].getP() == init[i]) and (transitions[k].getSymb() == alphabet[j])){
-                    //si le p de la transition est egal à l'etat initial et le symbole de la T egale au symbole de l'alphabet traités
-                    tempo.push_back(to_string(transitions[k].getQ()));
+                int ic = (int) etat_a_traiter[0][i]; //pour la comparaison du caractere avec l'entier designant l'etat p de la transition
+                if (transitions[k].getP() == (ic-48)){ //-48 car le cast donne la table ascii
+                    if(transitions[k].getSymb() == alphabet[j]){
+                        tempo.push_back(to_string(transitions[k].getQ()));
+                    }
                 }
             }
         }
@@ -563,8 +564,8 @@ Automate Automate::determinisation_asynchrone(){
             }
         }
         if (!compose.empty()){
-            if (!string_in_vector(compose, etat_traite)){
-
+            compose = determiner_transition_epsilon(compose);
+            if ((!string_in_vector(compose, etat_traite)) and (!string_in_vector(compose, etat_a_traiter))){
                 etat_a_traiter.push_back(compose);
             }
         }
@@ -598,6 +599,7 @@ Automate Automate::determinisation_asynchrone(){
                 }
             }
             if (!compose.empty()){
+                compose = determiner_transition_epsilon(compose);
                 if ((!string_in_vector(compose, etat_traite)) and (!string_in_vector(compose, etat_a_traiter))){
                     etat_a_traiter.push_back(compose);
                 }
@@ -693,8 +695,9 @@ vector<char> Automate::get_alpha() const {
         char key = transitions[i].getSymb();
 
         if (find(alphabet.begin(), alphabet.end(), key) == alphabet.end()) {
-            alphabet.push_back(key);
-
+            if (key != '*'){
+                alphabet.push_back(key);
+            }
         }
     }
     return alphabet;
@@ -851,3 +854,8 @@ vector<string> Automate::determiner_transition_epsilon(vector<string> etat) {
     return transition_epsilon;
 }
 
+string Automate::determiner_transition_epsilon(string etat) {
+    string transition_epsilon;
+    etat = get_transition_epsilon(etat, *this);
+    return etat;
+}
