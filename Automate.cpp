@@ -109,11 +109,11 @@ bool Automate::est_automate_asynchrone() {
     return ok;
 }
 
-bool Automate::est_automate_standart() {
+bool Automate::est_automate_standard() {
     bool ok = true;
     cout << "Automate standart ? " << endl;
     if (nb_init > 1){
-        cout << "||--- L'automate n'est pas standart car plusieurs etats initiaux" << endl;
+        cout << "||--- L'automate n'est pas standard car plusieurs etats initiaux" << endl;
         return false;
     }
 
@@ -211,7 +211,7 @@ Automate Automate::standardisation() {
     Automate temp(*this);
     temp.nb_etats++;
 
-    if(!temp.est_automate_standart()){
+    if(!temp.est_automate_standard()){
         for (int i = 0 ; i < init.size() ; i++){
             for (int j = 0 ; j < transitions.size() ; j++){
                 if (init[i] == transitions[j].getP()){
@@ -527,7 +527,6 @@ Automate Automate::determinisation_asynchrone(){
     vector<string> terminaux;
     vector<string> tempo;
     string compose;
-    vector<string> transition_epsilon_etat_original = determiner_transition_epsilon();
 
     //Determination des etats initiaux
     for (int i = 0 ; i < init.size() ; i++){
@@ -564,7 +563,7 @@ Automate Automate::determinisation_asynchrone(){
             }
         }
         if (!compose.empty()){
-            compose = determiner_transition_epsilon(compose);
+            compose = determiner_transition_epsilon(compose); //l'etat construit est remplacé par sa fermeture epsilon
             if ((!string_in_vector(compose, etat_traite)) and (!string_in_vector(compose, etat_a_traiter))){
                 etat_a_traiter.push_back(compose);
             }
@@ -671,7 +670,7 @@ Automate Automate::determinisation_et_completion_asynchrone() {
     Automate afdc(*this);
     afdc = afdc.determinisation_asynchrone();
     ///check si completion identique pour async
-    //afdc = afdc.completion();
+    afdc = afdc.completion();
     return afdc;
 }
 
@@ -682,6 +681,42 @@ Automate Automate::determinisation_et_completion() {
     return afdc;
 }
 
+Automate Automate::minimisation() {
+    Automate afdcm(*this);
+    vector<int> partition;
+    int nb_partie = 0;
+
+    //Partition initial (separation terminaux et autres)
+    for (int i = 0 ; i < nb_etats ; i++){
+        bool fait = false;
+        for (int j = 0 ; j < nb_term ; j++){
+            if (i == term[j]){
+                partition.push_back(2);
+                fait = true;
+            }
+        }
+        if (!fait){
+            partition.push_back(1);
+        }
+    }
+    nb_partie = 2;
+
+    //Nouvelle table de transition
+    vector<Transition> table_transition;
+    for (int i = 0 ; i < nb_trans ; i++){
+        int p = transitions[i].getP();
+        char symb = transitions[i].getSymb();
+        int q = partition[transitions[i].getQ()];
+        table_transition.emplace_back(p,symb,q);
+    }
+
+    //Nouvelle partition
+//    for (int i = 0 ; i < nb_trans ; i++){
+//
+//    }
+
+    return afdcm;
+}
 
 
 void Automate::setNbEtats(int nbEtats) {
@@ -797,10 +832,12 @@ void Automate::print() const {
 }
 
 void Automate::print_table_transition() {
+
     cout << "*****************************************************" << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
     cout << "*****************************************************" << endl;
-    cout << "   |";
+
+
     for (int i = 0 ; i < alphabet.size() ; i++){
         cout << "  " << alphabet[i];
     }
@@ -859,3 +896,4 @@ string Automate::determiner_transition_epsilon(string etat) {
     etat = get_transition_epsilon(etat, *this);
     return etat;
 }
+

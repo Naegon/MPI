@@ -10,7 +10,7 @@ bool continuer();
 
 string menu() {
     string choix;
-    const int nb_files = 15;
+    const int nb_files = 16;
 
     cout << endl;
     cout << "||---- Choix de l'automate" << endl;
@@ -178,15 +178,11 @@ int main() {
     //Automate read("/Automates_test/L2-E4-1.txt");
 */
 
-    Automate sync("Automates_test/L2-E4-13.txt");
-    sync.print();
-    sync = sync.determinisation();
-    sync.print();
 
 
-   Automate test("Automates_test/L2-E4-15.txt");
+   Automate test("Automates_test/L2-E4-16.txt");
    test.print();
-   test = test.determinisation_asynchrone();
+   test = test.minimisation();
    test.print();
 
 
