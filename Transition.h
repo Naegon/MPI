@@ -22,6 +22,7 @@ class Transition {
         void setSymb(char symb);
         int getQ() const;
         void setQ(int q);
+
 };
 
 

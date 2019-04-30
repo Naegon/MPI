@@ -172,10 +172,29 @@ string get_transition_epsilon(string etat, const Automate& automate){
             fermeture += ".";
         }
     }
-
-
     return fermeture;
 }
+
+bool transition_egale(Automate automate, vector<Transition> transition_0, vector<Transition> transition_1) {
+
+    bool egale = true;
+    for (int i = 0 ; i < transition_0.size() ; i++){
+//        int p0 = transition_0[i].getP();
+        char s0 = transition_0[i].getSymb();
+        int q0 = transition_0[i].getQ();
+//        int p1 = transition_1[i].getP();
+        char s1 = transition_1[i].getSymb();
+        int q1 = transition_1[i].getQ();
+        if ((s0 != s1) or (q0 != q1)){
+//        if ((p0 != p1) or (s0 != s1) or (q0 != q1)){
+//        if (((transition_0[i].getP() != transition_1[i].getP()) or (transition_0[i].getQ() != transition_1[i].getQ())) and (transition_0[i].getSymb() != transition_1[i].getSymb())){
+            return false;
+        }
+    }
+    return true;
+}
+
+
 
 
 

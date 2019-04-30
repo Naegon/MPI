@@ -180,13 +180,14 @@ int main() {
 
 
 
-   Automate test("Automates_test/L2-E4-16.txt");
-   test.print();
-   test = test.minimisation();
-   test.print();
+
+     Automate test("Automates_test/L2-E4-16.txt");
+     test.print();
+     test = test.minimisation();
+     test.print();
 
 
-   //test.print();
+     //test.print();
 
-    return 0;
+     return 0;
 }

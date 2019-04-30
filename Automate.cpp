@@ -683,7 +683,8 @@ Automate Automate::determinisation_et_completion() {
 
 Automate Automate::minimisation() {
     Automate afdcm(*this);
-    vector<int> partition;
+    vector<int> partition_0;
+    vector<int> partition_1;
     int nb_partie = 0;
 
     //Partition initial (separation terminaux et autres)
@@ -691,12 +692,12 @@ Automate Automate::minimisation() {
         bool fait = false;
         for (int j = 0 ; j < nb_term ; j++){
             if (i == term[j]){
-                partition.push_back(2);
+                partition_0.push_back(2);
                 fait = true;
             }
         }
         if (!fait){
-            partition.push_back(1);
+            partition_0.push_back(1);
         }
     }
     nb_partie = 2;
@@ -706,14 +707,41 @@ Automate Automate::minimisation() {
     for (int i = 0 ; i < nb_trans ; i++){
         int p = transitions[i].getP();
         char symb = transitions[i].getSymb();
-        int q = partition[transitions[i].getQ()];
+        int q = partition_0[transitions[i].getQ()];
         table_transition.emplace_back(p,symb,q);
     }
 
-    //Nouvelle partition
-//    for (int i = 0 ; i < nb_trans ; i++){
-//
-//    }
+    //Determination de la nouvella partition
+    vector<Transition> transi_0;
+    vector<Transition> transi_1;
+    nb_partie = 0;
+    bool fait;
+    int taille_partition;
+    for (int i = 0 ; i < nb_etats ; i++){
+        fait = false;
+        taille_partition = partition_1.size();
+        for (int j = 0 ; j < taille_partition ; j++){
+            for (int k = 0 ; k < nb_symb ; k++){
+                transi_0.push_back(table_transition[nb_symb*i+k]);
+                transi_1.push_back(table_transition[nb_symb*j+k]);
+            }
+            cout << "";
+            if ((transition_egale(*this, transi_0, transi_1)) and (partition_0[i] == partition_0[j])){ //les transitions doivent être identique et les etats dans la même partition
+                partition_1.push_back(partition_1[j]);
+                fait = true;
+            }
+            transi_0.clear();
+            transi_1.clear();
+        }
+        if (!fait){
+            partition_1.push_back(nb_partie+1);
+            nb_partie++;
+        }
+        cout << "";
+        transi_0.clear();
+        transi_1.clear();
+    }
+
 
     return afdcm;
 }

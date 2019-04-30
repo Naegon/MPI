@@ -19,9 +19,12 @@ void supprimer_doublon_vector_string(std::vector<std::string>&);
 bool string_in_vector(std::string, std::vector<std::string>);
 bool int_in__element_of_vector(int, std::vector<std::string>);
 
-//Automate
+//Automate asynchrone
 void changement_numero_etat(std::vector<std::string>, std::vector<std::string>&);
 std::string get_transition_epsilon(int, const Automate&);
 std::string get_transition_epsilon(std::string, const Automate& );
+
+//Transition
+bool transition_egale(Automate, std::vector<Transition>, std::vector<Transition>);
 
 #endif //TESTY_FONCTION_H
