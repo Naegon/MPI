@@ -13,7 +13,7 @@
 
 class Automate {
 
-private:
+    private:
         std::vector<char> alphabet;
         int nb_init;
         std::vector<int> init;
@@ -61,6 +61,7 @@ private:
         std::vector<int> getTerm() const;
         int getNb_trans() const;
 
+
         //Autre
         void print() const;
         void print_table_transition();
@@ -68,7 +69,7 @@ private:
         std::vector<std::string> determiner_transition_epsilon();
         std::vector<std::string> determiner_transition_epsilon(std::vector<std::string>);
         std::string determiner_transition_epsilon(std::string);
-
+        void add_epsilon_alphabet();
 
 };
 

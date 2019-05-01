@@ -156,9 +156,9 @@ void reconnaissance_de_mot(){
 }
 
 int main() {
-     Automate test("Automates_test/L2-E4-13.txt");
-     test = test.determinisation();
-     test.print();
+     Automate test("Automates_test/L2-E4-14.txt");
+
+     test.print_table_transition();
 
      //test.print();
 

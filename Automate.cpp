@@ -37,7 +37,6 @@ Automate::Automate(Automate& A){
     alphabet = get_alpha();
 }
 
-
 Automate::Automate(string path) {
     ifstream fichier(path);
     if (fichier) {
@@ -90,11 +89,11 @@ Automate::Automate(string path) {
 }
 
 bool Automate::est_automate_asynchrone() {
-    bool ok = true;
+    bool ok = false;
     cout << "Automate asynchrone ? " << endl;
     for(int i = 0 ; i < transitions.size() ; i++){
         if (transitions[i].getSymb() == '*'){
-            ok = false;
+            ok = true;
             cout << "||--- La transition ";
             transitions[i].print();
             cout << " contient une transition epsilon" << endl;
@@ -166,7 +165,6 @@ bool Automate::est_automate_deterministe() {
     return ok;
 }
 
-
 bool Automate::est_automate_complet() {
     bool ok;
 
@@ -183,8 +181,6 @@ bool Automate::est_automate_complet() {
 
     return ok;
 }
-
-
 
 Automate Automate::completion() {
     Automate temp(*this);
@@ -671,7 +667,6 @@ Automate Automate::minimisation() {
     return afdcm;
 }
 
-
 void Automate::setNbEtats(int nbEtats) {
     nb_etats = nbEtats;
 }
@@ -691,11 +686,9 @@ vector<char> Automate::get_alpha() const {
     return alphabet;
 }
 
-
 const vector<Transition> &Automate::getTransitions() const {
     return transitions;
 }
-
 
 //Version où on renvoie le tableau d'etat terminaux
 /*
@@ -732,9 +725,6 @@ Automate Automate::langage_complementaire() {
     temp.setTerm(etat_term_complementaire);
     return temp;
 }
-
-
-
 
 void Automate::setTerm(std::vector<int> _term) {
     term.clear();
@@ -792,6 +782,11 @@ void Automate::print_table_transition() {
     bool est_init;
     string tempo;
 
+    //si l'automate est asynchrone, on ajoute epsilon
+    if(est_automate_asynchrone()){
+        add_epsilon_alphabet();
+    }
+
     cout << "*****************************************************" << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
     cout << "*****************************************************" << endl;
@@ -828,9 +823,8 @@ void Automate::print_table_transition() {
         //affichage etat
         cout << string(((taille_max - to_string(i).size()) + nb_espace_debut), ' ') << i << "|";
 
-
         //affichage des transitions
-        for (int k = 0 ; k < nb_symb ; k++){
+        for (int k = 0 ; k < alphabet.size() ; k++){
             for (int j = 0 ; j < transitions.size() ; j++){
                 if ((transitions[j].getP() == i) and (transitions[j].getSymb() == alphabet[k])){
                     if (!tempo.empty()){
@@ -844,6 +838,8 @@ void Automate::print_table_transition() {
         }
         cout << endl;
     }
+    alphabet.pop_back();
+
 }
 
 Automate &Automate::operator=(const Automate & Af) {
@@ -879,4 +875,11 @@ string Automate::determiner_transition_epsilon(string etat) {
     etat = get_transition_epsilon(etat, *this);
     return etat;
 }
+
+void Automate::add_epsilon_alphabet() {
+    alphabet.push_back('*');
+}
+
+
+
 
