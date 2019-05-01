@@ -23,13 +23,13 @@ class Automate {
         std::vector<Transition> transitions;
         int nb_symb;
         int nb_etats;
-
+        std::vector<std::string> etat_compose;
 
 
     public :
         //constructeur
         Automate(std::string path);
-        Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>);
+        Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>, std::vector<std::string>);
         Automate(Automate&);
 
         //test caracteristique automate
@@ -62,9 +62,13 @@ class Automate {
         int getNb_trans() const;
 
 
-        //Autre
+        //Affichage
         void print() const;
         void print_table_transition();
+        void afficher_automate_deterministe();
+
+
+        //Autre
         Automate& operator=(const Automate&);
         std::vector<std::string> determiner_transition_epsilon();
         std::vector<std::string> determiner_transition_epsilon(std::vector<std::string>);

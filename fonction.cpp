@@ -202,10 +202,11 @@ bool transition_egale(vector<Transition> transition_0, vector<Transition> transi
 
 int get_nb_char_max_in_string(vector<string> vector) {
     int taille = 0;
-    for (int i = 0; i < vector.size(); i++) {
+    for (int i = 0 ; i < vector.size(); i++) {
         if (vector[i].size() > taille) {
             taille = vector[i].size();
         }
+        cout << endl;
     }
     return taille;
 }

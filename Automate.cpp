@@ -13,7 +13,7 @@ using namespace std;
 Automate::Automate(int _nb_symb, int _nb_etats,
         int _nb_init, std::vector<int> _init,
         int _nb_term, std::vector<int> _term,
-        int _nb_trans, std::vector<Transition> _transitions){
+        int _nb_trans, std::vector<Transition> _transitions, std::vector<std::string> _etat_compose){
         alphabet = get_alpha();
         nb_symb = _nb_symb;
         nb_etats = _nb_etats;
@@ -23,6 +23,7 @@ Automate::Automate(int _nb_symb, int _nb_etats,
         term = _term;
         nb_trans = _nb_trans;
         transitions = _transitions;
+        etat_compose = _etat_compose;
 }
 
 Automate::Automate(Automate& A){
@@ -80,6 +81,7 @@ Automate::Automate(string path) {
             transitions.push_back(trans_temp);
         }
         alphabet = get_alpha();
+        etat_compose.clear();
         fichier.close();
     }
     else {
@@ -341,7 +343,8 @@ Automate Automate::determinisation() {
     }
     ordonner_vector_string(terminaux);
 
-
+    //Chargement des etat compose
+    af_deter.etat_compose = etat_traite;
 
     //Reecriture des etats par des numeros entiers de 0 à n
     changement_numero_etat(etat_traite, transition);
@@ -780,10 +783,12 @@ void Automate::print_table_transition() {
     int nb_espace = get_taille_max_table_transition(this->getTransitions());
     int taille_max = to_string(nb_etats-1).size();
     bool est_init;
+    bool est_async;
     string tempo;
 
     //si l'automate est asynchrone, on ajoute epsilon
-    if(est_automate_asynchrone()){
+    est_async = est_automate_asynchrone();
+    if(est_async){
         add_epsilon_alphabet();
     }
 
@@ -838,8 +843,71 @@ void Automate::print_table_transition() {
         }
         cout << endl;
     }
-    alphabet.pop_back();
+    if (est_async){
+        alphabet.pop_back();
+    }
+}
 
+void Automate::afficher_automate_deterministe(){
+    ///Affichage sans les etats composé
+    int nb_espace_debut = 0;
+    int nb_espace = get_taille_max_table_transition(this->getTransitions());
+    int nb_espace_etat_compose = get_nb_char_max_in_string(this->etat_compose);
+    int taille_max = to_string(nb_etats-1).size();
+    bool est_init;
+    string tempo;
+
+    cout << "*****************************************************" << endl;
+    cout << "*****     Table de transitions de l'automate    *****" << endl;
+    cout << "*****************************************************" << endl;
+
+    //affichage ligne 1
+    cout << string((7 + taille_max + nb_espace_etat_compose), ' ') << "|";
+    for (int i = 0 ; i < alphabet.size() ; i++){
+        cout << string((nb_espace+1), ' ') << alphabet[i] << "|";
+    }
+    cout << endl;
+
+    //Boucle affichage etat et transition
+    for (int i = 0 ; i < nb_etats ; i++){
+        //affichage fleche etat init et term
+        nb_espace_debut = 4;
+        est_init = false;
+        for(int j = 0 ; j < init.size() ; j++) {
+            if (i == init[j]) {
+                cout << "->";
+                nb_espace_debut -= 2;
+                est_init = true;
+            }
+        }
+        for(int j = 0 ; j < term.size() ; j++) {
+            if (i == term[j]) {
+                if (est_init){
+                    cout << "<-";
+                } else{
+                    cout << "  <-";
+                }
+                nb_espace_debut = 0;
+            }
+        }
+        //affichage etat
+        cout << string(((taille_max - to_string(i).size()) + nb_espace_debut), ' ') << i << " = " << string((nb_espace_etat_compose - etat_compose[i].size()) , ' ') << etat_compose[i] <<"|";
+
+        //affichage des transitions
+        for (int k = 0 ; k < alphabet.size() ; k++){
+            for (int j = 0 ; j < transitions.size() ; j++){
+                if ((transitions[j].getP() == i) and (transitions[j].getSymb() == alphabet[k])){
+                    if (!tempo.empty()){
+                        tempo += ",";
+                    }
+                    tempo += to_string(transitions[j].getQ());
+                }
+            }
+            cout << string(( 2 + nb_espace - (tempo.size())), ' ') << tempo << "|";
+            tempo.clear();
+        }
+        cout << endl;
+    }
 }
 
 Automate &Automate::operator=(const Automate & Af) {
@@ -851,6 +919,7 @@ Automate &Automate::operator=(const Automate & Af) {
     term = Af.term;
     nb_trans = Af.nb_trans;
     transitions = Af.transitions;
+    etat_compose = Af.etat_compose;
     return *this;
 }
 

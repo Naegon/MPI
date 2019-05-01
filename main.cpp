@@ -156,11 +156,12 @@ void reconnaissance_de_mot(){
 }
 
 int main() {
-     Automate test("Automates_test/L2-E4-14.txt");
+    Automate test("Automates_test/L2-E4-13.txt");
+    test = test.determinisation();
 
-     test.print_table_transition();
+    test.afficher_automate_deterministe();
 
-     //test.print();
+    //test.print();
 
-     return 0;
+    return 0;
 }
