@@ -210,6 +210,29 @@ int get_nb_char_max_in_string(vector<string> vector) {
     return taille;
 }
 
+int get_taille_max_table_transition(std::vector<Transition> transition) {
+    int taille_max = 1;
+    int taille_etat = 1;
+    int p;
+    char symb = ' ';
+    for (int i = 0 ; i < transition.size() ; i++){
+        if((transition[i].getP() == p) and (transition[i].getSymb() == symb)){
+            taille_etat += to_string(transition[i].getQ()).size(); //l'etat q et la virgule de separation
+            taille_etat++;
+            cout <<endl;
+        }
+        else{
+            p = transition[i].getP();
+            symb = transition[i].getSymb();
+            if (taille_etat > taille_max){
+                taille_max = taille_etat;
+            }
+            taille_etat = to_string(transition[i].getQ()).size();
+        }
+    }
+    return taille_max;
+}
+
 
 
 

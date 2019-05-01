@@ -634,6 +634,8 @@ Automate Automate::minimisation() {
         }
     }while(!fini);
 
+
+
     //Table de transition de l'afdcm
     vector<int> etat_cree;
     for (int i = 0 ; i < partition_0.size() ; i++){
@@ -782,12 +784,13 @@ void Automate::print() const {
     cout << endl;
 }
 
-void Automate::print_table_transition_afdc() {
+void Automate::print_table_transition() {
     ///Affichage sans les etats composé
-
-    int nb_espace;
+    int nb_espace_debut = 0;
+    int nb_espace = get_taille_max_table_transition(this->getTransitions());
     int taille_max = to_string(nb_etats-1).size();
     bool est_init;
+    string tempo;
 
     cout << "*****************************************************" << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
@@ -796,19 +799,19 @@ void Automate::print_table_transition_afdc() {
     //affichage ligne 1
     cout << string((taille_max+4), ' ') << "|";
     for (int i = 0 ; i < alphabet.size() ; i++){
-        cout << string((taille_max+1), ' ') << alphabet[i] << "|";
+        cout << string((nb_espace+1), ' ') << alphabet[i] << "|";
     }
     cout << endl;
 
     //Boucle affichage etat et transition
     for (int i = 0 ; i < nb_etats ; i++){
         //affichage fleche etat init et term
-        nb_espace = 4;
+        nb_espace_debut = 4;
         est_init = false;
         for(int j = 0 ; j < init.size() ; j++) {
             if (i == init[j]) {
                 cout << "->";
-                nb_espace -= 2;
+                nb_espace_debut -= 2;
                 est_init = true;
             }
         }
@@ -819,16 +822,25 @@ void Automate::print_table_transition_afdc() {
                 } else{
                     cout << "  <-";
                 }
-                nb_espace = 0;
+                nb_espace_debut = 0;
             }
         }
-
         //affichage etat
-        cout << string(((taille_max - to_string(i).size()) + nb_espace), ' ') << i << "|";
+        cout << string(((taille_max - to_string(i).size()) + nb_espace_debut), ' ') << i << "|";
 
-        //affichage des transition
-        for(int j = 0 ; j < nb_symb ; j++){
-            cout << string ( (2 + taille_max - to_string(transitions[i+j].getQ()).size()), ' ') << transitions[i+j].getQ() <<"|";
+
+        //affichage des transitions
+        for (int k = 0 ; k < nb_symb ; k++){
+            for (int j = 0 ; j < transitions.size() ; j++){
+                if ((transitions[j].getP() == i) and (transitions[j].getSymb() == alphabet[k])){
+                    if (!tempo.empty()){
+                        tempo += ",";
+                    }
+                    tempo += to_string(transitions[j].getQ());
+                }
+            }
+            cout << string(( 2 + nb_espace - (tempo.size())), ' ') << tempo << "|";
+            tempo.clear();
         }
         cout << endl;
     }

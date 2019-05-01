@@ -25,9 +25,10 @@ int get_nb_char_max_in_string(std::vector<std::string>);
 //Automate asynchrone
 void changement_numero_etat(std::vector<std::string>, std::vector<std::string>&);
 std::string get_transition_epsilon(int, const Automate&);
-std::string get_transition_epsilon(std::string, const Automate& );
+std::string get_transition_epsilon(std::string, const Automate&);
 
 //Transition
 bool transition_egale(std::vector<Transition>, std::vector<Transition>);
+int get_taille_max_table_transition(std::vector<Transition>);
 
 #endif //TESTY_FONCTION_H
