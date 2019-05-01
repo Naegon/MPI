@@ -19,6 +19,8 @@ void supprimer_doublon_vector_string(std::vector<std::string>&);
 void supprimer_doublon_vector_int(std::vector<int>&);
 bool string_in_vector(std::string, std::vector<std::string>);
 bool int_in__element_of_vector(int, std::vector<int>);
+int get_nb_char_max_in_string(std::vector<std::string>);
+
 
 //Automate asynchrone
 void changement_numero_etat(std::vector<std::string>, std::vector<std::string>&);

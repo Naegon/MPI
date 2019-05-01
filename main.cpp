@@ -181,9 +181,9 @@ int main() {
 
 
 
-     Automate test("Automates_test/L2-E4-16.txt");
+     Automate test("Automates_test/L2-E4-2.txt");
 
-     test = test.minimisation();
+     test.print_table_transition();
 
 
 

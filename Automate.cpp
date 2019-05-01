@@ -171,10 +171,15 @@ bool Automate::est_automate_complet() {
     bool ok;
 
     // Le nombre de transitions est égal au produit du nombre de caractères de l'alphabet et du nombre d'états
-
+    cout << "Automate est complet ?" << endl;
     if (nb_trans < (nb_symb*nb_etats)){
         ok = false;
+        cout << "|--- L'automate n'est pas complet car toutes les transitions ne sont pas prèsente" << endl;
     }
+    else{
+        cout << "||--- L'automate est complet"<< endl;
+    }
+
 
     return ok;
 }
@@ -225,138 +230,6 @@ Automate Automate::standardisation() {
     return temp;
 }
 
-/*
-Automate Automate::determinisation() {
-    //automate renvoyé
-    Automate af_deter(*this);
-    af_deter.nb_etats = 0;
-    af_deter.nb_init = 0;
-    af_deter.init.clear();
-    af_deter.nb_term = 0;
-    af_deter.term.clear();
-    af_deter.nb_trans = 0;
-    af_deter.transitions.clear();
-
-    vector<string> etat_a_traiter;
-    vector<string> etat_traite;
-    vector<string> transition;
-    string initiaux;
-    vector<string> terminaux;
-    string tempo;
-
-    //Determination des etats initiaux
-    for (int i = 0 ; i < init.size() ; i++){
-        initiaux += to_string(init[i]);
-    }
-    etat_a_traiter.push_back(initiaux);
-
-    //Fusion des etats initiaux
-    for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
-        for(int i = 0 ; i < init.size() ; i++){ //pour chaque etat initiaux
-            for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
-                if ((transitions[k].getP() == init[i]) and (transitions[k].getSymb() == alphabet[j])){
-                    //si le p de la transition est egal à l'etat initial et le symbole de la T egale au symbole de l'alphabet traités
-                    //cout << transitions[k].getP() << transitions[k].getSymb() << transitions[k].getQ() << " " << j << i << k <<  endl;
-                    tempo += to_string(transitions[k].getQ());
-                }
-            }
-        }
-        ordonner_string(tempo);
-        supprimer_doublon_string(tempo);
-        if (!tempo.empty()){
-           if (!string_in_vector(tempo, etat_traite)){
-               etat_a_traiter.push_back(tempo);
-           }
-        }
-        transition.push_back(tempo);
-        tempo.clear();
-    }
-    etat_traite.push_back(initiaux);
-    etat_a_traiter.erase(etat_a_traiter.begin());
-
-    //Boucle de determinisation
-    do{
-        for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
-            for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){ //pour chaque etat initiaux
-                for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
-                    int ic = (int) etat_a_traiter[0][i]; //pour la comparaison du caractere avec l'entier designant l'etat p de la transition
-                    if (transitions[k].getP() == (ic-48)){ //-48 car le cast donne la table ascii
-                        if(transitions[k].getSymb() == alphabet[j]){
-                            tempo += to_string(transitions[k].getQ());
-                        }
-                    }
-                }
-            }
-            ordonner_string(tempo);
-            supprimer_doublon_string(tempo);
-            if (!tempo.empty()){
-                if ((!string_in_vector(tempo, etat_traite)) and (!string_in_vector(tempo, etat_a_traiter))){
-                    etat_a_traiter.push_back(tempo);
-                }
-            }
-            transition.push_back(tempo);
-            tempo.clear();
-        }
-
-        etat_traite.push_back(etat_a_traiter[0]);
-        etat_a_traiter.erase(etat_a_traiter.begin());
-    }while (!etat_a_traiter.empty());
-
-    //Determination des etats terminaux
-    for (int i = 0 ; i < etat_traite.size() ; i++){
-        bool in = false;
-        int taille_etat_terminal = etat_traite[i].size();
-        for (int j = 0 ; j < taille_etat_terminal ; j++){
-            for (int k = 0 ; k < term.size() ; k++){
-                int ic = (int) etat_traite[i][j];
-                if (term[k] == (ic-48)){
-                    in = true;
-                }
-            }
-        }
-        if (in){
-            terminaux.push_back(etat_traite[i]);
-        }
-    }
-
-
-
-    //Reecriture des etats par des numeros entiers de 0 à n
-    changement_numero_etat(etat_traite, transition);
-    changement_numero_etat(etat_traite, terminaux);
-
-    //Creation de l'automate deterministe
-        //nb_etat = nb_etat traite
-    af_deter.nb_etats = etat_traite.size();
-        //un seul etat initial
-    af_deter.nb_init = 1;
-        //nb_term = taille du vector d'etat terminal
-    af_deter.nb_term = terminaux.size();
-        //Calcul du nombre de transition et creation des transitions
-    int count = -1;
-    for (int i = 0 ; i < transition.size() ; i++){
-        if (i%nb_symb == 0){
-            count++;
-        }
-        if (!transition[i].empty()){
-            nb_trans++;
-            char symb = alphabet[i%nb_symb];
-            int p = count;
-            int q = ((int) transition[i][0])-48;
-            Transition transi(p, symb, q);
-            af_deter.transitions.push_back(transi);
-        }
-    }
-        //ajout de l'etat initial
-    af_deter.init.push_back(0);
-        //ajout des etats terminaux
-    for (int i = 0 ; i < terminaux.size() ; i++){
-        int a = stoi(terminaux[i][0]);
-        af_deter.term.push_back(a-48);
-    }
-    return af_deter;
-}
-*/
 Automate Automate::determinisation() {
     //automate renvoyé
     Automate af_deter(*this);
@@ -909,33 +782,53 @@ void Automate::print() const {
     cout << endl;
 }
 
-void Automate::print_table_transition() {
+void Automate::print_table_transition_afdc() {
+    ///Affichage sans les etats composé
+
+    int nb_espace;
+    int taille_max = to_string(nb_etats-1).size();
+    bool est_init;
 
     cout << "*****************************************************" << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
     cout << "*****************************************************" << endl;
 
-
+    //affichage ligne 1
+    cout << string((taille_max+4), ' ') << "|";
     for (int i = 0 ; i < alphabet.size() ; i++){
-        cout << "  " << alphabet[i];
+        cout << string((taille_max+1), ' ') << alphabet[i] << "|";
     }
     cout << endl;
+
+    //Boucle affichage etat et transition
     for (int i = 0 ; i < nb_etats ; i++){
-        //affichage des etats
-        if (i >= 10){
-            cout << " " << i << "|";
+        //affichage fleche etat init et term
+        nb_espace = 4;
+        est_init = false;
+        for(int j = 0 ; j < init.size() ; j++) {
+            if (i == init[j]) {
+                cout << "->";
+                nb_espace -= 2;
+                est_init = true;
+            }
         }
-        else{
-            cout << "  " << i << "|";
+        for(int j = 0 ; j < term.size() ; j++) {
+            if (i == term[j]) {
+                if (est_init){
+                    cout << "<-";
+                } else{
+                    cout << "  <-";
+                }
+                nb_espace = 0;
+            }
         }
 
-        //affichage des transitions
-        for (int j = 0 ; j < alphabet.size() ; j++){
-            for (int k = 0 ; k < nb_trans ; k++){
-                if ((transitions[k].getP() == i) and (transitions[k].getSymb() == alphabet[j])){
-                    cout << "  " << transitions[k].getQ();
-                }
-            }
+        //affichage etat
+        cout << string(((taille_max - to_string(i).size()) + nb_espace), ' ') << i << "|";
+
+        //affichage des transition
+        for(int j = 0 ; j < nb_symb ; j++){
+            cout << string ( (2 + taille_max - to_string(transitions[i+j].getQ()).size()), ' ') << transitions[i+j].getQ() <<"|";
         }
         cout << endl;
     }
