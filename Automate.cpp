@@ -210,7 +210,12 @@ Automate Automate::completion() {
     }
     ordonner_vector_transition(complet.transitions);
     if(!complet.etat_compose.empty()){
-        complet.etat_compose.push_back(to_string(complet.nb_etats));
+        complet.etat_compose.push_back(to_string(complet.nb_etats)); // ajout de l'etat poubelle
+    }
+    else{
+        for(int i = 0 ; i < complet.nb_etats ; i++){
+            etat_compose.push_back(to_string(i)); // ajout de tous les etats, cas où l'automate etait deja deterministe donc etat_compose non rempli
+        }
     }
     return complet;
 }
@@ -618,7 +623,6 @@ Automate Automate::minimisation() {
                     transi_0.push_back(table_transition[nb_symb * i + k]);
                     transi_1.push_back(table_transition[nb_symb * j + k]);
                 }
-                cout << "";
                 if ((transition_egale(transi_0, transi_1)) and (partition_0[i] == partition_0[j]) and (!fait)) { //les transitions doivent être identique et les etats dans la même partition
                     partition_1.push_back(partition_1[j]);
                     fait = true;
@@ -630,7 +634,6 @@ Automate Automate::minimisation() {
                 partition_1.push_back(nb_partie + 1);
                 nb_partie++;
             }
-            cout << "";
             transi_0.clear();
             transi_1.clear();
         }
@@ -862,7 +865,7 @@ void Automate::afficher_automate_deterministe_complet(){
     ///Affichage sans les etats composé
     int nb_espace_debut = 0;
     int nb_espace = get_taille_max_table_transition(this->getTransitions());
-    int nb_espace_etat_compose = get_nb_char_max_in_string(this->etat_compose);
+    int nb_espace_etat_compose = 0;
     int taille_max = to_string(nb_etats-1).size();
     bool est_init;
     string tempo;
@@ -872,6 +875,11 @@ void Automate::afficher_automate_deterministe_complet(){
     cout << "*****************************************************" << endl;
 
     //affichage ligne 1
+    if (!etat_compose.empty()){
+        nb_espace_etat_compose = get_nb_char_max_in_string(this->etat_compose);
+    }else{
+        nb_espace_etat_compose = taille_max;
+    }
     cout << string((7 + taille_max + nb_espace_etat_compose), ' ') << "|";
     for (int i = 0 ; i < alphabet.size() ; i++){
         cout << string((nb_espace+1), ' ') << alphabet[i] << "|";
