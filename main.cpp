@@ -6,161 +6,42 @@
 #include "fonction.h"
 #include "processus.h"
 using namespace std;
-void loop();
-bool continuer();
 
-string menu() {
+bool again(){
     string choix;
-    const int nb_files = 18;
-
-    cout << endl;
-    cout << "||---- Choix de l'automate" << endl;
-    cout << "||---- " << nb_files << " automates disponibles " << endl << endl;
-    cout << "||-----> Votre choix : ";
-    cin >> choix;
-
-    while (stoi(choix) < 1 || stoi(choix) > nb_files) {
-        cout << "||---- Choisissez un nombre entre 1 et " << nb_files << endl;
-        cout << "||-----> Votre choix :";
+    bool again;
+    bool erreur;
+    do {
+        erreur = true;
+        cout << "||---- Voulez-vous continuer d'utiliser un automate ?" << endl;
+        cout << "||---- Pour continuer taper 1" << endl;
+        cout << "||---- Pour arreter taper 0" << endl;
+        cout << "||----> Votre choix :";
         cin >> choix;
-    }
-
-    cout << endl << "||------ Ouverture de l'automate " << choix <<  endl << endl;
-
-    choix = "Automates_test/L2-E4-" + choix + ".txt";
-
-    return choix;
-}
-
-bool continuer() {
-    string rep;
-    cin >> rep;
-    if (rep == "y") {
-        loop();
-        return true;
-    }
-    else if (rep == "n") {
-        return false;
-    }
-    else {
-        return continuer();
-    }
-}
-
-
-void loop() {
-    Automate af(menu());
-    af.print();
-
-    cout << "||---- Voulez-vous continuer ?" << endl;
-    cout << "||---- > y/n" << endl;
-
-    if (continuer()) {
-        af;
-    }
-}
-
-void lire_mot(string& mot){
-
-    cout << "||---- Reconnaissance de mot" << endl;
-    cout << "||---- Pour saisir le mot vide taper 1" << endl;
-    cout << "||---- Pour arreter la saisie taper 0" << endl;
-    cout << "||---- Saisissez un mot comprenant des lettres de l'alphabet : ";
-    cin >> mot;
-}
-
-bool reconnaitre_mot(string mot, Automate af){
-    cout << "||---- Reconnaissance du mot " << mot << endl;
-    bool reconnu = false;
-    vector<int> term = af.getTerm();
-    vector<int> init = af.getInit();
-    vector<Transition> trans = af.getTransitions();
-    int etat_courant = init[0];
-    char symbole_courant = mot[0];
-    int compteur_symbole = 0;
-    int sortie = 0;
-
-    ///Reconnaissance du mot vide
-    if (mot == "1"){
-        for (int i = 0 ; i < af.getNb_term() ; i++){
-            if (init[0] == term[i]){
-                return true;
-            }
+        if (choix == "0") {
+            again = false;
+        } else if (choix == "1") {
+            again = true;
+        } else {
+            erreur = false;
         }
-        return false;
-    }
-    ///Reconnaissance du mot
-    else{
-        //boucle pour le mot en entier
-        do {
-            bool suivant = false;
-            int compteur_transition = 0;
-            //boucle pour le symbole et etat courant
-            do {
-                //si il existe une transition donc le p est l'etat courant et le symbole est le symbole courant
-                if ((etat_courant == trans[compteur_transition].getP()) and (symbole_courant == trans[compteur_transition].getSymb())) {
-                    compteur_symbole++;
-                    sortie++; //structure de controle
-                    etat_courant = trans[compteur_transition].getQ(); //on passe à l'etat suivant (cad le q de la transition)
-                    symbole_courant = mot[compteur_symbole]; //on passe au symbole suivant
-                    suivant = true; //sortie de boucle
-                }
-                else{
-                    compteur_transition++; //on test la transition suivante
-                    if (compteur_transition == af.getNb_trans()){ //si il n'y a plus de transition à tester
-                        suivant = true; //sortie de boucle
-                        sortie++;
-                    }
-                }
-            }while (!suivant);
-        }while(sortie != mot.size()); //sortie si sortie = taille du mot
-        //le mot est reconnu si l'etat courant est un etat terminal et si on est passé sur tout les symboles du mot
-        for (int i = 0 ; i < term.size() ; i++){
-            if ((etat_courant == term[i]) and (mot.size() == compteur_symbole)){
-                return true;
-            }
-        }
-    }
-    return reconnu;
+    }while(!erreur);
+    return again;
 }
 
-void reconnaissance_de_mot(){
-    string mot;
-    lire_mot(mot);
-    bool reconnu;
-    if (mot != "0"){
-        while(mot != "0"){
-            string choix_automate = menu();
-            Automate af(choix_automate);
-            ///TODO determiniser et completer l'automate pour l'utiliser
-            reconnu = reconnaitre_mot(mot, af);
-            if((reconnu) and (mot == "1")) {
-                cout << "||---- Le mot vide est reconnu par l'automate" << endl;
-            }
-            else if ((reconnu) and (mot != "1")){
-                cout << "||---- Le mot " << mot << " est reconnu par l'automate" << endl;
-            }
-            else if ((!reconnu) and (mot == "1")){
-                cout << "||---- Le mot vide n'est pas reconnu par l'automate" << endl;
-            }
-            else{
-                cout << "||---- Le mot " << mot << " n'est pas reconnu par l'automate" << endl;
-            }
-            cout << endl;
-            lire_mot(mot);
-        }
-        cout << "||---- Fin de la reconnaissance de mot" << endl;
-    }
-    else{
-        cout << "||---- Fin de la reconnaissance de mot" << endl;
-    }
-}
 
 int main() {
-
     Automate af(0);
-    af = a_choix_automate();
-    af = b_determinisation(af);
-    af = c_minimisation(af);
+    bool recommencer;
+
+    do{
+        af = a_choix_automate();
+        af = b_determinisation(af);
+        af = c_minimisation(af);
+        d_lecture_de_mot(af);
+        af = e_langage_complementaire(af);
+        af = f_standardisation(af);
+        recommencer = again();
+    }while (recommencer);
     return 0;
 }

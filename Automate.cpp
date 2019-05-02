@@ -129,7 +129,7 @@ bool Automate::est_automate_standard() {
     bool ok = true;
     cout << "Automate standart ? " << endl;
     if (nb_init > 1){
-        cout << "||--- L'automate n'est pas standard car plusieurs etats initiaux" << endl;
+        cout << "||--- L'automate n'est pas standard car l'automate a plusieurs etats initiaux" << endl;
         return false;
     }
 
@@ -236,21 +236,22 @@ Automate Automate::completion() {
 }
 
 Automate Automate::standardisation() {
-    Automate temp(*this);
-    temp.nb_etats++;
+    Automate afdcms(*this);
 
-    if(!temp.est_automate_standard()){
+    if(!this->est_automate_standard()){
+        afdcms.nb_etats++;
         for (int i = 0 ; i < init.size() ; i++){
             for (int j = 0 ; j < transitions.size() ; j++){
                 if (init[i] == transitions[j].getP()){
-                    temp.transitions.emplace_back(nb_etats, transitions[j].getSymb(), transitions[j].getQ());
+                    afdcms.transitions.emplace_back(afdcms.nb_etats-1, transitions[j].getSymb(), transitions[j].getQ());
                 }
             }
         }
-        temp.init.clear();
-        temp.init.emplace_back(nb_etats);
+        afdcms.init.clear();
+        afdcms.init.emplace_back(afdcms.nb_etats);
     }
-    return temp;
+
+    return afdcms;
 }
 
 Automate Automate::determinisation() {
@@ -684,6 +685,7 @@ Automate Automate::minimisation() {
     afdcm.init.push_back(0);
 
     //Determiner terminaux
+    ordonner_vector_int(partition_0);
     supprimer_doublon_vector_int(partition_0);
     for (int i = 0 ; i < partition_0.size() ; i++){
         for (int j = 0 ; j < nb_term ; j++){
@@ -755,21 +757,27 @@ vector<int> Automate::langage_complementaire() {
 
 //Version où on renvoie l'automate reconnaissant le langage complementaire
 Automate Automate::langage_complementaire() {
-    Automate temp(*this);
+    Automate afdcm_complementaire(*this);
+    afdcm_complementaire.etat_compose.clear();
     //Pour chaque état du nouvel automate (de 1 à n)
     //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
     //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
     vector<int> etat_term_complementaire;
+    bool fait = false;
     for (int i = 0 ; i < nb_etats ; i++){
         for (int j = 0 ; j < nb_term ; j ++){
-            if (i != term[j]){
-                etat_term_complementaire.push_back(i);
+            if (i == term[j]){
+                fait = true;
             }
         }
+        if(!fait){
+            etat_term_complementaire.push_back(i);
+        }
     }
-    temp.term.clear();
-    temp.setTerm(etat_term_complementaire);
-    return temp;
+    afdcm_complementaire.term.clear();
+    afdcm_complementaire.setTerm(etat_term_complementaire);
+    afdcm_complementaire.nb_term = etat_term_complementaire.size();
+    return afdcm_complementaire;
 }
 
 void Automate::setTerm(std::vector<int> _term) {

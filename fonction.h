@@ -15,6 +15,7 @@ void ordonner_string(std::string&);
 void ordonner_string_tri_a_bulle(std::string&);
 void ordonner_vector_string(std::vector<std::string>&);
 void ordonner_vector_transition(std::vector<Transition>&);
+void ordonner_vector_int(std::vector<int>&);
 void supprimer_doublon_string(std::string&);
 void supprimer_doublon_vector_string(std::vector<std::string>&);
 void supprimer_doublon_vector_int(std::vector<int>&);
@@ -31,5 +32,9 @@ std::string get_transition_epsilon(std::string, const Automate&);
 //Transition
 bool transition_egale(std::vector<Transition>, std::vector<Transition>);
 int get_taille_max_table_transition(std::vector<Transition>);
+
+//Lecture de mot
+void lire_mot(std::string& );
+bool reconnaitre_mot(std::string, Automate);
 
 #endif //TESTY_FONCTION_H

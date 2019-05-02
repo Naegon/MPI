@@ -30,6 +30,55 @@ void ordonner_string_tri_a_bulle(string & str) {
     }
 }
 
+void ordonner_vector_string(vector<string>& vector) {
+    bool tab_en_ordre = false;
+    int taille = vector.size();
+    while(!tab_en_ordre)
+    {
+        tab_en_ordre = true;
+        for(int i=0 ; i < (taille-1) ; i++)
+        {
+            int a = stoi(vector[i]);
+            int b = stoi(vector[i+1]);
+            if(a>b)
+            {
+                swap(vector[i],vector[i+1]);
+                tab_en_ordre = false;
+            }
+        }
+        taille--;
+    }
+}
+
+void ordonner_vector_int(vector<int>& vector){
+    sort(vector.begin(), vector.end());
+}
+
+
+void ordonner_vector_transition(vector<Transition>& vector){
+    bool tab_en_ordre = false;
+    int taille = vector.size();
+    int p0 = 0;
+    int p1 = 0;
+    int s0 = 0;
+    int s1 = 0;
+    while(!tab_en_ordre)
+    {
+        tab_en_ordre = true;
+        for(int i=0 ; i < (taille-1) ; i++)
+        {
+            p0 = vector[i].getP();
+            p1 = vector[i+1].getP();
+            s0 = (int) vector[i].getSymb();
+            s1 = (int) vector[i+1].getSymb();
+            if(((p0 == p1) and (s1<s0)) or (p1<p0)){
+                swap(vector[i],vector[i+1]);
+                tab_en_ordre = false;
+            }
+        }
+    }
+}
+
 void supprimer_doublon_string(std::string & s) {
 
     for (int i = 0 ; i < s.size(); i++ )
@@ -90,49 +139,6 @@ void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<st
     }
 }
 
-void ordonner_vector_string(vector<string>& vector) {
-    bool tab_en_ordre = false;
-    int taille = vector.size();
-    while(!tab_en_ordre)
-    {
-        tab_en_ordre = true;
-        for(int i=0 ; i < (taille-1) ; i++)
-        {
-            int a = stoi(vector[i]);
-            int b = stoi(vector[i+1]);
-            if(a>b)
-            {
-                swap(vector[i],vector[i+1]);
-                tab_en_ordre = false;
-            }
-        }
-        taille--;
-    }
-}
-
-void ordonner_vector_transition(vector<Transition>& vector){
-    bool tab_en_ordre = false;
-    int taille = vector.size();
-    int p0 = 0;
-    int p1 = 0;
-    int s0 = 0;
-    int s1 = 0;
-    while(!tab_en_ordre)
-    {
-        tab_en_ordre = true;
-        for(int i=0 ; i < (taille-1) ; i++)
-        {
-            p0 = vector[i].getP();
-            p1 = vector[i+1].getP();
-            s0 = (int) vector[i].getSymb();
-            s1 = (int) vector[i+1].getSymb();
-            if(((p0 == p1) and (s1<s0)) or (p1<p0)){
-                swap(vector[i],vector[i+1]);
-                tab_en_ordre = false;
-            }
-        }
-    }
-}
 
 
 string get_transition_epsilon(int etat, const Automate& automate) {
@@ -252,6 +258,65 @@ int get_taille_max_table_transition(std::vector<Transition> transition) {
         }
     }
     return taille_max;
+}
+
+void lire_mot(string& mot){
+    cout << "||---- Saisissez un mot comprenant des lettres de l'alphabet : ";
+    cin >> mot;
+}
+
+bool reconnaitre_mot(string mot, Automate af) {
+    bool reconnu = false;
+    vector<int> term = af.getTerm();
+    vector<int> init = af.getInit();
+    vector<Transition> trans = af.getTransitions();
+    int etat_courant = init[0];
+    char symbole_courant = mot[0];
+    int compteur_symbole = 0;
+    int sortie = 0;
+
+    ///Reconnaissance du mot vide
+    if (mot == "1"){
+        for (int i = 0 ; i < af.getNb_term() ; i++){
+            if (init[0] == term[i]){
+                return true;
+            }
+        }
+        return false;
+    }
+        ///Reconnaissance du mot
+    else{
+        //boucle pour le mot en entier
+        do {
+            bool suivant = false;
+            int compteur_transition = 0;
+            //boucle pour le symbole et etat courant
+            do {
+                //si il existe une transition donc le p est l'etat courant et le symbole est le symbole courant
+                if ((etat_courant == trans[compteur_transition].getP()) and (symbole_courant == trans[compteur_transition].getSymb())) {
+                    compteur_symbole++;
+                    sortie++; //structure de controle
+                    etat_courant = trans[compteur_transition].getQ(); //on passe à l'etat suivant (cad le q de la transition)
+                    symbole_courant = mot[compteur_symbole]; //on passe au symbole suivant
+                    suivant = true; //sortie de boucle
+                }
+                else{
+                    compteur_transition++; //on test la transition suivante
+                    if (compteur_transition == af.getNb_trans()){ //si il n'y a plus de transition à tester
+                        suivant = true; //sortie de boucle
+                        sortie++;
+                    }
+                }
+            }while (!suivant);
+        }while(sortie != mot.size()); //sortie si sortie = taille du mot
+        //le mot est reconnu si l'etat courant est un etat terminal et si on est passé sur tout les symboles du mot
+        for (int i = 0 ; i < term.size() ; i++){
+            if ((etat_courant == term[i]) and (mot.size() == compteur_symbole)){
+                return true;
+            }
+        }
+    }
+    return reconnu;
 }
 
 
