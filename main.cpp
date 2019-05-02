@@ -156,12 +156,13 @@ void reconnaissance_de_mot(){
 }
 
 int main() {
-    Automate test("Automates_test/L2-E4-13.txt");
-    test = test.determinisation();
+    Automate test_1("Automates_test/L2-E4-16.txt");
+    test_1.print_table_transition();
+    test_1 = test_1.determinisation_et_completion();
+    test_1.afficher_automate_deterministe_complet();
+    test_1 = test_1.minimisation();
+    test_1.afficher_automate_minimal();
 
-    test.afficher_automate_deterministe();
-
-    //test.print();
 
     return 0;
 }

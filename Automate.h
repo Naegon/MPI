@@ -65,7 +65,8 @@ class Automate {
         //Affichage
         void print() const;
         void print_table_transition();
-        void afficher_automate_deterministe();
+        void afficher_automate_deterministe_complet();
+        void afficher_automate_minimal();
 
 
         //Autre

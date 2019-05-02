@@ -111,6 +111,30 @@ void ordonner_vector_string(vector<string>& vector) {
     }
 }
 
+void ordonner_vector_transition(vector<Transition>& vector){
+    bool tab_en_ordre = false;
+    int taille = vector.size();
+    int p0 = 0;
+    int p1 = 0;
+    int s0 = 0;
+    int s1 = 0;
+    while(!tab_en_ordre)
+    {
+        tab_en_ordre = true;
+        for(int i=0 ; i < (taille-1) ; i++)
+        {
+            p0 = vector[i].getP();
+            p1 = vector[i+1].getP();
+            s0 = (int) vector[i].getSymb();
+            s1 = (int) vector[i+1].getSymb();
+            if(((p0 == p1) and (s1<s0)) or (p1<p0)){
+                swap(vector[i],vector[i+1]);
+                tab_en_ordre = false;
+            }
+        }
+    }
+}
+
 
 string get_transition_epsilon(int etat, const Automate& automate) {
     string fermeture;

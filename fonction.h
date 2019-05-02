@@ -14,6 +14,7 @@
 void ordonner_string(std::string&);
 void ordonner_string_tri_a_bulle(std::string&);
 void ordonner_vector_string(std::vector<std::string>&);
+void ordonner_vector_transition(std::vector<Transition>&);
 void supprimer_doublon_string(std::string&);
 void supprimer_doublon_vector_string(std::vector<std::string>&);
 void supprimer_doublon_vector_int(std::vector<int>&);

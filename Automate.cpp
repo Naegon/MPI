@@ -36,6 +36,7 @@ Automate::Automate(Automate& A){
     nb_trans = A.nb_trans;
     transitions = A.transitions;
     alphabet = get_alpha();
+    etat_compose = A.etat_compose;
 }
 
 Automate::Automate(string path) {
@@ -185,29 +186,33 @@ bool Automate::est_automate_complet() {
 }
 
 Automate Automate::completion() {
-    Automate temp(*this);
+    Automate complet(*this);
 
     //ajout de l'etat poubelle
-    temp.nb_etats ++;
+    complet.nb_etats ++;
 
     //ajout des transitions
     vector<char> alpha_temp;
-    for (int i = 0 ; i < temp.nb_etats ; i ++ ){ //pour chaque état de l'automate
+    for (int i = 0 ; i < complet.nb_etats ; i ++ ){ //pour chaque état de l'automate
         alpha_temp = get_alpha(); // creation du tableau temporaire contenant les symboles de l'alphabet
-        for (int j = 0 ; j < temp.nb_trans ; j++){ // pour chaque transition existante
-            if(i == temp.transitions[j].getP()){ // si l'etat i à une transition sortante
-                alpha_temp.erase(remove(alpha_temp.begin(), alpha_temp.end(), temp.transitions[j].getSymb()), alpha_temp.end()); // le caractere est supprimé du tableau temporaire
+        for (int j = 0 ; j < complet.nb_trans ; j++){ // pour chaque transition existante
+            if(i == complet.transitions[j].getP()){ // si l'etat i à une transition sortante
+                alpha_temp.erase(remove(alpha_temp.begin(), alpha_temp.end(), complet.transitions[j].getSymb()), alpha_temp.end()); // le caractere est supprimé du tableau temporaire
             }
         }
         if (!alpha_temp.empty()){ // si pour l'etat i, il existe des symboles sans transition (les symboles restants dans le tableau)
             for (int j = 0 ; j < alpha_temp.size() ; j++){ //on ajoute une transition de i vers le dernier état = etat poubelle
-                temp.nb_trans ++;
-                temp.transitions.emplace_back(i, alpha_temp[j], nb_etats);
+                complet.nb_trans ++;
+                complet.transitions.emplace_back(i, alpha_temp[j], nb_etats);
             }
         }
         alpha_temp.clear(); //le tableau est remis à vide pour le prochain état
     }
-    return temp;
+    ordonner_vector_transition(complet.transitions);
+    if(!complet.etat_compose.empty()){
+        complet.etat_compose.push_back(to_string(complet.nb_etats));
+    }
+    return complet;
 }
 
 Automate Automate::standardisation() {
@@ -371,6 +376,7 @@ Automate Automate::determinisation() {
             Transition transi(p, symb, q);
             af_deter.transitions.push_back(transi);
         }
+        cout<< endl;
     }
     //ajout de l'etat initial
     af_deter.init.push_back(0);
@@ -391,6 +397,7 @@ Automate Automate::determinisation_asynchrone(){
     af_deter.term.clear();
     af_deter.nb_trans = 0;
     af_deter.transitions.clear();
+    af_deter.etat_compose.clear();
 
     vector<string> etat_a_traiter;
     vector<string> etat_traite;
@@ -501,6 +508,8 @@ Automate Automate::determinisation_asynchrone(){
     }
     ordonner_vector_string(terminaux);
 
+    //Chargement des etat compose
+    af_deter.etat_compose = etat_traite;
 
 
     //Reecriture des etats par des numeros entiers de 0 à n
@@ -541,7 +550,6 @@ Automate Automate::determinisation_asynchrone(){
 Automate Automate::determinisation_et_completion_asynchrone() {
     Automate afdc(*this);
     afdc = afdc.determinisation_asynchrone();
-    ///check si completion identique pour async
     afdc = afdc.completion();
     return afdc;
 }
@@ -562,6 +570,7 @@ Automate Automate::minimisation() {
     afdcm.term.clear();
     afdcm.nb_trans = 0;
     afdcm.transitions.clear();
+
 
     vector<int> partition_0;
     vector<int> partition_1;
@@ -584,8 +593,9 @@ Automate Automate::minimisation() {
             partition_0.push_back(1);
         }
     }
-
-    //boucle de determinisation
+    nb_partie = 2;
+    cout << " ";
+    //boucle de minimisation
     do {
         table_transition.clear();
         //Nouvelle table de transition
@@ -609,7 +619,7 @@ Automate Automate::minimisation() {
                     transi_1.push_back(table_transition[nb_symb * j + k]);
                 }
                 cout << "";
-                if ((transition_egale(transi_0, transi_1)) and (partition_0[i] == partition_0[j])) { //les transitions doivent être identique et les etats dans la même partition
+                if ((transition_egale(transi_0, transi_1)) and (partition_0[i] == partition_0[j]) and (!fait)) { //les transitions doivent être identique et les etats dans la même partition
                     partition_1.push_back(partition_1[j]);
                     fait = true;
                 }
@@ -848,7 +858,7 @@ void Automate::print_table_transition() {
     }
 }
 
-void Automate::afficher_automate_deterministe(){
+void Automate::afficher_automate_deterministe_complet(){
     ///Affichage sans les etats composé
     int nb_espace_debut = 0;
     int nb_espace = get_taille_max_table_transition(this->getTransitions());
@@ -908,6 +918,10 @@ void Automate::afficher_automate_deterministe(){
         }
         cout << endl;
     }
+}
+
+void Automate::afficher_automate_minimal() {
+
 }
 
 Automate &Automate::operator=(const Automate & Af) {
