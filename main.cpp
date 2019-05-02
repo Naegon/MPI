@@ -48,14 +48,14 @@ bool continuer() {
 
 
 void loop() {
-    Automate loop(menu());
-    loop.print();
+    Automate af(menu());
+    af.print();
 
     cout << "||---- Voulez-vous continuer ?" << endl;
     cout << "||---- > y/n" << endl;
 
     if (continuer()) {
-        loop;
+        af;
     }
 }
 
@@ -113,7 +113,7 @@ bool reconnaitre_mot(string mot, Automate af){
                 }
             }while (!suivant);
         }while(sortie != mot.size()); //sortie si sortie = taille du mot
-        //le mot est reconnu si l'etat courant est un etat terminal et si on est passé sur tout les symboles
+        //le mot est reconnu si l'etat courant est un etat terminal et si on est passé sur tout les symboles du mot
         for (int i = 0 ; i < term.size() ; i++){
             if ((etat_courant == term[i]) and (mot.size() == compteur_symbole)){
                 return true;
@@ -156,11 +156,7 @@ void reconnaissance_de_mot(){
 }
 
 int main() {
-    Automate test_1("Automates_test/L2-E4-16.txt");
-    test_1.print_table_transition();
-    test_1.afficher_automate_deterministe_complet();
-    test_1 = test_1.minimisation();
-    test_1.afficher_automate_deterministe_complet();
+
 
 
     return 0;

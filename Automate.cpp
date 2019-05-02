@@ -381,7 +381,6 @@ Automate Automate::determinisation() {
             Transition transi(p, symb, q);
             af_deter.transitions.push_back(transi);
         }
-        cout<< endl;
     }
     //ajout de l'etat initial
     af_deter.init.push_back(0);
