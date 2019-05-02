@@ -35,6 +35,7 @@ class Automate {
 
         //test caracteristique automate
         bool est_automate_asynchrone();
+        bool est_automate_asynchrone_simple();
         bool est_automate_standard();
         bool est_automate_deterministe();
         bool est_automate_complet();

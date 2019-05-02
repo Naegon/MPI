@@ -125,6 +125,16 @@ bool Automate::est_automate_asynchrone() {
     return ok;
 }
 
+bool Automate::est_automate_asynchrone_simple(){
+    bool ok = false;
+    for(int i = 0 ; i < transitions.size() ; i++){
+        if (transitions[i].getSymb() == '*'){
+            ok = true;
+        }
+    }
+    return ok;
+}
+
 bool Automate::est_automate_standard() {
     bool ok = true;
     cout << "Automate standart ? " << endl;
@@ -690,14 +700,13 @@ Automate Automate::minimisation() {
     for (int i = 0 ; i < partition_0.size() ; i++){
         for (int j = 0 ; j < nb_term ; j++){
             if (i == term[j]){
-                afdcm.term.push_back(partition_0[i]);
+                afdcm.term.push_back(partition_0[i]-1);
                 afdcm.nb_term++;
             }
         }
     }
 
     //Remplissage de l'etat compose
-
     afdcm.etat_compose.clear();
     tempo = to_string(0);
     for (int i = 1 ; i < partition_1.size() ; i++){
@@ -738,24 +747,6 @@ const vector<Transition> &Automate::getTransitions() const {
     return transitions;
 }
 
-//Version où on renvoie le tableau d'etat terminaux
-/*
-vector<int> Automate::langage_complementaire() {
-    //Pour chaque état du nouvel automate (de 1 à n)
-    //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
-    //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
-    vector<int> etat_term_complementaire;
-    for (int i = 0 ; i < nb_etats ; i++){
-        for (int j = 0 ; j < nb_term ; j ++){
-            if (i != term[j]){
-                etat_term_complementaire.push_back(i);
-            }
-        }
-    }
-    return etat_term_complementaire;
-}*/
-
-//Version où on renvoie l'automate reconnaissant le langage complementaire
 Automate Automate::langage_complementaire() {
     Automate afdcm_complementaire(*this);
     afdcm_complementaire.etat_compose.clear();
@@ -838,7 +829,7 @@ void Automate::print_table_transition() {
     string tempo;
 
     //si l'automate est asynchrone, on ajoute epsilon
-    est_async = est_automate_asynchrone();
+    est_async = est_automate_asynchrone_simple();
     if(est_async){
         add_epsilon_alphabet();
     }
