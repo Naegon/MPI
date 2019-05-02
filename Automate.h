@@ -31,6 +31,7 @@ class Automate {
         Automate(std::string path);
         Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>, std::vector<std::string>);
         Automate(Automate&);
+        Automate(int);
 
         //test caracteristique automate
         bool est_automate_asynchrone();
@@ -66,8 +67,6 @@ class Automate {
         void print() const;
         void print_table_transition();
         void afficher_automate_deterministe_complet();
-        void afficher_automate_minimal();
-
 
         //Autre
         Automate& operator=(const Automate&);

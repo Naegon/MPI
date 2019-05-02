@@ -10,6 +10,19 @@
 
 using namespace std;
 
+Automate::Automate(int etat){
+    alphabet.clear();
+    nb_symb = 0;
+    nb_etats = 0;
+    nb_init = 0;
+    init.clear();
+    nb_term = 0;
+    term.clear();
+    nb_trans = 0;
+    transitions.clear();
+    etat_compose.clear();
+}
+
 Automate::Automate(int _nb_symb, int _nb_etats,
         int _nb_init, std::vector<int> _init,
         int _nb_term, std::vector<int> _term,
@@ -108,6 +121,7 @@ bool Automate::est_automate_asynchrone() {
     else{
         cout << "||--- L'automate n'est pas asynchrone" << endl;
     }
+    cout << endl;
     return ok;
 }
 
@@ -140,7 +154,7 @@ bool Automate::est_automate_deterministe() {
     bool ok = true;
     cout << "Automate deterministe ? " << endl;
     if (nb_init > 1){
-        cout << "||--- L'automate n'est pas deterministe car il a plusieurs d'un etats initiaux" << endl;
+        cout << "||--- L'automate n'est pas deterministe car il a plusieurs etats initiaux" << endl;
         return false;
     }
 
@@ -165,6 +179,7 @@ bool Automate::est_automate_deterministe() {
     else{
         cout << "||--- L'automate n'est pas deterministe" << endl;
     }
+    cout << endl;
     return ok;
 }
 
@@ -175,12 +190,12 @@ bool Automate::est_automate_complet() {
     cout << "Automate est complet ?" << endl;
     if (nb_trans < (nb_symb*nb_etats)){
         ok = false;
-        cout << "|--- L'automate n'est pas complet car toutes les transitions ne sont pas prèsente" << endl;
+        cout << "|--- L'automate n'est pas complet car toutes les transitions ne sont pas presentes" << endl;
     }
     else{
         cout << "||--- L'automate est complet"<< endl;
     }
-
+    cout << endl;
 
     return ok;
 }
@@ -874,20 +889,20 @@ void Automate::print_table_transition() {
     if (est_async){
         alphabet.pop_back();
     }
+    cout << endl;
 }
 
 void Automate::afficher_automate_deterministe_complet(){
-    ///Affichage sans les etats composé
+    cout << "*****************************************************" << endl;
+    cout << "*****     Table de transitions de l'automate    *****" << endl;
+    cout << "*****************************************************" << endl;
+
     int nb_espace_debut = 0;
     int nb_espace = get_taille_max_table_transition(this->getTransitions());
     int nb_espace_etat_compose = 0;
     int taille_max = to_string(nb_etats-1).size();
     bool est_init;
     string tempo;
-
-    cout << "*****************************************************" << endl;
-    cout << "*****     Table de transitions de l'automate    *****" << endl;
-    cout << "*****************************************************" << endl;
 
     //affichage ligne 1
     if (!etat_compose.empty()){
@@ -944,10 +959,7 @@ void Automate::afficher_automate_deterministe_complet(){
         }
         cout << endl;
     }
-}
-
-void Automate::afficher_automate_minimal() {
-
+    cout << endl;
 }
 
 Automate &Automate::operator=(const Automate & Af) {
@@ -960,6 +972,7 @@ Automate &Automate::operator=(const Automate & Af) {
     nb_trans = Af.nb_trans;
     transitions = Af.transitions;
     etat_compose = Af.etat_compose;
+    alphabet = Af.alphabet;
     return *this;
 }
 

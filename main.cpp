@@ -4,13 +4,14 @@
 #include "Automate.h"
 #include <vector>
 #include "fonction.h"
+#include "processus.h"
 using namespace std;
 void loop();
 bool continuer();
 
 string menu() {
     string choix;
-    const int nb_files = 16;
+    const int nb_files = 18;
 
     cout << endl;
     cout << "||---- Choix de l'automate" << endl;
@@ -157,7 +158,9 @@ void reconnaissance_de_mot(){
 
 int main() {
 
-
-
+    Automate af(0);
+    af = a_choix_automate();
+    af = b_determinisation(af);
+    af = c_minimisation(af);
     return 0;
 }
