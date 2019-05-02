@@ -69,7 +69,6 @@ bool string_in_vector(string str, vector<string> vector) {
 
 bool int_in__element_of_vector(int etat, vector<int> vector) {
     for(int i = 0 ; i < vector.size() ; i++){
-        cout << endl;
         if(etat == vector[i]){
             return true;
         }
@@ -184,7 +183,6 @@ string get_transition_epsilon(string etat, const Automate& automate){
             etat_a_traiter.push_back(to_string(etat[i]-48));
         }
     }
-    cout << endl;
     do{
         etat = etat_a_traiter[0];
         int x = stoi(etat);
@@ -230,7 +228,6 @@ int get_nb_char_max_in_string(vector<string> vector) {
         if (vector[i].size() > taille) {
             taille = vector[i].size();
         }
-        cout << endl;
     }
     return taille;
 }
@@ -244,7 +241,6 @@ int get_taille_max_table_transition(std::vector<Transition> transition) {
         if((transition[i].getP() == p) and (transition[i].getSymb() == symb)){
             taille_etat += to_string(transition[i].getQ()).size(); //l'etat q et la virgule de separation
             taille_etat++;
-            cout <<endl;
         }
         else{
             p = transition[i].getP();

@@ -576,7 +576,7 @@ Automate Automate::minimisation() {
     afdcm.nb_trans = 0;
     afdcm.transitions.clear();
 
-
+    string tempo;
     vector<int> partition_0;
     vector<int> partition_1;
     vector<Transition> transi_0;
@@ -599,7 +599,6 @@ Automate Automate::minimisation() {
         }
     }
     nb_partie = 2;
-    cout << " ";
     //boucle de minimisation
     do {
         table_transition.clear();
@@ -662,6 +661,7 @@ Automate Automate::minimisation() {
             etat_cree.push_back(partition_0[i]-1);
         }
     }
+
     //Nombre d'etat
     afdcm.nb_etats = nb_partie;
 
@@ -679,6 +679,22 @@ Automate Automate::minimisation() {
             }
         }
     }
+
+    //Remplissage de l'etat compose
+
+    afdcm.etat_compose.clear();
+    tempo = to_string(0);
+    for (int i = 1 ; i < partition_1.size() ; i++){
+        if (partition_1[i] == partition_1[i-1]){
+            tempo += ",";
+            tempo += to_string(i);
+        }
+        else{
+            afdcm.etat_compose.push_back(tempo);
+            tempo = to_string(i);
+        }
+    }
+    afdcm.etat_compose.push_back(tempo); // ajout du dernier etat
 
     return afdcm;
 }
@@ -878,6 +894,9 @@ void Automate::afficher_automate_deterministe_complet(){
     if (!etat_compose.empty()){
         nb_espace_etat_compose = get_nb_char_max_in_string(this->etat_compose);
     }else{
+        for (int i = 0 ; i < nb_etats ; i++){
+            etat_compose.push_back(to_string(i));
+        }
         nb_espace_etat_compose = taille_max;
     }
     cout << string((7 + taille_max + nb_espace_etat_compose), ' ') << "|";
