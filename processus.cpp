@@ -8,7 +8,7 @@ using namespace std;
 
 Automate a_choix_automate() {
     string choix;
-    const int nb_files = 43
+    const int nb_files = 43;
 
     cout << endl;
     cout << "*****************************************************" << endl;
