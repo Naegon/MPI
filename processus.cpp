@@ -8,7 +8,7 @@ using namespace std;
 
 Automate a_choix_automate() {
     string choix;
-    const int nb_files = 16;
+    const int nb_files = 43;
 
     cout << endl;
     cout << "*****************************************************" << endl;
@@ -24,9 +24,8 @@ Automate a_choix_automate() {
         cin >> choix;
     }
 
-    cout << "||------ Ouverture de l'automate " << choix << endl << endl;
-
-    choix = "Automates_test/L2-E4-" + choix + ".txt";
+    cout << endl << "||------ Ouverture de l'automate " << string(choix.length()%2, '0') << choix << endl;
+    choix = "Automates_test/L2-E4-" + string(choix.length()%2, '0') + choix + ".txt";
 
     Automate af(choix);
     af.print_table_transition();
