@@ -1,7 +1,3 @@
-//
-// Created by Vincent on 28/04/2019.
-//
-
 #ifndef TESTY_FONCTION_H
 #define TESTY_FONCTION_H
 
@@ -11,8 +7,6 @@
 #include "Automate.h"
 
 //Chaine et vector
-void ordonner_string(std::string&);
-void ordonner_string_tri_a_bulle(std::string&);
 void ordonner_vector_string(std::vector<std::string>&);
 void ordonner_vector_transition(std::vector<Transition>&);
 void ordonner_vector_int(std::vector<int>&);

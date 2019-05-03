@@ -1,11 +1,13 @@
-//
-// Created by Vincent on 02/05/2019.
-//
-
 #include "processus.h"
 #include <iostream>
 using namespace std;
 
+
+
+/**
+ * Choix de l'automate à traiter
+ * @return l'automate à traiter
+ */
 Automate a_choix_automate() {
     string choix;
     const int nb_files = 43;
@@ -18,6 +20,7 @@ Automate a_choix_automate() {
     cout << "||-----> Votre choix : ";
     cin >> choix;
 
+    //Boucle de saisie du numero de l'automate
     while (stoi(choix) < 1 || stoi(choix) > nb_files) {
         cout << "||---- Choisissez un nombre entre 1 et " << nb_files << endl;
         cout << "||-----> Votre choix :";
@@ -32,6 +35,11 @@ Automate a_choix_automate() {
     return af;
 }
 
+/**
+ * Processus de determinisation et completion en fonction du type d'automate en entrée(asynchrone, af, afd, afdc)
+ * @param af, l'automate à determiniser et completer
+ * @return afdcm, l'automate deterministe complet
+ */
 Automate b_determinisation(Automate af) {
     Automate afdc(0);
     cout << "*****************************************************" << endl;
@@ -58,6 +66,11 @@ Automate b_determinisation(Automate af) {
     return afdc;
 }
 
+/**
+ * Minimisation de l'automate
+ * @param afdc, l'automate à minimiser
+ * @return afdcm, l'automate minimal
+ */
 Automate c_minimisation(Automate afdc) {
     cout << "*****************************************************" << endl;
     cout << "*****                Minimisation               *****" << endl;
@@ -68,6 +81,10 @@ Automate c_minimisation(Automate afdc) {
     return afdcm;
 }
 
+/**
+ * Lecture de mot
+ * @param af, l'automate à utiliser pour la reconnaissance de mot
+ */
 void d_lecture_de_mot(Automate af) {
     cout << "*****************************************************" << endl;
     cout << "*****           Reconnaissance de mot           *****" << endl;
@@ -76,11 +93,11 @@ void d_lecture_de_mot(Automate af) {
     cout << "||---- Pour arreter la saisie taper 0" << endl;
 
     string mot;
-    lire_mot(mot);
+    lire_mot(mot); // saisie du mot à lire
     bool reconnu;
     if (mot != "0"){
-        while(mot != "0"){
-            reconnu = reconnaitre_mot(mot, af);
+        while(mot != "0"){ //reconnaissance tant que la saisie n'est pas 0 = sortie
+            reconnu = reconnaitre_mot(mot, af); //test de reconnaissance du mot par l'automate
             if((reconnu) and (mot == "1")) {
                 cout << "||---- Le mot vide est reconnu par l'automate" << endl;
             }
@@ -94,7 +111,7 @@ void d_lecture_de_mot(Automate af) {
                 cout << "||---- Le mot " << mot << " n'est pas reconnu par l'automate" << endl;
             }
             cout << endl;
-            lire_mot(mot);
+            lire_mot(mot); //nouvelle saisie utilisateur
         }
         cout << "||---- Fin de la reconnaissance de mot" << endl;
     }
@@ -104,6 +121,12 @@ void d_lecture_de_mot(Automate af) {
     cout << endl;
 }
 
+/**
+ * Creation de l'automate reconnaissant le langage complemenataire de l'automate en entree
+ * Lecture de mot avec ce langage
+ * @param afdcm
+ * @return afdcm_complementaire, le langage reconnaissant le langage complementaire
+ */
 Automate e_langage_complementaire(Automate afdcm) {
     cout << "*****************************************************" << endl;
     cout << "*****          Langage complementaire           *****" << endl;
@@ -115,6 +138,11 @@ Automate e_langage_complementaire(Automate afdcm) {
     return afdcm_complementaire;
 }
 
+/**
+ * Standardisation de l'automate reconnaissant le langage complementaire
+ * @param afdcm_complementaire
+ * @return afdcms, l'automate standard
+ */
 Automate f_standardisation(Automate afdcm_complementaire) {
     cout << "*****************************************************" << endl;
     cout << "*****              Standardisation              *****" << endl;

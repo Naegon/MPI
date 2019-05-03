@@ -258,7 +258,8 @@ Automate Automate::standardisation() {
             }
         }
         afdcms.init.clear();
-        afdcms.init.emplace_back(afdcms.nb_etats);
+        afdcms.init.emplace_back(nb_etats);
+        afdcms.nb_init = 1;
     }
 
     return afdcms;
@@ -791,29 +792,6 @@ vector<char> Automate::get_alpha() const {
 
 const vector<Transition> &Automate::getTransitions() const {
     return transitions;
-}
-
-void Automate::print() const {
-    cout << "Automate :" << endl;
-    cout << "||--- Etats initiaux : ";
-    for (int i = 0; i<init.size(); i++) {
-        cout << init[i] << " ";
-    }
-    cout << endl;
-
-    cout << "||--- Etats terminaux : ";
-    for (int i = 0; i<term.size(); i++) {
-        cout << term[i] << " ";
-    }
-    cout << endl;
-
-    cout << "||--- " << nb_trans << " transitions : " << endl;
-    for (int i = 0; i<transitions.size(); i++) {
-        cout << "||------ ";
-        transitions[i].print();
-        cout << endl;
-    }
-    cout << endl;
 }
 
 void Automate::print_table_transition() {

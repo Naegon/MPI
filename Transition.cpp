@@ -17,24 +17,12 @@ int Transition::getP() const {
     return p;
 }
 
-void Transition::setP(int _p) {
-    p = _p;
-}
-
 char Transition::getSymb() const {
     return symb;
 }
 
-void Transition::setSymb(char _symb) {
-    symb = _symb;
-}
-
 int Transition::getQ() const {
     return q;
-}
-
-void Transition::setQ(int _q) {
-    q = _q;
 }
 
 void Transition::print() const {

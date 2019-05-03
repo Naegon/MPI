@@ -7,6 +7,10 @@
 #include "processus.h"
 using namespace std;
 
+/**
+ * Saisie utilisateur pour recommencer le processus avec un autre automate
+ * @return booleen
+ */
 bool again(){
     string choix;
     bool again;
@@ -25,7 +29,7 @@ bool again(){
         } else {
             erreur = false;
         }
-    }while(!erreur);
+    }while(!erreur); //boucle si saisie incorrecte
     return again;
 }
 
@@ -33,8 +37,8 @@ bool again(){
 int main() {
     Automate af(0);
     bool recommencer;
-
     do{
+        //enchainement des traitements d'un automate
         af = a_choix_automate();
         //system("pause");
         af = b_determinisation(af);

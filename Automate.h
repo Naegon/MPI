@@ -48,7 +48,6 @@ class Automate {
         Automate determinisation_et_completion();
         Automate determinisation_et_completion_asynchrone();
         Automate minimisation();
-        //std::vector<int> langage_complementaire();
         Automate langage_complementaire();
 
 
@@ -66,7 +65,6 @@ class Automate {
         const std::vector<char> &getAlphabet() const;
 
         //Affichage
-        void print() const;
         void print_table_transition();
         void afficher_automate_deterministe_complet();
 

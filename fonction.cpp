@@ -1,35 +1,14 @@
-//
-// Created by Vincent on 28/04/2019.
-//
-
 #include "fonction.h"
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
-void ordonner_string(string& str) {
-    sort(str.begin(), str.end());
-}
-
-void ordonner_string_tri_a_bulle(string & str) {
-    bool tab_en_ordre = false;
-    int taille = str.size();
-    while(!tab_en_ordre)
-    {
-        tab_en_ordre = true;
-        for(int i=0 ; i < (taille-1) ; i++)
-        {
-            if(str[i] > str[i+1])
-            {
-                swap(str[i],str[i+1]);
-                tab_en_ordre = false;
-            }
-        }
-        taille--;
-    }
-}
-
+/**
+ * Ordonne par ordre croissant le vecteur<string>
+ * Fonction appelé pour ordonner les etats composés (0.2.9.12)
+ * @param vector, le vecteur à ordonner
+ */
 void ordonner_vector_string(vector<string>& vector) {
     bool tab_en_ordre = false;
     int taille = vector.size();
@@ -40,7 +19,7 @@ void ordonner_vector_string(vector<string>& vector) {
         {
             int a = stoi(vector[i]);
             int b = stoi(vector[i+1]);
-            if(a>b)
+            if(a>b) //si le nombre suivant est plus petit on swap
             {
                 swap(vector[i],vector[i+1]);
                 tab_en_ordre = false;
@@ -54,7 +33,10 @@ void ordonner_vector_int(vector<int>& vector){
     sort(vector.begin(), vector.end());
 }
 
-
+/**
+ * Ordonne par ordre croissant et par symbole les transitions (tri à bulle)
+ * @param vector
+ */
 void ordonner_vector_transition(vector<Transition>& vector){
     bool tab_en_ordre = false;
     int taille = vector.size();
@@ -71,7 +53,7 @@ void ordonner_vector_transition(vector<Transition>& vector){
             p1 = vector[i+1].getP();
             s0 = (int) vector[i].getSymb();
             s1 = (int) vector[i+1].getSymb();
-            if(((p0 == p1) and (s1<s0)) or (p1<p0)){
+            if(((p0 == p1) and (s1<s0)) or (p1<p0)){//si le P suivant est plus petit ou si les P sont egaux mais le symbole suivant est avant =>on swap
                 swap(vector[i],vector[i+1]);
                 tab_en_ordre = false;
             }
@@ -80,7 +62,6 @@ void ordonner_vector_transition(vector<Transition>& vector){
 }
 
 void supprimer_doublon_string(std::string & s) {
-
     for (int i = 0 ; i < s.size(); i++ )
     {
         int j = i + 1;
@@ -125,17 +106,20 @@ bool int_in__element_of_vector(int etat, vector<int> vector) {
     return false;
 }
 
+/**
+ * Creer un vector<int> pour savoir si l'etat composé en entré contient un entier donné
+ */
 bool int_in_etat_compose(string etat_compose, int etat_term){
     string tempo;
     vector<int> vector;
     for (int i = 0 ; i < etat_compose.size() ; i++){
-        if (etat_compose[i] != '.'){
-            tempo += etat_compose[i];
+        if (etat_compose[i] != '.'){ // si le char traité n'est pas le point de separation
+            tempo += etat_compose[i]; // ajout à la chaine temporaire (cas des nombres > 9)
             if (i == (etat_compose.size()-1)){
                 vector.push_back(stoi(tempo));
             }
         }
-        else{
+        else{ //on detecte la fin d'un etat
             vector.push_back(stoi(tempo));
             tempo.clear();
         }
@@ -144,9 +128,10 @@ bool int_in_etat_compose(string etat_compose, int etat_term){
     return int_in__element_of_vector(etat_term, vector);
 }
 
-
+/**
+ * Pour chaque etat composé créé, si on le trouve dans vector, on change la valeur par son indice
+ */
 void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<std::string>& vector) {
-    //pour chaque etat créé, si on le trouve dans vector, on change la valeur par son indice
     for (int i = 0 ; i < vector.size() ; i++){
         bool changed = false;
         for (int j = 0 ; j < etat_traite.size() ; j++){
@@ -159,29 +144,35 @@ void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<st
 }
 
 
-
+/**
+ * Determine la transition Epsilon d'un etat
+ * @return une chaine de charactere des etats de la transition * séparé par des .
+ */
 string get_transition_epsilon(int etat, const Automate& automate) {
     string fermeture;
     vector<string> etat_a_traiter;
     vector<string> etat_traite;
     vector<Transition> transition;
 
+    //Determination de la transitions *
     transition = automate.getTransitions();
-    etat_a_traiter.push_back(to_string(etat));
-    do{
+    etat_a_traiter.push_back(to_string(etat)); //ajout de l'etat à la file d'etat à traité
+    do{ //repetition tant que etat_a_traite n'est pas vide
         for(int i = 0 ; i < automate.getNb_trans() ; i++){
-            if ((transition[i].getP() == etat) and (transition[i].getSymb() == '*')){
+            if ((transition[i].getP() == etat) and (transition[i].getSymb() == '*')){ //si on trouve une transition * partant l'etat en cours
                 string str = to_string(transition[i].getQ());
                 if (!(string_in_vector(str, etat_a_traiter)) and (!string_in_vector(str, etat_traite))){
+                    //on ajoute q à la liste des etats à traité si il n'a pas été traité ou si il n'est pas en cours de traitement
                     etat_a_traiter.push_back(str);
                 }
             }
         }
         etat_traite.push_back(to_string(etat));
-        etat_a_traiter.erase(etat_a_traiter.begin());
+        etat_a_traiter.erase(etat_a_traiter.begin()); // on supprime l'etat courant de la file
         etat = stoi(etat_a_traiter[0]);
     }while(!etat_a_traiter.empty());
 
+    //on ordonne les etats et on les separe par des .
     ordonner_vector_string(etat_traite);
     for (int i = 0 ; i < etat_traite.size() ; i++){
         fermeture += etat_traite[i];
@@ -189,10 +180,12 @@ string get_transition_epsilon(int etat, const Automate& automate) {
             fermeture += ".";
         }
     }
-
     return  fermeture;
 }
-
+/**
+ * Determine la transition Epsilon d'un etat compose
+ * Fonctionnement identique que pour un etat sauf qu'on ajoute tous les etats de l'etat composé dans etat_a_traite
+ */
 string get_transition_epsilon(string etat, const Automate& automate){
     string fermeture;
     vector<string> etat_a_traiter;
@@ -234,7 +227,6 @@ string get_transition_epsilon(string etat, const Automate& automate){
 }
 
 bool transition_egale(vector<Transition> transition_0, vector<Transition> transition_1) {
-
     for (int i = 0 ; i < transition_0.size() ; i++){
         char s0 = transition_0[i].getSymb();
         int q0 = transition_0[i].getQ();
@@ -257,6 +249,9 @@ int get_nb_char_max_in_string(vector<string> vector) {
     return taille;
 }
 
+/**
+ * Retourne la taille maximale en nombre de charactere de la table de transition (Ex : si Q max = 2, return 2)
+ */
 int get_taille_max_table_transition(std::vector<Transition> transition) {
     int taille_max = 1;
     int taille_etat = 1;
@@ -284,6 +279,12 @@ void lire_mot(string& mot){
     cin >> mot;
 }
 
+/**
+ * Reconnaissance du mot dans l'automate
+ * @param mot, le mot à reconnaitre
+ * @param af, l'automate utilisé
+ * @return, true si mot reconnu false sinon
+ */
 bool reconnaitre_mot(string mot, Automate af) {
     bool reconnu = false;
     vector<int> term = af.getTerm();
@@ -294,7 +295,7 @@ bool reconnaitre_mot(string mot, Automate af) {
     int compteur_symbole = 0;
     int sortie = 0;
 
-    ///Reconnaissance du mot vide
+    //Reconnaissance du mot vide
     if (mot == "1"){
         for (int i = 0 ; i < af.getNb_term() ; i++){
             if (init[0] == term[i]){
@@ -303,7 +304,7 @@ bool reconnaitre_mot(string mot, Automate af) {
         }
         return false;
     }
-        ///Reconnaissance du mot
+    //Reconnaissance du mot
     else{
         //boucle pour le mot en entier
         do {
@@ -338,29 +339,30 @@ bool reconnaitre_mot(string mot, Automate af) {
     return reconnu;
 }
 
-
+/**
+ * Affichage de la table de transition et la partition pendant la minimisation
+ * @param transitions, les transitions vers la partition
+ * @param partition, la partition des n etats
+ * @param nb_etats, le nombre d'etat
+ * @param alphabet, l'alphabet de l'automate
+ */
 void affichage_partition(std::vector<Transition> transitions, std::vector<int> partition, int nb_etats, std::vector<char> alphabet){
-    ///Affichage sans les etats composé
-    int nb_espace_debut = 0;
     int nb_espace = get_taille_max_table_transition(transitions);
     int taille_max = to_string(nb_etats-1).size();
-    bool est_init;
-    bool est_async;
     string tempo;
 
-    //affichage ligne 1
+    //affichage ligne 1 = vide puis alphabet puis partition
     cout << string((taille_max), ' ') << "|";
     for (int i = 0 ; i < alphabet.size() ; i++){
         cout << string((nb_espace+1), ' ') << alphabet[i] << "|";
     }
-    cout << string((nb_espace+1), ' ') << "#" << "|";
+    cout << string((nb_espace+1), ' ') << "#" << "|"; //# = symbole representant la partition
     cout << endl;
 
     //Boucle affichage etat et transition
     for (int i = 0 ; i < partition.size() ; i++){
         //affichage etat
         cout << string((taille_max - to_string(i).size()), ' ') << i << "|";
-
         //affichage des transitions
         for (int k = 0 ; k < alphabet.size() ; k++){
             for (int j = 0 ; j < transitions.size() ; j++){

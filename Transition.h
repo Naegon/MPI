@@ -12,16 +12,15 @@ class Transition {
         char symb;
         int q;
     public:
+        //Constructeur
         Transition(int, char, int);
 
+        //Getter et setter
         void print() const;
-
         int getP() const;
-        void setP(int p);
         char getSymb() const;
-        void setSymb(char symb);
         int getQ() const;
-        void setQ(int q);
+
 
 };
 
