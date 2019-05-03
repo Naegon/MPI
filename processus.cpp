@@ -31,7 +31,6 @@ Automate a_choix_automate() {
     choix = "Automates_test/L2-E4-" + string(choix.length()%2, '0') + choix + ".txt";
 
     Automate af(choix);
-    af.print_table_transition();
     return af;
 }
 

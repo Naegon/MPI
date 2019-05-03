@@ -40,16 +40,14 @@ int main() {
     do{
         //enchainement des traitements d'un automate
         af = a_choix_automate();
-        //system("pause");
-        af = b_determinisation(af);
-        //system("pause");
-        af = c_minimisation(af);
-        //system("pause");
-        d_lecture_de_mot(af);
-        af = e_langage_complementaire(af);
-       // system("pause");
-        af = f_standardisation(af);
-        //system("pause");
+        if (!af.getTransitions().empty()){ //si il n'y a pas eu d'erreur à l'ouverture du fichier
+            af.print_table_transition();
+            af = b_determinisation(af);
+            af = c_minimisation(af);
+            d_lecture_de_mot(af);
+            af = e_langage_complementaire(af);
+            af = f_standardisation(af);
+        }
         recommencer = again();
     }while (recommencer);
     return 0;

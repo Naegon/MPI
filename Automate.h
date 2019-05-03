@@ -1,15 +1,10 @@
-//
-// Created by Vincent on 24/04/2019.
-//
+#ifndef TESTY_AUTOMATE_H
+#define TESTY_AUTOMATE_H
 
 #include <vector>
 #include <string>
 #include "Transition.h"
 #include <fstream>
-
-#ifndef TESTY_AUTOMATE_H
-#define TESTY_AUTOMATE_H
-
 
 class Automate {
 
@@ -20,10 +15,10 @@ class Automate {
         int nb_term;
         std::vector<int> term;
         int nb_trans;
-        std::vector<Transition> transitions;
+        std::vector<Transition> transitions; //vecteur de Transition <p><symbole><q>
         int nb_symb;
         int nb_etats;
-        std::vector<std::string> etat_compose;
+        std::vector<std::string> etat_compose; //vecteur des etats composé (Ex : 0.2.5.11)
         std::vector<char> alphabet;
 
     public :
@@ -35,7 +30,7 @@ class Automate {
 
         //test caracteristique automate
         bool est_automate_asynchrone();
-        bool est_automate_asynchrone_simple();
+        bool est_automate_asynchrone_simple();//sans affichage
         bool est_automate_standard();
         bool est_automate_deterministe();
         bool est_automate_complet();
@@ -49,7 +44,6 @@ class Automate {
         Automate determinisation_et_completion_asynchrone();
         Automate minimisation();
         Automate langage_complementaire();
-
 
         //Get et set
         std::vector<char> get_alpha() const;
@@ -66,7 +60,7 @@ class Automate {
 
         //Affichage
         void print_table_transition();
-        void afficher_automate_deterministe_complet();
+        void afficher_automate_deterministe_complet();//sert aussi pour l'automate minimal
 
         //Autre
         Automate& operator=(const Automate&);

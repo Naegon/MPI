@@ -10,7 +10,8 @@
 
 using namespace std;
 
-Automate::Automate(int etat){
+//Automate vide
+Automate::Automate(int a){
     alphabet.clear();
     nb_symb = 0;
     nb_etats = 0;
@@ -39,6 +40,7 @@ Automate::Automate(int _nb_symb, int _nb_etats,
         etat_compose = _etat_compose;
 }
 
+//Constructeur de copie
 Automate::Automate(Automate& A){
     nb_symb = A.nb_symb;
     nb_etats = A.nb_etats;
@@ -52,6 +54,7 @@ Automate::Automate(Automate& A){
     etat_compose = A.etat_compose;
 }
 
+//Constructeur depuis un fichier
 Automate::Automate(string path) {
     ifstream fichier(path);
     if (fichier) {
@@ -99,8 +102,8 @@ Automate::Automate(string path) {
         fichier.close();
     }
     else {
-        cout << "Impossible d'ouvrir le fichier" << endl;
-        cerr << "ERROR" << strerror(errno);
+        *this = Automate(0);
+        cerr << "ERROR : " << strerror(errno) << endl << "Impossible d'ouvrir le fichier" << endl;
     }
 }
 
