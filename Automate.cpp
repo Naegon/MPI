@@ -772,18 +772,21 @@ void Automate::setNbEtats(int nbEtats) {
 }
 
 vector<char> Automate::get_alpha() const {
-    vector<char> alphabet;
+    vector<char> _alphabet;
 
     for(int unsigned i = 0; i < nb_trans; i++){
         char key = transitions[i].getSymb();
 
-        if (find(alphabet.begin(), alphabet.end(), key) == alphabet.end()) {
+        if (find(_alphabet.begin(), _alphabet.end(), key) == _alphabet.end()) {
             if (key != '*'){
-                alphabet.push_back(key);
+                _alphabet.push_back(key);
             }
         }
     }
-    return alphabet;
+    if (_alphabet.empty()){
+        _alphabet.push_back('a');
+    }
+    return _alphabet;
 }
 
 const vector<Transition> &Automate::getTransitions() const {
