@@ -13,8 +13,8 @@
 
 class Automate {
 
+
     private:
-        std::vector<char> alphabet;
         int nb_init;
         std::vector<int> init;
         int nb_term;
@@ -24,7 +24,7 @@ class Automate {
         int nb_symb;
         int nb_etats;
         std::vector<std::string> etat_compose;
-
+        std::vector<char> alphabet;
 
     public :
         //constructeur
@@ -62,7 +62,8 @@ class Automate {
         std::vector<int> getInit() const;
         std::vector<int> getTerm() const;
         int getNb_trans() const;
-
+        int getNbEtats() const;
+        const std::vector<char> &getAlphabet() const;
 
         //Affichage
         void print() const;

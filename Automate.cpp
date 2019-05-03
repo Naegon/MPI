@@ -624,7 +624,11 @@ Automate Automate::minimisation() {
         }
     }
     nb_partie = 2;
-    //boucle de minimisation
+
+    //Affichage table de transition et partition
+    affichage_partition(this->getTransitions(), partition_0, this->getNbEtats(), this->getAlphabet());
+
+    //boucle de minimisation1
     do {
         table_transition.clear();
         //Nouvelle table de transition
@@ -668,6 +672,7 @@ Automate Automate::minimisation() {
             partition_0 = partition_1;
             partition_1.clear();
         }
+        affichage_partition(table_transition, partition_0, this->getNbEtats(), this->getAlphabet());
     }while(!fini);
 
 
@@ -999,6 +1004,14 @@ string Automate::determiner_transition_epsilon(string etat) {
 
 void Automate::add_epsilon_alphabet() {
     alphabet.push_back('*');
+}
+
+int Automate::getNbEtats() const {
+    return nb_etats;
+}
+
+const vector<char> &Automate::getAlphabet() const {
+    return alphabet;
 }
 
 

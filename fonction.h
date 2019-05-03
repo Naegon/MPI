@@ -32,6 +32,7 @@ std::string get_transition_epsilon(std::string, const Automate&);
 //Transition
 bool transition_egale(std::vector<Transition>, std::vector<Transition>);
 int get_taille_max_table_transition(std::vector<Transition>);
+void affichage_partition(std::vector<Transition>, std::vector<int>, int, std::vector<char>);
 
 //Lecture de mot
 void lire_mot(std::string& );

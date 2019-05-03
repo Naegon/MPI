@@ -320,7 +320,52 @@ bool reconnaitre_mot(string mot, Automate af) {
 }
 
 
+void affichage_partition(std::vector<Transition> transitions, std::vector<int> partition, int nb_etats, std::vector<char> alphabet){
+    ///Affichage sans les etats composé
+    int nb_espace_debut = 0;
+    int nb_espace = get_taille_max_table_transition(transitions);
+    int taille_max = to_string(nb_etats-1).size();
+    bool est_init;
+    bool est_async;
+    string tempo;
 
+    //affichage ligne 1
+    cout << string((taille_max), ' ') << "|";
+    for (int i = 0 ; i < alphabet.size() ; i++){
+        cout << string((nb_espace+1), ' ') << alphabet[i] << "|";
+    }
+    cout << string((nb_espace+1), ' ') << "#" << "|";
+    cout << endl;
+
+    //Boucle affichage etat et transition
+    for (int i = 0 ; i < partition.size() ; i++){
+        //affichage etat
+        cout << string((taille_max - to_string(i).size()), ' ') << i << "|";
+
+        //affichage des transitions
+        for (int k = 0 ; k < alphabet.size() ; k++){
+            for (int j = 0 ; j < transitions.size() ; j++){
+                if ((transitions[j].getP() == i) and (transitions[j].getSymb() == alphabet[k])){
+                    if (!tempo.empty()){
+                        tempo += ",";
+                    }
+                    tempo += to_string(transitions[j].getQ());
+                }
+            }
+            cout << string(( 2 + nb_espace - (tempo.size())), ' ') << tempo << "|";
+            tempo.clear();
+        }
+        cout << string(( 1 + nb_espace - (tempo.size())), ' ') << partition[i] << "|";
+        cout << endl;
+    }
+    //affichage ligne de separation
+    cout << string((taille_max+1), '-');
+    for (int i = 0 ; i < alphabet.size() ; i++){
+        cout << string((nb_espace+3), '-');
+    }
+    cout << string((nb_espace+3), '-');
+    cout << endl;
+}
 
 
 
