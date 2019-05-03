@@ -125,6 +125,25 @@ bool int_in__element_of_vector(int etat, vector<int> vector) {
     return false;
 }
 
+bool int_in_etat_compose(string etat_compose, int etat_term){
+    string tempo;
+    vector<int> vector;
+    for (int i = 0 ; i < etat_compose.size() ; i++){
+        if (etat_compose[i] != '.'){
+            tempo += etat_compose[i];
+            if (i == (etat_compose.size()-1)){
+                vector.push_back(stoi(tempo));
+            }
+        }
+        else{
+            vector.push_back(stoi(tempo));
+            tempo.clear();
+        }
+
+    }
+    return int_in__element_of_vector(etat_term, vector);
+}
+
 
 void changement_numero_etat(std::vector<std::string> etat_traite, std::vector<std::string>& vector) {
     //pour chaque etat créé, si on le trouve dans vector, on change la valeur par son indice

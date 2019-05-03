@@ -36,16 +36,16 @@ int main() {
 
     do{
         af = a_choix_automate();
-        system("pause");
+        //system("pause");
         af = b_determinisation(af);
-        system("pause");
+        //system("pause");
         af = c_minimisation(af);
-        system("pause");
+        //system("pause");
         d_lecture_de_mot(af);
         af = e_langage_complementaire(af);
-        system("pause");
+       // system("pause");
         af = f_standardisation(af);
-        system("pause");
+        //system("pause");
         recommencer = again();
     }while (recommencer);
     return 0;

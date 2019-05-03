@@ -364,17 +364,11 @@ Automate Automate::determinisation() {
     //Determination des etats terminaux
     for (int i = 0 ; i < etat_traite.size() ; i++){
         bool in = false;
-        int taille_etat_terminal = etat_traite[i].size();
-        for (int j = 0 ; j < taille_etat_terminal ; j++){
-            for (int k = 0 ; k < term.size() ; k++){
-                int ic = (int) etat_traite[i][j];
-                if (term[k] == (ic-48)){
-                    in = true;
-                }
+        for (int j = 0 ; j < term.size() ; j++){
+            if ((int_in_etat_compose(etat_traite[i], term[j])) and (!in)){
+                terminaux.push_back(etat_traite[i]);
+                in = true;
             }
-        }
-        if (in){
-            terminaux.push_back(etat_traite[i]);
         }
     }
     ordonner_vector_string(terminaux);
@@ -523,17 +517,11 @@ Automate Automate::determinisation_asynchrone(){
     //Determination des etats terminaux
     for (int i = 0 ; i < etat_traite.size() ; i++){
         bool in = false;
-        int taille_etat_terminal = etat_traite[i].size();
-        for (int j = 0 ; j < taille_etat_terminal ; j++){
-            for (int k = 0 ; k < term.size() ; k++){
-                int ic = (int) etat_traite[i][j];
-                if (term[k] == (ic-48)){
-                    in = true;
-                }
+        for (int j = 0 ; j < term.size() ; j++){
+            if ((int_in_etat_compose(etat_traite[i], term[j])) and (!in)){
+                terminaux.push_back(etat_traite[i]);
+                in = true;
             }
-        }
-        if (in){
-            terminaux.push_back(etat_traite[i]);
         }
     }
     ordonner_vector_string(terminaux);
@@ -574,6 +562,7 @@ Automate Automate::determinisation_asynchrone(){
     for (int i = 0 ; i < terminaux.size() ; i++){
         af_deter.term.push_back(stoi(terminaux[i]));
     }
+
     return af_deter;
 }
 
@@ -729,50 +718,27 @@ Automate Automate::minimisation() {
     return afdcm;
 }
 
-void Automate::setNbEtats(int nbEtats) {
-    nb_etats = nbEtats;
-}
-
-vector<char> Automate::get_alpha() const {
-    vector<char> alphabet;
-
-    for(int unsigned i = 0; i < nb_trans; i++){
-        char key = transitions[i].getSymb();
-
-        if (find(alphabet.begin(), alphabet.end(), key) == alphabet.end()) {
-            if (key != '*'){
-                alphabet.push_back(key);
-            }
-        }
-    }
-    return alphabet;
-}
-
-const vector<Transition> &Automate::getTransitions() const {
-    return transitions;
-}
-
 Automate Automate::langage_complementaire() {
     Automate afdcm_complementaire(*this);
-    afdcm_complementaire.etat_compose.clear();
+    afdcm_complementaire.term.clear();
+    afdcm_complementaire.nb_term = 0;
     //Pour chaque état du nouvel automate (de 1 à n)
     //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
     //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
     vector<int> etat_term_complementaire;
-    bool fait = false;
+    bool fait;
     for (int i = 0 ; i < nb_etats ; i++){
+        fait = false;
         for (int j = 0 ; j < nb_term ; j ++){
             if (i == term[j]){
                 fait = true;
             }
         }
         if(!fait){
-            etat_term_complementaire.push_back(i);
+            afdcm_complementaire.term.push_back(i);
+            afdcm_complementaire.nb_term++;
         }
     }
-    afdcm_complementaire.term.clear();
-    afdcm_complementaire.setTerm(etat_term_complementaire);
-    afdcm_complementaire.nb_term = etat_term_complementaire.size();
     return afdcm_complementaire;
 }
 
@@ -799,6 +765,29 @@ vector<int> Automate::getTerm() const {
 
 int Automate::getNb_trans() const {
     return nb_trans;
+}
+
+void Automate::setNbEtats(int nbEtats) {
+    nb_etats = nbEtats;
+}
+
+vector<char> Automate::get_alpha() const {
+    vector<char> alphabet;
+
+    for(int unsigned i = 0; i < nb_trans; i++){
+        char key = transitions[i].getSymb();
+
+        if (find(alphabet.begin(), alphabet.end(), key) == alphabet.end()) {
+            if (key != '*'){
+                alphabet.push_back(key);
+            }
+        }
+    }
+    return alphabet;
+}
+
+const vector<Transition> &Automate::getTransitions() const {
+    return transitions;
 }
 
 void Automate::print() const {
