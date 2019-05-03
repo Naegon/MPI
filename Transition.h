@@ -1,7 +1,3 @@
-//
-// Created by Vincent on 24/04/2019.
-//
-
 #ifndef TESTY_TRANSITION_H
 #define TESTY_TRANSITION_H
 
@@ -11,6 +7,7 @@ class Transition {
         int p;
         char symb;
         int q;
+
     public:
         //Constructeur
         Transition(int, char, int);
@@ -20,8 +17,6 @@ class Transition {
         int getP() const;
         char getSymb() const;
         int getQ() const;
-
-
 };
 
 

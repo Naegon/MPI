@@ -107,13 +107,16 @@ Automate::Automate(string path) {
     }
 }
 
+/**
+ * Est un automate asynchrone si il existe au moins une transition epsilon
+ */
 bool Automate::est_automate_asynchrone() {
     bool ok = false;
     cout << "Automate asynchrone ? " << endl;
     for(int i = 0 ; i < transitions.size() ; i++){
-        if (transitions[i].getSymb() == '*'){
+        if (transitions[i].getSymb() == '*'){ //transition * detectée
             ok = true;
-            cout << "||--- La transition ";
+            cout << "||--- La transition "; //affichage de la transtion *
             transitions[i].print();
             cout << " contient une transition epsilon" << endl;
         }
@@ -128,6 +131,9 @@ bool Automate::est_automate_asynchrone() {
     return ok;
 }
 
+/**
+ * Idem sans l'affichage
+ */
 bool Automate::est_automate_asynchrone_simple(){
     bool ok = false;
     for(int i = 0 ; i < transitions.size() ; i++){
@@ -138,14 +144,21 @@ bool Automate::est_automate_asynchrone_simple(){
     return ok;
 }
 
+/**
+ * N'Est pas standart si plusieurs etats initiaux
+ * ou si l'etat initial est l'etat Q d'une transition
+ */
 bool Automate::est_automate_standard() {
     bool ok = true;
     cout << "Automate standart ? " << endl;
+
+    //Plus d'un etat initial
     if (nb_init > 1){
         cout << "||--- L'automate n'est pas standard car l'automate a plusieurs etats initiaux" << endl;
         return false;
     }
 
+    //Cas de la transition entrante
     for(int i = 0 ; i < transitions.size() ; i++){
         if (transitions[i].getQ() == init[0]){
             ok = false;
@@ -163,6 +176,10 @@ bool Automate::est_automate_standard() {
     return ok;
 }
 
+/**
+ * N'est pas deterministe si plusieurs etats initiaux
+ * si il existe au moins deux transition ayant le même etat P et symbole mais un etat Q different
+ */
 bool Automate::est_automate_deterministe() {
     bool ok = true;
     cout << "Automate deterministe ? " << endl;
@@ -196,10 +213,13 @@ bool Automate::est_automate_deterministe() {
     return ok;
 }
 
+/**
+ * N'est pas complet si pour au moins un etat P et un symbole S, il n'existe pas une transition (P,S,Q)
+ */
 bool Automate::est_automate_complet() {
     bool ok;
-
-    // Le nombre de transitions est égal au produit du nombre de caractères de l'alphabet et du nombre d'états
+    //L'automate tester est deterministe donc
+    // le nombre de transitions est égal au produit du nombre de symbole de l'alphabet et du nombre d'etat
     cout << "Automate est complet ?" << endl;
     if (nb_trans < (nb_symb*nb_etats)){
         ok = false;
