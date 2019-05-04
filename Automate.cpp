@@ -284,7 +284,6 @@ Automate Automate::standardisation() {
         afdcms.init.emplace_back(nb_etats);
         afdcms.nb_init = 1;
     }
-
     return afdcms;
 }
 
@@ -832,9 +831,9 @@ void Automate::print_table_transition() {
         add_epsilon_alphabet();
     }
 
-    cout << "*****************************************************" << endl;
+    cout << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
-    cout << "*****************************************************" << endl;
+    cout << endl;
 
     //affichage ligne 1
     cout << string((taille_max+4), ' ') << "|";
@@ -890,9 +889,9 @@ void Automate::print_table_transition() {
 }
 
 void Automate::afficher_automate_deterministe_complet(){
-    cout << "*****************************************************" << endl;
+    cout << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
-    cout << "*****************************************************" << endl;
+    cout << endl;
 
     int nb_espace_debut = 0;
     int nb_espace = get_taille_max_table_transition(this->getTransitions());
