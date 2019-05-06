@@ -40,7 +40,7 @@ int main() {
     do{
         //enchainement des traitements d'un automate
         af = a_choix_automate();
-        if (!af.getTransitions().empty()){ //si il n'y a pas eu d'erreur à l'ouverture du fichier
+        if (af.getNb_trans() != (-1)){ //si il n'y a pas eu d'erreur à l'ouverture du fichier
             af.print_table_transition();
             af = b_determinisation(af);
             af = c_minimisation(af);

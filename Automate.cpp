@@ -19,7 +19,7 @@ Automate::Automate(int a){
     init.clear();
     nb_term = 0;
     term.clear();
-    nb_trans = 0;
+    nb_trans = a;
     transitions.clear();
     etat_compose.clear();
 }
@@ -102,7 +102,7 @@ Automate::Automate(string path) {
         fichier.close();
     }
     else {
-        *this = Automate(0);
+        *this = Automate(-1);
         cerr << "ERROR : " << strerror(errno) << endl << "Impossible d'ouvrir le fichier" << endl;
     }
 }
