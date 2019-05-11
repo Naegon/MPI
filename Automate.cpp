@@ -687,7 +687,9 @@ Automate Automate::minimisation() {
         affichage_partition(table_transition, partition_0, this->getNbEtats(), this->getAlphabet());
     }while(!fini);
 
-
+    if (nb_partie == nb_etats){
+        cout << "L'automate est deja minimal" << endl;
+    }
 
     //Table de transition de l'afdcm
     vector<int> etat_cree;
@@ -725,18 +727,19 @@ Automate Automate::minimisation() {
 
     //Remplissage de l'etat compose
     afdcm.etat_compose.clear();
-    tempo = to_string(0);
-    for (int i = 1 ; i < partition_1.size() ; i++){
-        if (partition_1[i] == partition_1[i-1]){
-            tempo += ",";
-            tempo += to_string(i);
-        }
-        else{
-            afdcm.etat_compose.push_back(tempo);
+    for (int i = 0 ; i < partition_1.size() ; i++){
+        if (partition_1[i] != 0){
             tempo = to_string(i);
+            for (int j = i+1 ; j < partition_1.size() ; j++){
+                if ((partition_1[i] == partition_1[j]) and (partition_1[j] != 0)){
+                    tempo += ",";
+                    tempo += to_string(j);
+                    partition_1[j] = 0;
+                }
+            }
+            afdcm.etat_compose.push_back(tempo);
         }
     }
-    afdcm.etat_compose.push_back(tempo); // ajout du dernier etat
 
     return afdcm;
 }
