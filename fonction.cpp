@@ -324,7 +324,8 @@ bool reconnaitre_mot(string mot, Automate af) {
                     compteur_transition++; //on test la transition suivante
                     if (compteur_transition == af.getNb_trans()){ //si il n'y a plus de transition à tester
                         suivant = true; //sortie de boucle
-                        sortie++;
+                        cout << "||---- Il n'existe pas de transition (" << etat_courant << ", " << symbole_courant << ", Q)" << endl;
+                        sortie = mot.size();
                     }
                 }
             }while (!suivant);
