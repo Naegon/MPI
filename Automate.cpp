@@ -217,18 +217,34 @@ bool Automate::est_automate_deterministe() {
  * N'est pas complet si pour au moins un etat P et un symbole S, il n'existe pas une transition (P,S,Q)
  */
 bool Automate::est_automate_complet() {
-    bool ok;
-    //L'automate tester est deterministe donc
-    // le nombre de transitions est égal au produit du nombre de symbole de l'alphabet et du nombre d'etat
+    bool ok = true;
+    vector<char> alpha;
+
     cout << "Automate est complet ?" << endl;
-    if (nb_trans < (nb_symb*nb_etats)){
-        ok = false;
-        cout << "|--- L'automate n'est pas complet car toutes les transitions ne sont pas presentes" << endl;
+    for (int i = 0 ; i < nb_etats ; i++){
+        alpha = this->getAlphabet();
+        for (int j = 0 ; j < nb_trans ; j++){
+            if (transitions[j].getP() == i){
+                for (int k = 0 ; k < alpha.size() ; k++){
+                    if (transitions[j].getSymb() == alpha[k]){
+                        alpha.erase(remove(alpha.begin(), alpha.end(), transitions[j].getSymb()), alpha.end());
+                    }
+                }
+            }
+        }
+        if(!alpha.empty()){
+            ok = false;
+        }
+        for (int k = 0 ; k < alpha.size() ; k++){
+            cout << "||---- La transition (" << i << ", " << alpha[k] << ", Q) n'existe pas" << endl;
+        }
+    }
+    if (ok){
+        cout << "||---- L'automate est complet"<< endl << endl;
     }
     else{
-        cout << "||--- L'automate est complet"<< endl;
+        cout << "|---- L'automate n'est pas complet car toutes les transitions ne sont pas presentes" << endl;
     }
-    cout << endl;
 
     return ok;
 }
