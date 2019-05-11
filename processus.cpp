@@ -131,6 +131,7 @@ Automate e_langage_complementaire(Automate afdcm) {
     cout << "*****          Langage complementaire           *****" << endl;
     cout << "*****************************************************" << endl;
     Automate afdcm_complementaire(0);
+    cout << "||---- Langage complementaire construit a partir l'automate deterministe complet minimal" << endl;
     afdcm_complementaire = afdcm.langage_complementaire();
     afdcm_complementaire.print_table_transition();
     d_lecture_de_mot(afdcm_complementaire);
