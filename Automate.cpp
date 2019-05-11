@@ -150,7 +150,7 @@ bool Automate::est_automate_asynchrone_simple(){
  */
 bool Automate::est_automate_standard() {
     bool ok = true;
-    cout << "Automate standart ? " << endl;
+    cout << "Automate standard ? " << endl;
 
     //Plus d'un etat initial
     if (nb_init > 1){
@@ -168,10 +168,10 @@ bool Automate::est_automate_standard() {
         }
     }
     if (ok){
-        cout << "||--- L'automate est standart" << endl;
+        cout << "||--- L'automate est standard. Aucun traitement sera effectue" << endl;
     }
     else{
-        cout << "||--- L'automate n'est pas standart" << endl;
+        cout << "||--- L'automate n'est pas standard" << endl;
     }
     return ok;
 }
@@ -748,7 +748,6 @@ Automate Automate::langage_complementaire() {
     //Pour chaque état du nouvel automate (de 1 à n)
     //Si l'etat n'est pas dans la liste des etats terminaux de l'automate à completer
     //Alors on l'ajoute à la liste des etats terminaux de l'automate complet
-    vector<int> etat_term_complementaire;
     bool fait;
     for (int i = 0 ; i < nb_etats ; i++){
         fait = false;

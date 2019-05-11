@@ -94,7 +94,19 @@
 		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Transition.h">
 			<Option target="Project"/>
 		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/fonction.cpp">
+			<Option target="Project"/>
+		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/fonction.h">
+			<Option target="Project"/>
+		</Unit>
 		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/main.cpp">
+			<Option target="Project"/>
+		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/processus.cpp">
+			<Option target="Project"/>
+		</Unit>
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/processus.h">
 			<Option target="Project"/>
 		</Unit>
 		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/CMakeLists.txt">

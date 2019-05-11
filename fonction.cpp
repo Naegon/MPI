@@ -294,7 +294,6 @@ bool reconnaitre_mot(string mot, Automate af) {
     char symbole_courant = mot[0];
     int compteur_symbole = 0;
     int sortie = 0;
-
     //Reconnaissance du mot vide
     if (mot == "1"){
         for (int i = 0 ; i < af.getNb_term() ; i++){
@@ -304,6 +303,7 @@ bool reconnaitre_mot(string mot, Automate af) {
         }
         return false;
     }
+
     //Reconnaissance du mot
     else{
         //boucle pour le mot en entier

@@ -176,6 +176,33 @@ Transition.cpp.s:
 	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.s
 .PHONY : Transition.cpp.s
 
+fonction.obj: fonction.cpp.obj
+
+.PHONY : fonction.obj
+
+# target to build an object file
+fonction.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/fonction.cpp.obj
+.PHONY : fonction.cpp.obj
+
+fonction.i: fonction.cpp.i
+
+.PHONY : fonction.i
+
+# target to preprocess a source file
+fonction.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/fonction.cpp.i
+.PHONY : fonction.cpp.i
+
+fonction.s: fonction.cpp.s
+
+.PHONY : fonction.s
+
+# target to generate assembly for a file
+fonction.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/fonction.cpp.s
+.PHONY : fonction.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -203,6 +230,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+processus.obj: processus.cpp.obj
+
+.PHONY : processus.obj
+
+# target to build an object file
+processus.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/processus.cpp.obj
+.PHONY : processus.cpp.obj
+
+processus.i: processus.cpp.i
+
+.PHONY : processus.i
+
+# target to preprocess a source file
+processus.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/processus.cpp.i
+.PHONY : processus.cpp.i
+
+processus.s: processus.cpp.s
+
+.PHONY : processus.s
+
+# target to generate assembly for a file
+processus.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/processus.cpp.s
+.PHONY : processus.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -218,9 +272,15 @@ help:
 	@echo ... Transition.obj
 	@echo ... Transition.i
 	@echo ... Transition.s
+	@echo ... fonction.obj
+	@echo ... fonction.i
+	@echo ... fonction.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... processus.obj
+	@echo ... processus.i
+	@echo ... processus.s
 .PHONY : help
 
 
