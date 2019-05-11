@@ -627,12 +627,12 @@ Automate Automate::minimisation() {
         bool fait = false;
         for (int j = 0 ; j < nb_term ; j++){
             if (i == term[j]){
-                partition_0.push_back(2);
+                partition_0.push_back(1);
                 fait = true;
             }
         }
         if (!fait){
-            partition_0.push_back(1);
+            partition_0.push_back(2);
         }
     }
     nb_partie = 2;
