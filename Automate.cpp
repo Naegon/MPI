@@ -729,7 +729,7 @@ Automate Automate::minimisation() {
 
     //Determiner initiaux
     afdcm.nb_init = 1; //car deterministe
-    afdcm.init.push_back(0);
+    afdcm.init.push_back(this->init[0]);
 
     //Determiner terminaux
     ordonner_vector_int(partition_0);
