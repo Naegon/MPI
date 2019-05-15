@@ -654,6 +654,7 @@ Automate Automate::minimisation() {
     nb_partie = 2;
 
     //Affichage table de transition et partition
+    cout << "La colonne marquee d'un # represente la colonne des partitions" << endl;
     affichage_partition(this->getTransitions(), partition_0, this->getNbEtats(), this->getAlphabet());
 
     //boucle de minimisation1
@@ -705,6 +706,7 @@ Automate Automate::minimisation() {
 
     if (nb_partie == nb_etats){
         cout << "L'automate est deja minimal" << endl;
+        return *this;
     }
 
     //Table de transition de l'afdcm
@@ -824,6 +826,7 @@ vector<char> Automate::get_alpha() const {
             }
         }
     }
+    sort(_alphabet.begin(), _alphabet.end());
     if (_alphabet.empty()){
         _alphabet.push_back('a');
     }
