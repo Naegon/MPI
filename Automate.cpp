@@ -243,7 +243,7 @@ bool Automate::est_automate_complet() {
         cout << "||---- L'automate est complet"<< endl << endl;
     }
     else{
-        cout << "|---- L'automate n'est pas complet car toutes les transitions ne sont pas presentes" << endl;
+        cout << "||---- L'automate n'est pas complet car toutes les transitions ne sont pas presentes" << endl;
     }
 
     return ok;
@@ -651,7 +651,6 @@ Automate Automate::minimisation() {
             partition_0.push_back(2);
         }
     }
-    nb_partie = 2;
 
     //Affichage table de transition et partition
     cout << "La colonne marquee d'un # represente la colonne des partitions" << endl;
