@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
- * Ordonne par ordre croissant le vecteur<string>
+ * Ordonne par ordre croissant le vecteur<string> (tri à bulle)
  * Fonction appelé pour ordonner les etats composés (0.2.9.12)
  * @param vector, le vecteur à ordonner
  */

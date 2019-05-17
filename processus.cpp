@@ -94,7 +94,7 @@ void d_lecture_de_mot(Automate af) {
     string mot;
     lire_mot(mot); // saisie du mot à lire
     bool reconnu;
-    if (mot != "0"){
+    if (mot != "0"){ //si mot different de la valeur d'arret
         while(mot != "0"){ //reconnaissance tant que la saisie n'est pas 0 = sortie
             reconnu = reconnaitre_mot(mot, af); //test de reconnaissance du mot par l'automate
             if((reconnu) and (mot == "1")) {

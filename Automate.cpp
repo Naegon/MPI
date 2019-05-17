@@ -12,6 +12,8 @@ using namespace std;
 
 //Automate vide
 Automate::Automate(int a){
+    //construction d'un automate vide
+    //nb trans = -1 si automate non ouvert
     alphabet.clear();
     nb_symb = 0;
     nb_etats = 0;
@@ -22,22 +24,6 @@ Automate::Automate(int a){
     nb_trans = a;
     transitions.clear();
     etat_compose.clear();
-}
-
-Automate::Automate(int _nb_symb, int _nb_etats,
-        int _nb_init, std::vector<int> _init,
-        int _nb_term, std::vector<int> _term,
-        int _nb_trans, std::vector<Transition> _transitions, std::vector<std::string> _etat_compose){
-        alphabet = get_alpha();
-        nb_symb = _nb_symb;
-        nb_etats = _nb_etats;
-        nb_init = _nb_init;
-        init = _init;
-        nb_term = _nb_term;
-        term = _term;
-        nb_trans = _nb_trans;
-        transitions = _transitions;
-        etat_compose = _etat_compose;
 }
 
 //Constructeur de copie
@@ -96,6 +82,7 @@ Automate::Automate(string path) {
             Transition trans_temp(stoi(p), symb, stoi(q));
 
             transitions.push_back(trans_temp);
+            ordonner_vector_transition(transitions);
         }
         alphabet = get_alpha();
         etat_compose.clear();
@@ -160,7 +147,7 @@ bool Automate::est_automate_standard() {
 
     //Cas de la transition entrante
     for(int i = 0 ; i < transitions.size() ; i++){
-        if (transitions[i].getQ() == init[0]){
+        if (transitions[i].getQ() == init[0]){ //si transition entrante sur l'etat initial unique
             ok = false;
             cout << "||--- La transition ";
             transitions[i].print();
@@ -183,15 +170,18 @@ bool Automate::est_automate_standard() {
 bool Automate::est_automate_deterministe() {
     bool ok = true;
     cout << "Automate deterministe ? " << endl;
+    //cas avec plusieurs états initiaux
     if (nb_init > 1){
         cout << "||--- L'automate n'est pas deterministe car il a plusieurs etats initiaux" << endl;
         return false;
     }
 
+    //cas avec un chois dans les transitions sortantes par symbole
     for (int i = 0 ; i < transitions.size() ; i++){
         for (int j = (i+1) ; j < transitions.size() ; j++){
             if(i != j){
                 if (((transitions[i].getP() == transitions[j].getP()) and (transitions[i].getQ() != transitions[j].getQ())) and (transitions[i].getSymb() == transitions[j].getSymb())){
+                    //si 2 transitions ont des le même P et symbole mais un Q différent
                     ok = false;
                     cout << "||--- La transition ";
                     transitions[i].print();
@@ -223,6 +213,7 @@ bool Automate::est_automate_complet() {
     cout << "Automate est complet ?" << endl;
     for (int i = 0 ; i < nb_etats ; i++){
         alpha = this->getAlphabet();
+        //pour chaque état i, suppression dans un alphabet temporaire des symboles rencontrés
         for (int j = 0 ; j < nb_trans ; j++){
             if (transitions[j].getP() == i){
                 for (int k = 0 ; k < alpha.size() ; k++){
@@ -232,6 +223,7 @@ bool Automate::est_automate_complet() {
                 }
             }
         }
+        //si il reste des symbole => automate incomplet
         if(!alpha.empty()){
             ok = false;
         }
@@ -288,14 +280,15 @@ Automate Automate::standardisation() {
     Automate afdcms(*this);
 
     if(!this->est_automate_standard()){
-        afdcms.nb_etats++;
+        afdcms.nb_etats++; //ajout d'un état
         for (int i = 0 ; i < init.size() ; i++){
             for (int j = 0 ; j < transitions.size() ; j++){
                 if (init[i] == transitions[j].getP()){
-                    afdcms.transitions.emplace_back(afdcms.nb_etats-1, transitions[j].getSymb(), transitions[j].getQ());
+                    afdcms.transitions.emplace_back(afdcms.nb_etats-1, transitions[j].getSymb(), transitions[j].getQ()); //duplication des transitions de l'etat initial i
                 }
             }
         }
+        //suppression des états Initiaux puis remplacement par le nouvel état
         afdcms.init.clear();
         afdcms.init.emplace_back(nb_etats);
         afdcms.nb_init = 1;
@@ -314,13 +307,13 @@ Automate Automate::determinisation() {
     af_deter.nb_trans = 0;
     af_deter.transitions.clear();
 
-    vector<string> etat_a_traiter;
-    vector<string> etat_traite;
-    vector<string> transition;
-    string initiaux;
-    vector<string> terminaux;
-    vector<string> tempo;
-    string compose;
+    vector<string> etat_a_traiter; //liste des états à traiter
+    vector<string> etat_traite; //liste des états déjà traiter
+    vector<string> transition; //liste de toutes les transitions même vide
+    string initiaux; //fusion des états initiaux
+    vector<string> terminaux; //liste des états terminaux
+    vector<string> tempo; //liste temporaire
+    string compose; //chaine temporaire d'un état composé
 
     //Determination des etats initiaux
     for (int i = 0 ; i < init.size() ; i++){
@@ -350,9 +343,10 @@ Automate Automate::determinisation() {
         for (int m = 0; m < tempo.size() ; m++){
             compose += tempo[m];
             if ((m+1) != tempo.size()){
-                compose += ".";
+                compose += "."; //séparation des états d'arrivé par un .
             }
         }
+        //si composé n'est pas vide et n'est ni présent dans état à traiter ni traiter => ajout dans état à traiter
         if (!compose.empty()){
             if ((!string_in_vector(compose, etat_traite)) and (!string_in_vector(compose, etat_a_traiter))){
                 etat_a_traiter.push_back(compose);
@@ -368,6 +362,8 @@ Automate Automate::determinisation() {
 
     //Boucle de determinisation
     do{
+        //processus similaire que celui des états initiaux => traitement pour tout les états à traiter
+        //faire tant que etat à traiter n'est pas vide
         for (int j = 0 ; j < alphabet.size() ; j++){ //pour chaque transition
             for(int i = 0 ; i < etat_a_traiter[0].size() ; i++){
                 for (int k = 0 ; k < transitions.size() ; k++){ // pour chaque symbole de l'alphabet
@@ -450,6 +446,11 @@ Automate Automate::determinisation() {
     return af_deter;
 }
 
+/**
+ * Processus similaire à la determinisation synchrone
+ * Les états composés ou non sont remplacés par leur fermeture Epsilon
+ * @return
+ */
 Automate Automate::determinisation_asynchrone(){
     //automate renvoyé
     Automate af_deter(*this);
@@ -630,10 +631,10 @@ Automate Automate::minimisation() {
     afdcm.transitions.clear();
 
     string tempo;
-    vector<int> partition_0;
-    vector<int> partition_1;
-    vector<Transition> transi_0;
-    vector<Transition> transi_1;
+    vector<int> partition_0; //partition n
+    vector<int> partition_1; // partition n+1
+    vector<Transition> transi_0; //vecteur temporaire des Transition d'un état i
+    vector<Transition> transi_1; //vecteur temporaire des Transition d'un état i
     vector<Transition> table_transition;
     int nb_partie = 0;
     bool fini;
@@ -667,15 +668,15 @@ Automate Automate::minimisation() {
             table_transition.emplace_back(p, symb, q);
         }
 
-        //Determination de la nouvella partition
+        //Determination des nouvelles partitions
         nb_partie = 0;
         bool fait;
         int taille_partition;
-        for (int i = 0; i < nb_etats; i++) {
+        for (int i = 0; i < nb_etats; i++) { // pour chaque état
             fait = false;
             taille_partition = partition_1.size();
-            for (int j = 0; j < taille_partition; j++) {
-                for (int k = 0; k < nb_symb; k++) {
+            for (int j = 0; j < taille_partition; j++) { //pour chaque element de la partition
+                for (int k = 0; k < nb_symb; k++) { //pour chaque symbole
                     transi_0.push_back(table_transition[nb_symb * i + k]);
                     transi_1.push_back(table_transition[nb_symb * j + k]);
                 }
@@ -784,15 +785,6 @@ Automate Automate::langage_complementaire() {
     return afdcm_complementaire;
 }
 
-void Automate::setTerm(std::vector<int> _term) {
-    term.clear();
-    term = _term;
-}
-
-int Automate::getNb_init() const {
-    return nb_init;
-}
-
 int Automate::getNb_term() const {
     return nb_term;
 }
@@ -809,14 +801,10 @@ int Automate::getNb_trans() const {
     return nb_trans;
 }
 
-void Automate::setNbEtats(int nbEtats) {
-    nb_etats = nbEtats;
-}
-
 vector<char> Automate::get_alpha() const {
     vector<char> _alphabet;
 
-    for(int unsigned i = 0; i < nb_trans; i++){
+    for(int unsigned i = 0; i < nb_trans; i++){ // stockage dans l'alphabet de chaque nouveau charactere
         char key = transitions[i].getSymb();
 
         if (find(_alphabet.begin(), _alphabet.end(), key) == _alphabet.end()) {
@@ -908,6 +896,12 @@ void Automate::print_table_transition() {
     cout << endl;
 }
 
+/**
+ * Principe identique à la fonction précédente
+ * Une colonne est ajouté pour la correspondance entre l'état i de l'afdc et la fusion des états de l'af initial
+ * FOnctionne pour afdc et afdcm
+ */
+
 void Automate::afficher_automate_deterministe_complet(){
     cout << endl;
     cout << "*****     Table de transitions de l'automate    *****" << endl;
@@ -990,22 +984,6 @@ Automate &Automate::operator=(const Automate & Af) {
     etat_compose = Af.etat_compose;
     alphabet = Af.alphabet;
     return *this;
-}
-
-vector<string> Automate::determiner_transition_epsilon() {
-    vector<string> transition_epsilon;
-    for (int i = 0 ; i < nb_etats ; i++){
-        transition_epsilon.push_back(get_transition_epsilon(i, *this));
-    }
-    return transition_epsilon;
-}
-
-vector<string> Automate::determiner_transition_epsilon(vector<string> etat) {
-    vector<string> transition_epsilon;
-    for (int i = 0 ; i < etat.size() ; i++){
-        transition_epsilon.push_back(get_transition_epsilon(etat[i], *this));
-    }
-    return transition_epsilon;
 }
 
 string Automate::determiner_transition_epsilon(string etat) {

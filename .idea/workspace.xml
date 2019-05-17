@@ -12,9 +12,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d810763-aeb2-46e8-a7c0-a79d571ea9c5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Automate.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Automate.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Automate.h" beforeDir="false" afterPath="$PROJECT_DIR$/Automate.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fonction.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fonction.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/processus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/processus.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,61 +45,26 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="42" column="30" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Automate.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="245" column="19" selection-start-line="245" selection-start-column="19" selection-end-line="245" selection-end-column="19" />
+            <state relative-caret-position="303">
+              <caret line="681" selection-start-line="681" selection-end-line="681" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-25.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-12.txt">
+        <entry file="file://$PROJECT_DIR$/Automate.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+            <state relative-caret-position="352">
+              <caret line="61" column="45" selection-start-line="61" selection-start-column="45" selection-end-line="61" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fonction.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="315" column="36" selection-start-line="315" selection-start-column="36" selection-end-line="315" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/processus.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-15.txt">
+        <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-38.txt">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -129,6 +96,7 @@
       <find>i+1</find>
       <find>erase</find>
       <find>determinisation_et</find>
+      <find>l'automate n'est pas com</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -151,12 +119,12 @@
         <option value="$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-35.txt" />
         <option value="$PROJECT_DIR$/Transition.cpp" />
         <option value="$PROJECT_DIR$/Transition.h" />
-        <option value="$PROJECT_DIR$/Automate.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/fonction.h" />
-        <option value="$PROJECT_DIR$/fonction.cpp" />
         <option value="$PROJECT_DIR$/processus.cpp" />
+        <option value="$PROJECT_DIR$/fonction.cpp" />
         <option value="$PROJECT_DIR$/Automate.cpp" />
+        <option value="$PROJECT_DIR$/Automate.h" />
       </list>
     </option>
   </component>
@@ -171,7 +139,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,6 +166,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -282,23 +250,25 @@
       <workItem from="1557933392172" duration="296000" />
       <workItem from="1557935978361" duration="79000" />
       <workItem from="1557940264775" duration="88000" />
-      <workItem from="1558015144793" duration="227000" />
+      <workItem from="1558015144793" duration="346000" />
+      <workItem from="1558019320389" duration="31000" />
+      <workItem from="1558077774337" duration="2630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110757000" />
+    <option name="totallyTimeSpent" value="113764000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13059701" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13272922" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" auto_hide="true" x="1128" y="207" width="624" height="694" id="Run" order="2" type="WINDOWED" visible="true" weight="0.34019503" />
+      <window_info anchor="bottom" auto_hide="true" x="1128" y="207" width="624" height="694" id="Run" order="2" type="WINDOWED" weight="0.34019503" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.40303358" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -363,54 +333,39 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/fonction.cpp</url>
-          <line>327</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Automate.cpp</url>
-          <line>235</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/processus.cpp</url>
-          <line>63</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/processus.cpp</url>
-          <line>60</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/processus.cpp</url>
-          <line>56</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/processus.cpp</url>
-          <line>53</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/processus.cpp</url>
-          <line>47</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Automate.cpp</url>
-          <line>365</line>
+          <line>358</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Automate.cpp</url>
-          <line>415</line>
-          <option name="timeStamp" value="28" />
+          <line>726</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Automate.cpp</url>
-          <line>449</line>
-          <option name="timeStamp" value="29" />
+          <line>711</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Automate.cpp</url>
+          <line>650</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Automate.cpp</url>
+          <line>646</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Automate.cpp</url>
+          <line>655</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Automate.cpp</url>
+          <line>659</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -534,34 +489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Automate.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fonction.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="30" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Automate.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11254">
-          <caret line="662" column="25" selection-start-line="662" selection-start-column="25" selection-end-line="662" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -572,20 +503,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fonction.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5355">
-          <caret line="315" column="36" selection-start-line="315" selection-start-column="36" selection-end-line="315" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-15.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-25.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="32" column="17" lean-forward="true" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/processus.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="841">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        <state relative-caret-position="-498">
+          <caret line="96" column="60" selection-start-line="96" selection-start-column="60" selection-end-line="96" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fonction.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5054">
+          <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-41.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Automate.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="61" column="45" selection-start-line="61" selection-start-column="45" selection-end-line="61" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/Automates_test/L2-E4-38.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Automate.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="681" selection-start-line="681" selection-end-line="681" />
         </state>
       </provider>
     </entry>

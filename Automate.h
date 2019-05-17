@@ -24,7 +24,6 @@ class Automate {
     public :
         //constructeur
         Automate(std::string path);
-        Automate(int, int, int, std::vector<int>, int, std::vector<int>, int, std::vector<Transition>, std::vector<std::string>);
         Automate(Automate&);
         Automate(int);
 
@@ -47,10 +46,7 @@ class Automate {
 
         //Get et set
         std::vector<char> get_alpha() const;
-        void setNbEtats(int nbEtats);
-        void setTerm(std::vector<int>);
         const std::vector<Transition> &getTransitions() const;
-        int getNb_init() const;
         int getNb_term() const;
         std::vector<int> getInit() const;
         std::vector<int> getTerm() const;
@@ -64,8 +60,6 @@ class Automate {
 
         //Autre
         Automate& operator=(const Automate&);
-        std::vector<std::string> determiner_transition_epsilon();
-        std::vector<std::string> determiner_transition_epsilon(std::vector<std::string>);
         std::string determiner_transition_epsilon(std::string);
         void add_epsilon_alphabet();
 
