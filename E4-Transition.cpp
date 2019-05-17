@@ -1,7 +1,3 @@
-//
-// Created by Vincent on 24/04/2019.
-//
-
 #include "E4-Transition.h"
 #include <iostream>
 

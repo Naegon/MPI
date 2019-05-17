@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace std;
 
-
-
 /**
  * Choix de l'automate à traiter
  * @return l'automate à traiter

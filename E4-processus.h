@@ -1,7 +1,3 @@
-//
-// Created by Vincent on 02/05/2019.
-//
-
 #ifndef TESTY_E4_PROCESSUS_H
 #define TESTY_E4_PROCESSUS_H
 

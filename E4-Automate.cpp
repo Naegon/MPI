@@ -1,7 +1,3 @@
-//
-// Created by Vincent on 24/04/2019.
-//
-
 #include "E4-Automate.h"
 #include <iostream>
 #include <cstring>
