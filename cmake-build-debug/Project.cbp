@@ -82,31 +82,31 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Automate.cpp">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-Automate.cpp">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Automate.h">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-Automate.h">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Transition.cpp">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-Transition.cpp">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/Transition.h">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-Transition.h">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/fonction.cpp">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-fonction.cpp">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/fonction.h">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-fonction.h">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/main.cpp">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-main.cpp">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/processus.cpp">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-processus.cpp">
 			<Option target="Project"/>
 		</Unit>
-		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/processus.h">
+		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/E4-processus.h">
 			<Option target="Project"/>
 		</Unit>
 		<Unit filename="D:/Vincent/EFREI/L2/Semestre 4/Mathematique pour l informatique/Projet/Testy/CMakeLists.txt">

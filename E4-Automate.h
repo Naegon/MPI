@@ -1,9 +1,9 @@
-#ifndef TESTY_AUTOMATE_H
-#define TESTY_AUTOMATE_H
+#ifndef TESTY_E4_AUTOMATE_H
+#define TESTY_E4_AUTOMATE_H
 
 #include <vector>
 #include <string>
-#include "Transition.h"
+#include "E4-Transition.h"
 #include <fstream>
 
 class Automate {
@@ -65,4 +65,4 @@ class Automate {
 
 };
 
-#endif //TESTY_AUTOMATE_H
+#endif //TESTY_E4_AUTOMATE_H

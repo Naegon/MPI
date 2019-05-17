@@ -2,11 +2,11 @@
 // Created by Vincent on 24/04/2019.
 //
 
-#include "Automate.h"
+#include "E4-Automate.h"
 #include <iostream>
 #include <cstring>
 #include <algorithm>
-#include "fonction.h"
+#include "E4-fonction.h"
 
 using namespace std;
 

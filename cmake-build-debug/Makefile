@@ -122,140 +122,140 @@ Project/fast:
 	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/build
 .PHONY : Project/fast
 
-Automate.obj: Automate.cpp.obj
+E4-Automate.obj: E4-Automate.cpp.obj
 
-.PHONY : Automate.obj
-
-# target to build an object file
-Automate.cpp.obj:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Automate.cpp.obj
-.PHONY : Automate.cpp.obj
-
-Automate.i: Automate.cpp.i
-
-.PHONY : Automate.i
-
-# target to preprocess a source file
-Automate.cpp.i:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Automate.cpp.i
-.PHONY : Automate.cpp.i
-
-Automate.s: Automate.cpp.s
-
-.PHONY : Automate.s
-
-# target to generate assembly for a file
-Automate.cpp.s:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Automate.cpp.s
-.PHONY : Automate.cpp.s
-
-Transition.obj: Transition.cpp.obj
-
-.PHONY : Transition.obj
+.PHONY : E4-Automate.obj
 
 # target to build an object file
-Transition.cpp.obj:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.obj
-.PHONY : Transition.cpp.obj
+E4-Automate.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-Automate.cpp.obj
+.PHONY : E4-Automate.cpp.obj
 
-Transition.i: Transition.cpp.i
+E4-Automate.i: E4-Automate.cpp.i
 
-.PHONY : Transition.i
+.PHONY : E4-Automate.i
 
 # target to preprocess a source file
-Transition.cpp.i:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.i
-.PHONY : Transition.cpp.i
+E4-Automate.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-Automate.cpp.i
+.PHONY : E4-Automate.cpp.i
 
-Transition.s: Transition.cpp.s
+E4-Automate.s: E4-Automate.cpp.s
 
-.PHONY : Transition.s
+.PHONY : E4-Automate.s
 
 # target to generate assembly for a file
-Transition.cpp.s:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/Transition.cpp.s
-.PHONY : Transition.cpp.s
+E4-Automate.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-Automate.cpp.s
+.PHONY : E4-Automate.cpp.s
 
-fonction.obj: fonction.cpp.obj
+E4-Transition.obj: E4-Transition.cpp.obj
 
-.PHONY : fonction.obj
+.PHONY : E4-Transition.obj
 
 # target to build an object file
-fonction.cpp.obj:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/fonction.cpp.obj
-.PHONY : fonction.cpp.obj
+E4-Transition.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-Transition.cpp.obj
+.PHONY : E4-Transition.cpp.obj
 
-fonction.i: fonction.cpp.i
+E4-Transition.i: E4-Transition.cpp.i
 
-.PHONY : fonction.i
+.PHONY : E4-Transition.i
 
 # target to preprocess a source file
-fonction.cpp.i:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/fonction.cpp.i
-.PHONY : fonction.cpp.i
+E4-Transition.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-Transition.cpp.i
+.PHONY : E4-Transition.cpp.i
 
-fonction.s: fonction.cpp.s
+E4-Transition.s: E4-Transition.cpp.s
 
-.PHONY : fonction.s
+.PHONY : E4-Transition.s
 
 # target to generate assembly for a file
-fonction.cpp.s:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/fonction.cpp.s
-.PHONY : fonction.cpp.s
+E4-Transition.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-Transition.cpp.s
+.PHONY : E4-Transition.cpp.s
 
-main.obj: main.cpp.obj
+E4-fonction.obj: E4-fonction.cpp.obj
 
-.PHONY : main.obj
+.PHONY : E4-fonction.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/main.cpp.obj
-.PHONY : main.cpp.obj
+E4-fonction.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-fonction.cpp.obj
+.PHONY : E4-fonction.cpp.obj
 
-main.i: main.cpp.i
+E4-fonction.i: E4-fonction.cpp.i
 
-.PHONY : main.i
+.PHONY : E4-fonction.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/main.cpp.i
-.PHONY : main.cpp.i
+E4-fonction.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-fonction.cpp.i
+.PHONY : E4-fonction.cpp.i
 
-main.s: main.cpp.s
+E4-fonction.s: E4-fonction.cpp.s
 
-.PHONY : main.s
+.PHONY : E4-fonction.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/main.cpp.s
-.PHONY : main.cpp.s
+E4-fonction.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-fonction.cpp.s
+.PHONY : E4-fonction.cpp.s
 
-processus.obj: processus.cpp.obj
+E4-main.obj: E4-main.cpp.obj
 
-.PHONY : processus.obj
+.PHONY : E4-main.obj
 
 # target to build an object file
-processus.cpp.obj:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/processus.cpp.obj
-.PHONY : processus.cpp.obj
+E4-main.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-main.cpp.obj
+.PHONY : E4-main.cpp.obj
 
-processus.i: processus.cpp.i
+E4-main.i: E4-main.cpp.i
 
-.PHONY : processus.i
+.PHONY : E4-main.i
 
 # target to preprocess a source file
-processus.cpp.i:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/processus.cpp.i
-.PHONY : processus.cpp.i
+E4-main.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-main.cpp.i
+.PHONY : E4-main.cpp.i
 
-processus.s: processus.cpp.s
+E4-main.s: E4-main.cpp.s
 
-.PHONY : processus.s
+.PHONY : E4-main.s
 
 # target to generate assembly for a file
-processus.cpp.s:
-	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/processus.cpp.s
-.PHONY : processus.cpp.s
+E4-main.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-main.cpp.s
+.PHONY : E4-main.cpp.s
+
+E4-processus.obj: E4-processus.cpp.obj
+
+.PHONY : E4-processus.obj
+
+# target to build an object file
+E4-processus.cpp.obj:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-processus.cpp.obj
+.PHONY : E4-processus.cpp.obj
+
+E4-processus.i: E4-processus.cpp.i
+
+.PHONY : E4-processus.i
+
+# target to preprocess a source file
+E4-processus.cpp.i:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-processus.cpp.i
+.PHONY : E4-processus.cpp.i
+
+E4-processus.s: E4-processus.cpp.s
+
+.PHONY : E4-processus.s
+
+# target to generate assembly for a file
+E4-processus.cpp.s:
+	$(MAKE) -f CMakeFiles\Project.dir\build.make CMakeFiles/Project.dir/E4-processus.cpp.s
+.PHONY : E4-processus.cpp.s
 
 # Help Target
 help:
@@ -266,21 +266,21 @@ help:
 	@echo ... Project
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... Automate.obj
-	@echo ... Automate.i
-	@echo ... Automate.s
-	@echo ... Transition.obj
-	@echo ... Transition.i
-	@echo ... Transition.s
-	@echo ... fonction.obj
-	@echo ... fonction.i
-	@echo ... fonction.s
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
-	@echo ... processus.obj
-	@echo ... processus.i
-	@echo ... processus.s
+	@echo ... E4-Automate.obj
+	@echo ... E4-Automate.i
+	@echo ... E4-Automate.s
+	@echo ... E4-Transition.obj
+	@echo ... E4-Transition.i
+	@echo ... E4-Transition.s
+	@echo ... E4-fonction.obj
+	@echo ... E4-fonction.i
+	@echo ... E4-fonction.s
+	@echo ... E4-main.obj
+	@echo ... E4-main.i
+	@echo ... E4-main.s
+	@echo ... E4-processus.obj
+	@echo ... E4-processus.i
+	@echo ... E4-processus.s
 .PHONY : help
 
 

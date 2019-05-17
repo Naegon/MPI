@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
-#include "Transition.h"
-#include "Automate.h"
+#include "E4-Transition.h"
+#include "E4-Automate.h"
 #include <vector>
-#include "fonction.h"
-#include "processus.h"
+#include "E4-fonction.h"
+#include "E4-processus.h"
 using namespace std;
 
 /**

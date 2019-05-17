@@ -1,5 +1,5 @@
-#ifndef TESTY_TRANSITION_H
-#define TESTY_TRANSITION_H
+#ifndef TESTY_E4_TRANSITION_H
+#define TESTY_E4_TRANSITION_H
 
 
 class Transition {
@@ -20,4 +20,4 @@ class Transition {
 };
 
 
-#endif //TESTY_TRANSITION_H
+#endif //TESTY_E4_TRANSITION_H

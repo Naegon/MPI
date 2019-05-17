@@ -1,10 +1,10 @@
-#ifndef TESTY_FONCTION_H
-#define TESTY_FONCTION_H
+#ifndef TESTY_E4_FONCTION_H
+#define TESTY_E4_FONCTION_H
 
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Automate.h"
+#include "E4-Automate.h"
 
 //Chaine et vector
 void ordonner_vector_string(std::vector<std::string>&);
@@ -33,4 +33,4 @@ void affichage_partition(std::vector<Transition>, std::vector<int>, int, std::ve
 void lire_mot(std::string& );
 bool reconnaitre_mot(std::string, Automate);
 
-#endif //TESTY_FONCTION_H
+#endif //TESTY_E4_FONCTION_H
